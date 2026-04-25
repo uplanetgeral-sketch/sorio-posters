@@ -325,27 +325,15 @@ def main():
         log("HERO", f"Catalogue approved: {hero_url}")
 
     # === Outpaint condicional ===
-    # Aplicar APENAS se: hero é local + format aspect mismatch significativo + GEMINI_API_KEY + flag não desactivada
-    if (hero_url and not args.no_outpaint and HAS_OUTPAINT and
-            os.path.exists(hero_url)):  # path local existente
-        gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-        if gemini_key:
-            hint = f"{product.get('name', args.product_id)} · Só Rio · Valada do Ribatejo · river beach lounge food/drink photography"
-            try:
-                new_hero = maybe_outpaint(
-                    source_path=Path(hero_url),
-                    target_format=args.format,
-                    out_dir=run_dir,
-                    api_key=gemini_key,
-                    hint=hint,
-                )
-                if str(new_hero) != hero_url:
-                    hero_url = str(new_hero)
-                    log("HERO", f"Outpainted → {hero_url}")
-            except Exception as e:
-                log("HERO", f"WARN outpaint falhou — usar source · {e}")
-        else:
-            log("HERO", "GEMINI_API_KEY ausente — skip outpaint (cover-crop fallback)")
+    # Aplicar APENAS se: hero é local + family aceita outpaint (não F03/F05a/F05b) +
+    # format aspect mismatch significativo + GEMINI_API_KEY + flag não desactivada
+    # NOTA: Decisor escolhe family ANTES desta secção, mas a chamada ao Decisor está mais abaixo.
+    # Por isso fazemos outpaint LAZILY — só após o Decisor decidir.
+    # Em alternativa simples: deixar maybe_outpaint() receber family=None aqui e a lib decide.
+    # Mas como queremos saber a family ANTES de outpaint para poupar Gemini calls em F03/F05*,
+    # vamos mover esta secção para DEPOIS do Decisor (no início do iter loop).
+    # Por agora, NÃO outpaint aqui — adiamos para depois da decisão.
+    pre_outpaint_hero = hero_url
 
     client = Anthropic()
 
@@ -368,6 +356,38 @@ def main():
     decision = call_decisor(client, payload)
     (run_dir / f"decision_iter{iter_n}.json").write_text(json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8")
     log(f"ITER {iter_n}", f"family={decision.get('family')} · inspired_by={decision.get('inspired_by', [])[:2]}")
+
+    # === Outpaint AGORA que sabemos a family ===
+    # Family-aware: F03/F05a/F05b skip outpaint (cover-crop nativo).
+    # F02/F01 fazem outpaint quando aspect ratio source vs format diverge.
+    chosen_family = decision.get('family')
+    if (pre_outpaint_hero and not args.no_outpaint and HAS_OUTPAINT and
+            os.path.exists(pre_outpaint_hero)):
+        gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        if gemini_key:
+            hint = f"{product.get('name', args.product_id)} · Só Rio · Valada do Ribatejo · river beach lounge food/drink photography"
+            try:
+                new_hero = maybe_outpaint(
+                    source_path=Path(pre_outpaint_hero),
+                    target_format=args.format,
+                    out_dir=run_dir,
+                    api_key=gemini_key,
+                    hint=hint,
+                    family=chosen_family,
+                )
+                if str(new_hero) != pre_outpaint_hero:
+                    hero_url = str(new_hero)
+                    log("HERO", f"Outpainted → {hero_url}")
+                else:
+                    hero_url = pre_outpaint_hero
+            except Exception as e:
+                log("HERO", f"WARN outpaint falhou — usar source · {e}")
+                hero_url = pre_outpaint_hero
+        else:
+            log("HERO", "GEMINI_API_KEY ausente — skip outpaint (cover-crop fallback)")
+            hero_url = pre_outpaint_hero
+    else:
+        hero_url = pre_outpaint_hero
 
     while True:
         # Render

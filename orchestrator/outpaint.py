@@ -203,7 +203,14 @@ def _call_gemini(canvas_image, prompt, api_key, timeout=90):
     raise RuntimeError(f"Todos os modelos Gemini falharam. Último erro: {last_err}")
 
 
-def maybe_outpaint(source_path, target_format, out_dir, api_key, hint=""):
+# Famílias que usam cover-crop nativo no hero element e NÃO beneficiam de outpaint.
+# Em split layouts (F03) ou grid layouts (F05a/b), o hero element já tem aspect próprio
+# que cover-crop preenche sem deixar margens. Outpaint nestes casos só rouba protagonismo
+# ao subject ao adicionar extensão fotográfica que compete visualmente.
+NO_OUTPAINT_FAMILIES = {"F03", "F05a", "F05b"}
+
+
+def maybe_outpaint(source_path, target_format, out_dir, api_key, hint="", family=None):
     """Outpaint condicional. Devolve Path para hero (novo se outpaintou, source se não).
 
     Args:
@@ -212,12 +219,20 @@ def maybe_outpaint(source_path, target_format, out_dir, api_key, hint=""):
         out_dir (Path): onde gravar o outpaint result
         api_key (str|None): GEMINI_API_KEY (se None ou vazio → no-op)
         hint (str): contexto extra para o prompt (ex: "ribatejo riverside · só rio")
+        family (str|None): F01/F02/F03/F05a/F05b. Se for split/grid family (F03/F05a/F05b),
+            outpaint é skip — essas famílias têm cover-crop nativo e outpaint reduz
+            protagonismo do subject.
 
     Returns:
         Path: hero a usar (source ou novo outpainted)
     """
     source_path = Path(source_path)
     out_dir = Path(out_dir)
+
+    # Skip outpaint para famílias com layout próprio (split/grid)
+    if family in NO_OUTPAINT_FAMILIES:
+        _log(f"Family {family} usa cover-crop nativo — skip outpaint (mantém subject protagonista)")
+        return source_path
 
     if not api_key:
         _log("GEMINI_API_KEY ausente — skip outpaint, usar source com cover-crop")
