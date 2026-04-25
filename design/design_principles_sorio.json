@@ -226,6 +226,62 @@
         "rule": "F05b NUNCA usa círculos verdes, quadrados amarelos, formas geométricas decorativas. Apenas: hairlines, wave SVG do Blueprint, selos, tipografia. Razão: lição da sessão 24 Abril 2026 — Gemini herda automaticamente formas do Blueprint slide 38, força o prompt a inibir explicitamente.",
         "applies_to": "F05b",
         "fail_signs": ["círculos verde-salgueiro como bullets", "quadrados dourados como dividers"]
+      },
+      {
+        "id": "FAM-F06-01",
+        "name": "F06 Type-as-Subject · subject deve estar isolado",
+        "rule": "F06 só funciona quando o hero tem fundo transparente (PNG com alpha channel). O subject (cocktail/prato) sobrepõe-se ao type pattern; se o hero tem bg rectangular, fica um quadrado opaco a tapar o type e o conceito quebra. Pipeline auto-isola via rembg+Gemini quando family=F06. Critique deve verificar: vê-se type pattern atrás do subject? Se não, fail.",
+        "applies_to": "F06",
+        "fail_signs": [
+          "subject aparece dentro de rectângulo opaco que tapa o type",
+          "background quadrado visível à volta do cocktail",
+          "type pattern não é visível atrás do subject",
+          "subject demasiado pequeno (não domina o canvas)"
+        ]
+      },
+      {
+        "id": "FAM-F07-01",
+        "name": "F07 Cover Magazine · contraste térmico hero vs bottom band",
+        "rule": "Cover Magazine tem hero band top + colour band bottom. A colour band tem de ser temperatura OPOSTA do hero dominante (warm hero → cool band, cool hero → warm band). Sem contraste térmico, as duas bandas fundem-se e a 'cover' não tem o impacto visual editorial.",
+        "applies_to": "F07",
+        "fail_signs": [
+          "hero warm + bottom band warm — bandas fundem-se",
+          "hero cool + bottom band cool — falta contraste",
+          "bottom band com gradiente em vez de flat color"
+        ]
+      },
+      {
+        "id": "FAM-F08-01",
+        "name": "F08 Diagonal Slice · slice tem hard edge",
+        "rule": "A slice diagonal tem de ser uma linha visualmente clara (clip-path polygon edges crisp). Não pode ser gradiente suave (perde o impacto motion). Slice angle deve estar entre -25° e +25° — fora desse range fica desproporcional. O bg_color do block side deve contrastar com hero side.",
+        "applies_to": "F08",
+        "fail_signs": [
+          "slice como gradient suave em vez de hard edge",
+          "slice angle > 25° ou < -25° (caricatural)",
+          "block side e hero side com luminance similar (não distinguíveis)"
+        ]
+      },
+      {
+        "id": "FAM-F09-01",
+        "name": "F09 Negative Space · ≥50% canvas vazio",
+        "rule": "Negative Space Float assenta em respiração. Pelo menos 50% do canvas tem de ser flat colour sem elementos visuais. Subject pequeno-médio off-centre + type compacto na zona oposta — deixar o resto vazio. Se algum elemento extra (decoração, hairline, wave) ocupar o vazio, o conceito quebra.",
+        "applies_to": "F09",
+        "fail_signs": [
+          "<50% do canvas é vazio",
+          "decorações a preencher zonas de respiração",
+          "subject muito grande (>55% canvas)"
+        ]
+      },
+      {
+        "id": "FAM-F10-01",
+        "name": "F10 Circular Frame · borda visível",
+        "rule": "F10 assenta no círculo como elemento geométrico definitivo. Tem de haver border visível (≥3px dourado ou off-white) ou hard edge — círculo sem borda em hero rectangular pode parecer crop acidental. Se type_mode='wrap', o texto curva tem de seguir a circunferência sem cortar.",
+        "applies_to": "F10",
+        "fail_signs": [
+          "círculo sem border (parece crop acidental)",
+          "círculo desalinhado vertical/horizontal",
+          "wrap text cortado ou sobreposto a outros elementos"
+        ]
       }
     ],
 
@@ -263,7 +319,7 @@
         "UNI-01", "UNI-04", "TYPO-01", "COLOR-03", "FAM-F02-01", "FAM-F05b-01", "ANTI-01"
       ],
       "major_violations": [
-        "UNI-02", "UNI-03", "TYPO-02", "TYPO-03", "TYPO-04", "COMP-01", "COMP-03", "COLOR-01", "COLOR-02", "LEG-01", "FAM-F03-01", "FAM-F03-02"
+        "UNI-02", "UNI-03", "TYPO-02", "TYPO-03", "TYPO-04", "COMP-01", "COMP-03", "COLOR-01", "COLOR-02", "LEG-01", "FAM-F03-01", "FAM-F03-02", "FAM-F06-01", "FAM-F07-01", "FAM-F08-01", "FAM-F09-01", "FAM-F10-01"
       ],
       "minor_violations": [
         "UNI-05", "COMP-02", "COMP-04", "LEG-02", "LEG-03", "ANTI-02", "ANTI-03"
@@ -304,6 +360,11 @@
       "FAM-F02-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
       "FAM-F03-01": { "standard": "major",  "variation": "minor",  "experimental": "ignore", "type": "soft" },
       "FAM-F03-02": { "standard": "critical", "variation": "major", "experimental": "major", "type": "soft" },
+      "FAM-F06-01": { "standard": "major", "variation": "major", "experimental": "major", "type": "soft" },
+      "FAM-F07-01": { "standard": "critical", "variation": "major", "experimental": "major", "type": "soft" },
+      "FAM-F08-01": { "standard": "major", "variation": "minor", "experimental": "minor", "type": "soft" },
+      "FAM-F09-01": { "standard": "major", "variation": "major", "experimental": "major", "type": "soft" },
+      "FAM-F10-01": { "standard": "major", "variation": "minor", "experimental": "minor", "type": "soft" },
       "FAM-F05a-01": { "standard": "major", "variation": "minor",  "experimental": "ignore", "type": "soft" },
       "FAM-F05b-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
       "ANTI-01": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" },

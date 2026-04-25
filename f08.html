@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Só Rio · F08 Diagonal Slice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #1C1C1A; }
+  .canvas { width: 1080px; height: 1350px; position: relative; overflow: hidden; font-family: 'Inter', sans-serif; }
+
+  .block {
+    position: absolute; inset: 0;
+    z-index: 1;
+  }
+  .hero {
+    position: absolute; inset: 0;
+    z-index: 2;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .logo {
+    position: absolute; top: 60px; left: 60px;
+    z-index: 5; width: 160px;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.50));
+  }
+  .selo {
+    position: absolute; top: 60px; right: 60px;
+    z-index: 5; width: 170px; height: 170px;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.55));
+  }
+
+  .typo {
+    position: absolute;
+    z-index: 5;
+    color: #F6F1E7;
+  }
+  .info-top {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.94;
+  }
+  .display-slice {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 800;
+    line-height: 0.86;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .accent {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.05;
+    color: #C89853;
+    margin-top: 22px;
+  }
+  .info-bottom {
+    position: absolute;
+    z-index: 5;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: #C89853;
+    opacity: 0.92;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas">
+  <div class="block" id="block"></div>
+  <div class="hero" id="hero"></div>
+  <img class="logo" id="logo" alt="Só Rio">
+  <img class="selo" id="selo" alt="Selo Só Rio">
+  <div class="typo" id="typo">
+    <div class="info-top" id="info-top"></div>
+    <div class="display-slice" id="display-slice"></div>
+    <div class="accent" id="accent"></div>
+  </div>
+  <div class="info-bottom" id="info-bottom"></div>
+</div>
+
+<script>
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  function get(k, d) { var v = p.get(k); return (v === null || v === "") ? d : v; }
+  function bool(k, d) { var v = p.get(k); if (v === null) return d; return v === "1" || v === "true"; }
+  function num(k, d) { var v = p.get(k); if (v === null || v === "") return d; var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+  var format = get('format', '1080x1350');
+  var fmtParts = format.split('x');
+  var canvasW = parseInt(fmtParts[0], 10) || 1080;
+  var canvasH = parseInt(fmtParts[1], 10) || 1350;
+  document.documentElement.style.width = canvasW + 'px';
+  document.documentElement.style.height = canvasH + 'px';
+  document.body.style.width = canvasW + 'px';
+  document.body.style.height = canvasH + 'px';
+  var canvas = document.getElementById('canvas');
+  canvas.style.width = canvasW + 'px';
+  canvas.style.height = canvasH + 'px';
+  var heightScale = canvasH / 1350;
+  var widthScale = canvasW / 1080;
+
+  var hero = get('hero', 'assets/hero-sample.png');
+  var logo = get('logo', 'assets/logo.png');
+  var selo = get('selo', 'assets/selo-default.png');
+  var title = get('title', 'Cloud|Dance');
+  var infoTop = get('info_top', 'Vodka · Pera · Bianco · Baunilha');
+  var accent = get('accent', 'Calmo, dourado, nosso.');
+  var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
+
+  var sliceAngle = num('slice_angle', 18);
+  sliceAngle = Math.max(-25, Math.min(25, sliceAngle));
+  var slicePosition = num('slice_position', 0.50);
+  slicePosition = Math.max(0.35, Math.min(0.65, slicePosition));
+  var heroSide = get('hero_side', 'right');
+  var bgColor = get('bg_color', '#3F5548');
+  var displaySize = num('display_size', Math.round(130 * heightScale));
+  var accentSize = num('accent_size', Math.round(36 * heightScale));
+  var heroPosition = get('hero_position', 'center');
+  var typeRotated = bool('type_rotated', false);
+
+  var showLogo = bool('show_logo', true);
+  var showSelo = bool('show_selo', true);
+  var showInfoTop = bool('show_info_top', true);
+  var showAccent = bool('show_accent', true);
+  var showInfoBottom = bool('show_info_bottom', true);
+
+  document.body.style.background = bgColor;
+  document.getElementById('block').style.background = bgColor;
+
+  // Hero with diagonal clip-path
+  // angle in degrees; convert to vertical offset across canvas
+  var radians = sliceAngle * Math.PI / 180;
+  var deltaY = Math.tan(radians) * canvasW;
+  // slicePosition = 0.5 means line crosses canvas at 50% width vertically
+  var lineCenterX = canvasW * slicePosition;
+
+  // Compute clip-path polygon for hero side
+  var heroEl = document.getElementById('hero');
+  heroEl.style.backgroundImage = 'url("' + hero + '")';
+  heroEl.style.backgroundPosition = heroPosition;
+
+  if (heroSide === 'right') {
+    // Hero ocupa right side; line from (lineCenterX - deltaY/2, 0) to (lineCenterX + deltaY/2, canvasH)
+    var x1 = lineCenterX - deltaY / 2;
+    var x2 = lineCenterX + deltaY / 2;
+    heroEl.style.clipPath = 'polygon(' +
+      x1 + 'px 0, ' +
+      canvasW + 'px 0, ' +
+      canvasW + 'px ' + canvasH + 'px, ' +
+      x2 + 'px ' + canvasH + 'px)';
+    // Typography on left side (block side)
+    var typoLeft = Math.round(80 * widthScale);
+    var typoTop = Math.round(canvasH * 0.45);
+    var typoEl = document.getElementById('typo');
+    typoEl.style.left = typoLeft + 'px';
+    typoEl.style.top = typoTop + 'px';
+    typoEl.style.width = Math.round(canvasW * 0.42 - 80 * widthScale) + 'px';
+  } else {
+    // Hero on left
+    var x1L = lineCenterX - deltaY / 2;
+    var x2L = lineCenterX + deltaY / 2;
+    heroEl.style.clipPath = 'polygon(' +
+      '0 0, ' +
+      x1L + 'px 0, ' +
+      x2L + 'px ' + canvasH + 'px, ' +
+      '0 ' + canvasH + 'px)';
+    var typoRight = Math.round(80 * widthScale);
+    var typoTopR = Math.round(canvasH * 0.45);
+    var typoEl2 = document.getElementById('typo');
+    typoEl2.style.right = typoRight + 'px';
+    typoEl2.style.top = typoTopR + 'px';
+    typoEl2.style.width = Math.round(canvasW * 0.42 - 80 * widthScale) + 'px';
+    typoEl2.style.textAlign = 'right';
+  }
+
+  // Optional rotated display matching slice angle
+  if (typeRotated) {
+    var displayEl = document.getElementById('display-slice');
+    displayEl.style.transform = 'rotate(' + (-sliceAngle * 0.6) + 'deg)';
+    displayEl.style.transformOrigin = 'left center';
+  }
+
+  // Logo + selo
+  var logoEl = document.getElementById('logo');
+  var seloEl = document.getElementById('selo');
+  logoEl.src = logo;
+  logoEl.style.width = Math.round(160 * heightScale) + 'px';
+  logoEl.style.top = Math.round(60 * heightScale) + 'px';
+  logoEl.style.left = Math.round(60 * widthScale) + 'px';
+  seloEl.src = selo;
+  seloEl.style.width = Math.round(170 * heightScale) + 'px';
+  seloEl.style.height = Math.round(170 * heightScale) + 'px';
+  seloEl.style.top = Math.round(60 * heightScale) + 'px';
+  seloEl.style.right = Math.round(60 * widthScale) + 'px';
+  if (!showLogo) logoEl.classList.add('hidden');
+  if (!showSelo) seloEl.classList.add('hidden');
+
+  document.getElementById('info-top').textContent = infoTop;
+  document.getElementById('info-top').style.fontSize = Math.round(18 * heightScale) + 'px';
+  var displayEl2 = document.getElementById('display-slice');
+  displayEl2.innerHTML = title.split('|').map(function(l){
+    return l.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }).join('<br>');
+  displayEl2.style.fontSize = displaySize + 'px';
+  document.getElementById('accent').textContent = accent;
+  document.getElementById('accent').style.fontSize = accentSize + 'px';
+
+  // info-bottom no rodapé
+  var infoBottomEl = document.getElementById('info-bottom');
+  infoBottomEl.textContent = infoBottom;
+  infoBottomEl.style.fontSize = Math.round(14 * heightScale) + 'px';
+  infoBottomEl.style.bottom = Math.round(60 * heightScale) + 'px';
+  if (heroSide === 'right') {
+    infoBottomEl.style.left = Math.round(80 * widthScale) + 'px';
+  } else {
+    infoBottomEl.style.right = Math.round(80 * widthScale) + 'px';
+  }
+
+  if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
+  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+  if (!showInfoBottom) infoBottomEl.classList.add('hidden');
+})();
+</script>
+</body>
+</html>

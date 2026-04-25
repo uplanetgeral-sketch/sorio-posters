@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Só Rio · F10 Circular Frame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #3F5548; }
+  .canvas { width: 1080px; height: 1350px; position: relative; overflow: hidden; font-family: 'Inter', sans-serif; }
+
+  .hero-circle {
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border: 4px solid #C89853;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.30);
+  }
+  .logo {
+    position: absolute; top: 60px; left: 60px;
+    z-index: 4; width: 150px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.40));
+  }
+  .selo {
+    position: absolute;
+    z-index: 4; width: 110px; height: 110px;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+  }
+
+  .wrap-svg {
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .typo-stack {
+    position: absolute;
+    z-index: 3;
+    color: #F6F1E7;
+    text-align: center;
+  }
+  .info-top {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.92;
+  }
+  .display-stack {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+  .accent {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #C89853;
+    margin-top: 22px;
+  }
+  .info-bottom {
+    position: absolute;
+    z-index: 3;
+    bottom: 60px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: #C89853;
+    opacity: 0.92;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas">
+  <div class="hero-circle" id="hero"></div>
+  <svg class="wrap-svg hidden" id="wrap-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <path id="wrap-path" d="" />
+    </defs>
+    <text id="wrap-text" font-family="Inter" font-weight="500" letter-spacing="6" fill="#F6F1E7" font-size="22" text-transform="uppercase">
+      <textPath id="wrap-text-path" href="#wrap-path" startOffset="0%"></textPath>
+    </text>
+  </svg>
+  <img class="logo" id="logo" alt="Só Rio">
+  <img class="selo" id="selo" alt="Selo Só Rio">
+  <div class="typo-stack" id="typo-stack">
+    <div class="info-top" id="info-top"></div>
+    <div class="display-stack" id="display-stack"></div>
+    <div class="accent" id="accent"></div>
+  </div>
+  <div class="info-bottom" id="info-bottom"></div>
+</div>
+
+<script>
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  function get(k, d) { var v = p.get(k); return (v === null || v === "") ? d : v; }
+  function bool(k, d) { var v = p.get(k); if (v === null) return d; return v === "1" || v === "true"; }
+  function num(k, d) { var v = p.get(k); if (v === null || v === "") return d; var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+  var format = get('format', '1080x1350');
+  var fmtParts = format.split('x');
+  var canvasW = parseInt(fmtParts[0], 10) || 1080;
+  var canvasH = parseInt(fmtParts[1], 10) || 1350;
+  document.documentElement.style.width = canvasW + 'px';
+  document.documentElement.style.height = canvasH + 'px';
+  document.body.style.width = canvasW + 'px';
+  document.body.style.height = canvasH + 'px';
+  var canvas = document.getElementById('canvas');
+  canvas.style.width = canvasW + 'px';
+  canvas.style.height = canvasH + 'px';
+  var heightScale = canvasH / 1350;
+  var widthScale = canvasW / 1080;
+
+  var hero = get('hero', 'assets/hero-sample.png');
+  var logo = get('logo', 'assets/logo.png');
+  var selo = get('selo', 'assets/selo-default.png');
+  var title = get('title', 'Cloud|Dance');
+  var infoTop = get('info_top', 'Vodka · Pera · Bianco · Baunilha');
+  var accent = get('accent', 'Calmo, dourado, nosso.');
+  var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
+
+  var bgColor = get('bg_color', '#3F5548');
+  var circleSize = num('circle_size', 0.55);
+  circleSize = Math.max(0.40, Math.min(0.70, circleSize));
+  var circlePosition = get('circle_position', 'top');  // top | center | bottom
+  var typeMode = get('type_mode', 'stack');  // stack | wrap
+  var wrapText = get('wrap_text', '');  // texto que circula a roda; default = info_top
+  var displaySize = num('display_size', Math.round(110 * heightScale));
+  var accentSize = num('accent_size', Math.round(30 * heightScale));
+
+  var showLogo = bool('show_logo', true);
+  var showSelo = bool('show_selo', true);
+  var showInfoTop = bool('show_info_top', true);
+  var showAccent = bool('show_accent', true);
+  var showInfoBottom = bool('show_info_bottom', true);
+  var showWrap = (typeMode === 'wrap');
+
+  document.body.style.background = bgColor;
+  canvas.style.background = bgColor;
+
+  // Hero circle
+  var diameter = Math.round(canvasW * circleSize);
+  var heroEl = document.getElementById('hero');
+  heroEl.style.backgroundImage = 'url("' + hero + '")';
+  heroEl.style.width = diameter + 'px';
+  heroEl.style.height = diameter + 'px';
+  heroEl.style.left = Math.round((canvasW - diameter) / 2) + 'px';
+
+  var circleTopY;
+  if (circlePosition === 'top') {
+    circleTopY = Math.round(canvasH * 0.16);
+  } else if (circlePosition === 'bottom') {
+    circleTopY = Math.round(canvasH * 0.45);
+  } else {
+    circleTopY = Math.round((canvasH - diameter) / 2);
+  }
+  heroEl.style.top = circleTopY + 'px';
+
+  // Wrap text (SVG textPath)
+  if (showWrap) {
+    var svg = document.getElementById('wrap-svg');
+    svg.setAttribute('width', canvasW);
+    svg.setAttribute('height', canvasH);
+    svg.setAttribute('viewBox', '0 0 ' + canvasW + ' ' + canvasH);
+    var cx = canvasW / 2;
+    var cy = circleTopY + diameter / 2;
+    var rWrap = (diameter / 2) + Math.round(34 * heightScale);
+    // Circular path
+    var pathD = 'M ' + (cx - rWrap) + ' ' + cy +
+                ' a ' + rWrap + ' ' + rWrap + ' 0 1 1 ' + (rWrap * 2) + ' 0' +
+                ' a ' + rWrap + ' ' + rWrap + ' 0 1 1 ' + (-rWrap * 2) + ' 0';
+    document.getElementById('wrap-path').setAttribute('d', pathD);
+    var wrapTextEl = document.getElementById('wrap-text-path');
+    wrapTextEl.textContent = (wrapText || infoTop) + ' · ' + (wrapText || infoTop) + ' · ';
+    document.getElementById('wrap-text').setAttribute('font-size', Math.round(20 * heightScale));
+    svg.classList.remove('hidden');
+  }
+
+  // Logo + selo
+  var logoEl = document.getElementById('logo');
+  var seloEl = document.getElementById('selo');
+  logoEl.src = logo;
+  logoEl.style.width = Math.round(150 * heightScale) + 'px';
+  logoEl.style.top = Math.round(60 * heightScale) + 'px';
+  logoEl.style.left = Math.round(60 * widthScale) + 'px';
+  // Selo as stamp inside circle (bottom-right do circle)
+  seloEl.src = selo;
+  seloEl.style.width = Math.round(110 * heightScale) + 'px';
+  seloEl.style.height = Math.round(110 * heightScale) + 'px';
+  seloEl.style.top = Math.round(60 * heightScale) + 'px';
+  seloEl.style.right = Math.round(60 * widthScale) + 'px';
+  if (!showLogo) logoEl.classList.add('hidden');
+  if (!showSelo) seloEl.classList.add('hidden');
+
+  // Typography stack — fica abaixo do círculo se circle is on top, ou acima se center/bottom
+  var stackEl = document.getElementById('typo-stack');
+  var stackTop;
+  if (circlePosition === 'top') {
+    stackTop = circleTopY + diameter + Math.round(80 * heightScale);
+  } else if (circlePosition === 'bottom') {
+    stackTop = Math.round(canvasH * 0.10);
+  } else {
+    stackTop = circleTopY + diameter + Math.round(60 * heightScale);
+  }
+  stackEl.style.top = stackTop + 'px';
+  stackEl.style.left = Math.round(80 * widthScale) + 'px';
+  stackEl.style.right = Math.round(80 * widthScale) + 'px';
+
+  document.getElementById('info-top').textContent = infoTop;
+  document.getElementById('info-top').style.fontSize = Math.round(16 * heightScale) + 'px';
+  var displayEl = document.getElementById('display-stack');
+  displayEl.innerHTML = title.split('|').map(function(l){
+    return l.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }).join('<br>');
+  displayEl.style.fontSize = displaySize + 'px';
+  document.getElementById('accent').textContent = accent;
+  document.getElementById('accent').style.fontSize = accentSize + 'px';
+
+  document.getElementById('info-bottom').textContent = infoBottom;
+  document.getElementById('info-bottom').style.bottom = Math.round(60 * heightScale) + 'px';
+  document.getElementById('info-bottom').style.fontSize = Math.round(13 * heightScale) + 'px';
+
+  if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
+  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+  if (!showInfoBottom) document.getElementById('info-bottom').classList.add('hidden');
+})();
+</script>
+</body>
+</html>

@@ -44,6 +44,14 @@ try:
 except ImportError:
     HAS_OUTPAINT = False
 
+# Isolate module (rembg + Gemini bg removal)
+try:
+    from isolate import maybe_isolate, ISOLATE_FAMILIES
+    HAS_ISOLATE = True
+except ImportError:
+    HAS_ISOLATE = False
+    ISOLATE_FAMILIES = set()
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ORCH_DIR = Path(__file__).resolve().parent
@@ -230,16 +238,41 @@ def render_url(family, url_params, hero_url, output_path, format_wh="1080x1350")
     return template_url
 
 
-def resize_if_needed(image_path, max_bytes=4_500_000):
-    """Resize image to fit under API 5MB limit (with margin)."""
-    size = image_path.stat().st_size
-    if size <= max_bytes:
-        return image_path
+def resize_if_needed(image_path, max_bytes=4_000_000):
+    """Prepare image for Critique API (5MB limit). Always produce a JPEG q90 ≤1080 longest edge.
 
-    log("RESIZE", f"PNG {size/1024/1024:.1f}MB > 4.5MB · a fazer downsize")
-    smaller = image_path.with_suffix(".small.png")
-    subprocess.run(["sips", "-Z", "1350", str(image_path), "--out", str(smaller)], capture_output=True, check=True)
-    return smaller
+    A versão anterior só fazia resize condicional e usava sips -Z 1350 que mantinha PNG.
+    Em 9:16 com device_scale_factor=2 a renderização é 2160×3840 que mesmo após resize
+    para 1350 longest edge ainda dava ~5.3MB em PNG. Solução: forçar JPEG q90 ≤1080 →
+    resultado garantido <500KB."""
+    size = image_path.stat().st_size
+
+    # Sempre produzir versão segura (mesmo que <max_bytes pode ser PNG enorme)
+    safe = image_path.with_suffix(".critique.jpg")
+    try:
+        result = subprocess.run(
+            ["sips", "-Z", "1080",
+             "-s", "format", "jpeg",
+             "-s", "formatOptions", "85",
+             str(image_path), "--out", str(safe)],
+            capture_output=True, check=True, text=True
+        )
+        new_size = safe.stat().st_size
+        log("RESIZE", f"PNG {size/1024/1024:.1f}MB → JPEG {new_size/1024:.0f}KB (1080 longest, q85)")
+        if new_size > max_bytes:
+            # Plano B — segunda passagem mais agressiva
+            log("RESIZE", f"Ainda >{max_bytes/1024/1024:.1f}MB · segunda passagem q70 ≤900px")
+            subprocess.run(
+                ["sips", "-Z", "900",
+                 "-s", "format", "jpeg",
+                 "-s", "formatOptions", "70",
+                 str(image_path), "--out", str(safe)],
+                capture_output=True, check=True
+            )
+        return safe
+    except subprocess.CalledProcessError as e:
+        log("RESIZE", f"WARN sips falhou ({e.stderr if hasattr(e, 'stderr') else e}) · usar original")
+        return image_path
 
 
 def apply_url_fixes(decision, suggested_fixes):
@@ -263,7 +296,8 @@ def main():
     parser.add_argument("--freedom", type=float, default=None)
     parser.add_argument("--max-iter", type=int, default=2)
     parser.add_argument("--no-auto-fix", action="store_true")
-    parser.add_argument("--family", default=None, choices=["F01", "F02", "F03", "F05a", "F05b"])
+    parser.add_argument("--family", default=None,
+                        choices=["F01", "F02", "F03", "F05a", "F05b", "F06", "F07", "F08", "F09", "F10"])
     parser.add_argument("--hero", default=None,
                         help="Override hero — caminho local ou URL pública. "
                              "Quando passado, ignora product.approved_heroes[0].")
@@ -274,6 +308,10 @@ def main():
                         help="Output format WxH px. Defaults: 1080x1080 (1:1), 1080x1350 (4:5), 1080x1920 (9:16)")
     parser.add_argument("--no-outpaint", action="store_true",
                         help="Desactiva outpaint Gemini condicional (mesmo se GEMINI_API_KEY estiver definida).")
+    parser.add_argument("--no-isolate", action="store_true",
+                        help="Desactiva subject isolation (rembg + Gemini fallback) mesmo em famílias F06/F09/F10.")
+    parser.add_argument("--force-isolate", action="store_true",
+                        help="Força subject isolation mesmo em famílias que não exigem.")
     args = parser.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -357,14 +395,42 @@ def main():
     (run_dir / f"decision_iter{iter_n}.json").write_text(json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8")
     log(f"ITER {iter_n}", f"family={decision.get('family')} · inspired_by={decision.get('inspired_by', [])[:2]}")
 
-    # === Outpaint AGORA que sabemos a family ===
-    # Family-aware: F03/F05a/F05b skip outpaint (cover-crop nativo).
-    # F02/F01 fazem outpaint quando aspect ratio source vs format diverge.
+    # === Hero processing AGORA que sabemos a family ===
+    # Outpaint (F01/F02/F07) ou Isolate (F06/F09/F10) — exclusivos.
+    # Outras families (F03/F05a/F05b/F08) skip ambos (cover-crop ou clip-path nativo).
     chosen_family = decision.get('family')
-    if (pre_outpaint_hero and not args.no_outpaint and HAS_OUTPAINT and
-            os.path.exists(pre_outpaint_hero)):
-        gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-        if gemini_key:
+    gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    hero_url = pre_outpaint_hero  # default
+
+    if pre_outpaint_hero and os.path.exists(pre_outpaint_hero):
+        # Decide qual processing aplicar
+        do_isolate = (
+            HAS_ISOLATE and not args.no_isolate and
+            (args.force_isolate or chosen_family in ISOLATE_FAMILIES)
+        )
+        do_outpaint = (
+            not do_isolate and  # mutually exclusive
+            HAS_OUTPAINT and not args.no_outpaint
+        )
+
+        if do_isolate:
+            log("HERO", f"Family {chosen_family} → ISOLATE (subject cutout)")
+            try:
+                new_hero = maybe_isolate(
+                    source_path=Path(pre_outpaint_hero),
+                    out_dir=run_dir,
+                    gemini_key=gemini_key,
+                    family=chosen_family,
+                    force=args.force_isolate,
+                )
+                if str(new_hero) != pre_outpaint_hero:
+                    hero_url = str(new_hero)
+                    log("HERO", f"Isolated → {hero_url}")
+            except Exception as e:
+                log("HERO", f"WARN isolation falhou · {e}")
+
+        elif do_outpaint and gemini_key:
+            log("HERO", f"Family {chosen_family} → OUTPAINT (extend para canvas)")
             hint = f"{product.get('name', args.product_id)} · Só Rio · Valada do Ribatejo · river beach lounge food/drink photography"
             try:
                 new_hero = maybe_outpaint(
@@ -378,16 +444,10 @@ def main():
                 if str(new_hero) != pre_outpaint_hero:
                     hero_url = str(new_hero)
                     log("HERO", f"Outpainted → {hero_url}")
-                else:
-                    hero_url = pre_outpaint_hero
             except Exception as e:
                 log("HERO", f"WARN outpaint falhou — usar source · {e}")
-                hero_url = pre_outpaint_hero
         else:
-            log("HERO", "GEMINI_API_KEY ausente — skip outpaint (cover-crop fallback)")
-            hero_url = pre_outpaint_hero
-    else:
-        hero_url = pre_outpaint_hero
+            log("HERO", f"Family {chosen_family} → cover-crop nativo (sem processing)")
 
     while True:
         # Render

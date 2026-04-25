@@ -115,18 +115,25 @@ Filter `family_compatibility` for current allowed levels:
 
 **Variation mode** — same as standard, but if your top pick is F02, give a 50% bias toward the second-best non-F02 family. F02 is the safest, most generic family — variation mode means "not the obvious choice."
 
-**Experimental mode** — F02 is **disallowed by default**. You MUST pick from F01 / F03 / F05a / F05b unless ONE of these is true:
+**Experimental mode** — F02 is **disallowed by default**. You MUST pick from F01 / F03 / F06 / F07 / F08 / F09 / F10 (F05a/F05b deprecated until rewritten — avoid). To bias toward genuine boldness, prefer **F06 / F07 / F08 / F09 / F10** (high-boldness families) over F01/F03 in experimental mode unless product clearly fits a medium-boldness family better.
+
+You MAY pick F02 in experimental ONLY if:
 1. User explicitly passed `family_preference: "F02"`
 2. Every other family is marked `avoid` in `product.family_compatibility`
-3. The product is described in catalogue as a single hero portrait (e.g. signature dish photographed solo on plate, single-glass cocktail front-and-centre) AND no other family fits the brief
+3. The product brief explicitly demands universal restraint (rare)
 
-If you choose F02 in experimental, you MUST justify in `rationale` why F01/F03/F05a/F05b were each rejected, ref by ref. "Product pede elegância restrained" is NOT a valid justification — F03/F05a can also be elegant and restrained, just with a different layout language.
+If you choose F02 in experimental, you MUST justify in `rationale` why F01/F03/F06/F07/F08/F09/F10 were each rejected. "Product pede elegância restrained" is NOT valid — F09 (negative space float) is restrained-bold; F01 is restrained-classic. There's always a non-F02 option.
 
-**Family character cheat-sheet for experimental selection:**
-- `F01 Product Hero Editorial` — single subject, dramatic typography over hero, magazine-cover-feel. Picks: when product photography is hero-grade and you want gallery framing.
-- `F03 Action & Motion` — asymmetric, pour/splash/motion energy, off-balance composition, big colour blocks. Picks: when product has movement (cocktail being poured, dish steaming, cooler dripping).
-- `F05a Editorial Grid Flat-Lay` — 4-up grid, top-down angles, product variants or close-ups. Picks: when product has 4 distinct angles/components/variants OR you want lookbook-like editorial.
-- `F05b Editorial Grid Info-Graphic` — ingredients list + stat number + quote, didactic editorial. Picks: when storytelling about ingredients/origin/process matters more than hero photography.
+**Family character cheat-sheet for experimental selection (8 families now):**
+- `F01 Product Hero Editorial` — single subject, dramatic typography over hero, magazine-cover-feel. Low boldness. Picks: when product photography is hero-grade and you want gallery framing without taking risks.
+- `F03 Editorial Split` — vertical split, solid colour block + hero photo. Medium boldness. Picks: when you want strong tonal contrast between block and hero (per FAM-F03-02 thermal rule). Composition restraint.
+- `F05a Editorial Grid Flat-Lay` — 4-up grid, top-down angles, product variants or close-ups. Medium boldness. Picks: when product has 4 distinct angles/components/variants OR you want lookbook-like editorial. **Currently behaves like F02 — rewrite pending.**
+- `F05b Editorial Grid Info-Graphic` — ingredients list + stat number + quote, didactic editorial. Medium boldness. **Currently behaves like F02 — rewrite pending.**
+- `F06 Type-as-Subject` — display name MASSIVE repeated as background pattern (4-6 lines), subject (isolated PNG) sits ON TOP of the type. Type appears behind subject, subject in front. **HIGH boldness.** Picks: experimental brief, subject-cutout aesthetic, typographic statement priority. Requires hero with transparent bg (auto-isolated via rembg+Gemini).
+- `F07 Cover Magazine` — horizontal split, hero top 60-70%, solid colour band bottom 30-40% with HUGE display + accent. Vogue/Wallpaper feel. **HIGH boldness.** Picks: cover-impact moments, signature dish/cocktail.
+- `F08 Diagonal Slice` — SVG clip-path diagonal cut at angle, hero one side, colour other side. Motion energy from diagonal. **HIGH boldness.** Picks: action subjects (pour/splash/steam), high-drama experimental.
+- `F09 Negative Space Float` — flat bg colour 80% canvas, isolated subject floating off-centre at rule-of-thirds, type compact in opposite zone. **HIGH boldness through restraint.** Picks: premium boutique feel, isolated single subject.
+- `F10 Circular Frame` — hero in circular crop, type wraps around (textPath SVG) OR stacks vertical. **HIGH boldness, geometric.** Picks: ritual moments, signature cocktails, "stamp" feel.
 
 If user passed `family_preference` and it's allowed, honor it. If `family_preference` is not allowed (e.g. user asked F03 but product marks F03 as `avoid`), use second-most-compatible family AND log a `family_preference_overridden` note in `rationale`.
 
@@ -210,6 +217,40 @@ For the chosen template family, fill in:
   - `display_size` defaults to `140px @ 4:5` (was 120 — increased per refs library showing bold display dominance).
 - `F05a`: `hero1`, `hero2`, `hero3`, `hero4`, `caption1..4` (4 close-up angles or 4 product variants), `editorial_label`
 - `F05b`: `ingredients` (pipe-separated), `quote`, `stat_number`, `stat_label`, `stat_label_top`, `editorial_label`
+- `F06` (Type-as-Subject):
+  - `bg_color` — bg flat colour (Blueprint palette). Subject thermal contrast obrigatório (FAM-F06-01).
+  - `type_pattern_color` — cor do type pattern repetido (default off-white `#F6F1E7`).
+  - `type_pattern_opacity` — `0.10–0.30`, default `0.18`. Quanto menor, mais sutil; quanto maior, mais ousado.
+  - `subject_scale` — `0.40–0.85`, default `0.72`. Tamanho do subject relativo ao canvas.
+  - `subject_position` — `"center"`, `"top"`, `"bottom"`, `"left"`, `"right"`.
+  - `display_size` defaults to **280** (massive — é a estrela). Para 9:16 escala automaticamente.
+  - **Hero deve ser PNG isolado.** Decisor não controla isolation directamente — é automático via `family in ISOLATE_FAMILIES`. Se hero não puder ser isolado, F06 pode produzir resultado fraco — preferir F07 ou F09.
+- `F07` (Cover Magazine):
+  - `hero_height_pct` — `0.55–0.75`, default `0.65`. Quanto da altura do canvas é hero band.
+  - `bg_color` — cor da bottom band. **Subject FAM-F07-01 thermal contrast com hero dominante.**
+  - `display_size` defaults to **180** (cover-impact). Pode push até 220 em experimental.
+  - `accent_size` defaults to **50**.
+  - `hero_position` — como o hero é enquadrado dentro da hero band.
+- `F08` (Diagonal Slice):
+  - `slice_angle` — `-25..+25` graus, default `+18`. Negativo = slice inclina para cima da esquerda; positivo = inclina para baixo da esquerda.
+  - `slice_position` — `0.35..0.65`, default `0.50`. Onde o eixo da slice cruza o canvas (% da largura).
+  - `hero_side` — `"left"` ou `"right"`. Onde fica o hero clipado pela slice.
+  - `bg_color` — cor do block do outro lado da slice.
+  - `type_rotated` — `1` ou `0`. Se `1`, display rota para acompanhar o slice angle (motion editorial daring).
+  - `display_size` defaults to **130**.
+- `F09` (Negative Space Float):
+  - `bg_color` — flat fill 80% canvas. Default `#D9C8A8` (areia).
+  - `subject_scale` — `0.30–0.55`, default `0.42`. Pequeno-médio para deixar espaço respirar.
+  - `subject_position` — `"top-left"`, `"top-right"`, `"bottom-left"`, `"bottom-right"` (rule-of-thirds corners).
+  - `display_size` defaults to **90** (smaller — restraint).
+  - **Hero deve ser PNG isolado.** Como F06.
+- `F10` (Circular Frame):
+  - `bg_color` — fundo flat. Default `#3F5548` (verde-salgueiro).
+  - `circle_size` — `0.40–0.70`, default `0.55`. Diâmetro do círculo relativo à largura do canvas.
+  - `circle_position` — `"top"`, `"center"`, `"bottom"`.
+  - `type_mode` — `"stack"` (default) ou `"wrap"` (texto curva à volta do círculo via SVG textPath).
+  - `wrap_text` — texto que circula (só usado se `type_mode="wrap"`). Default = `info_top`.
+  - `display_size` defaults to **110**.
 
 ### STEP 7 — Validate against principles
 
@@ -291,7 +332,7 @@ Strict format (see Output schema below). NO markdown, NO commentary. Just the JS
   "product_id": "string",
   "mode": "standard|variation|experimental",
   "creative_freedom": 0.0,
-  "family": "F01|F02|F03|F05a|F05b",
+  "family": "F01|F02|F03|F05a|F05b|F06|F07|F08|F09|F10",
   "rationale": "1-2 sentences PT-PT",
 
   "url_params": {
