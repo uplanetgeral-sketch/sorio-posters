@@ -106,12 +106,29 @@ Filter `family_compatibility` for current allowed levels:
 - `variation`: `ideal` or `good`
 - `experimental`: any except `avoid`
 
-Among allowed, prefer the family that:
+**Selection logic by mode:**
+
+**Standard mode** — pick the family that:
 1. Best matches `mood_default` and product category
 2. Has supporting refs in the library matching that family
 3. Was NOT used in last 3 `previous_decisions` (diversity)
 
-If user passed `family_preference` and it's allowed, honor it unless product is clearly incompatible.
+**Variation mode** — same as standard, but if your top pick is F02, give a 50% bias toward the second-best non-F02 family. F02 is the safest, most generic family — variation mode means "not the obvious choice."
+
+**Experimental mode** — F02 is **disallowed by default**. You MUST pick from F01 / F03 / F05a / F05b unless ONE of these is true:
+1. User explicitly passed `family_preference: "F02"`
+2. Every other family is marked `avoid` in `product.family_compatibility`
+3. The product is described in catalogue as a single hero portrait (e.g. signature dish photographed solo on plate, single-glass cocktail front-and-centre) AND no other family fits the brief
+
+If you choose F02 in experimental, you MUST justify in `rationale` why F01/F03/F05a/F05b were each rejected, ref by ref. "Product pede elegância restrained" is NOT a valid justification — F03/F05a can also be elegant and restrained, just with a different layout language.
+
+**Family character cheat-sheet for experimental selection:**
+- `F01 Product Hero Editorial` — single subject, dramatic typography over hero, magazine-cover-feel. Picks: when product photography is hero-grade and you want gallery framing.
+- `F03 Action & Motion` — asymmetric, pour/splash/motion energy, off-balance composition, big colour blocks. Picks: when product has movement (cocktail being poured, dish steaming, cooler dripping).
+- `F05a Editorial Grid Flat-Lay` — 4-up grid, top-down angles, product variants or close-ups. Picks: when product has 4 distinct angles/components/variants OR you want lookbook-like editorial.
+- `F05b Editorial Grid Info-Graphic` — ingredients list + stat number + quote, didactic editorial. Picks: when storytelling about ingredients/origin/process matters more than hero photography.
+
+If user passed `family_preference` and it's allowed, honor it. If `family_preference` is not allowed (e.g. user asked F03 but product marks F03 as `avoid`), use second-most-compatible family AND log a `family_preference_overridden` note in `rationale`.
 
 ### STEP 4 — Pick mood
 
@@ -172,7 +189,15 @@ For the chosen template family, fill in:
 
 #### Family-specific extras
 - `F01`: `editorial_label` (PT-PT), `title_size` (instead of display_size), `accent_size`
-- `F03`: `bg_color` (default `#3F5548`), `title_align` `"left"`, asymmetric per COMP-04
+- `F03` (Editorial Split — Action & Motion):
+  - `block_side` — `"left"` or `"right"`. Determines which half holds the colour block + typography. Choose based on hero composition (subject leans left → block on right, and vice versa).
+  - `block_width` — `0.30` to `0.55`, default `0.45`. Wider block = more typography presence; narrower = hero dominates.
+  - `bg_color` — colour of the block. Default `#3F5548` (verde-salgueiro). Can use any Blueprint palette colour: `#6B7F5E` (verde-tejo), `#6B4A2D` (madeira queimada), `#1C1C1A` (preto-rio), `#D9C8A8` (areia).
+  - `tilt` — `-8` to `+8` degrees rotation applied to hero element. Use `±3..±6` for action energy. `0` = static.
+  - `diag_intensity` — `0.0` to `1.0`, default `0.6`. Subtle diagonal accent line crossing the hero. Set `0` for stark/minimal, `0.8+` for high-motion energy.
+  - `hero_position` — `"center"`, `"left"`, `"right"`, or `"X% Y%"`.
+  - `show_diag` — `1` or `0` to toggle the diagonal line entirely.
+  - `display_size` defaults to `120px @ 4:5` (smaller than F02 because typography lives in narrower block).
 - `F05a`: `hero1`, `hero2`, `hero3`, `hero4`, `caption1..4` (4 close-up angles or 4 product variants), `editorial_label`
 - `F05b`: `ingredients` (pipe-separated), `quote`, `stat_number`, `stat_label`, `stat_label_top`, `editorial_label`
 
@@ -191,6 +216,30 @@ A short PT-PT string for the Vision Critique stage to anchor on. Include:
 - Family chosen and why
 - Key principles applied
 - What to specifically check (e.g. "verifica que folha de tomilho não aparece dentro do copo — não está nos ingredientes")
+
+### STEP 8.5 — Experimental commitment (only when `mode == experimental`)
+
+Before writing the JSON, run this self-check:
+
+1. **Does the chosen family + url_params actually look different from a standard run?**
+   If you'd give the same `display_size`, `accent_size`, `overlay_strength`, `hero_position`, and `selo` choice as you'd give in standard mode, you have NOT been experimental — you've just relaxed one principle and called it experimental. Push at least 2 of these axes:
+   - **Family** — non-F02 (per STEP 3)
+   - **Composition** — non-default `hero_position` (try `"top"`, `"left"`, `"right 35%"`, `"center 30%"`)
+   - **Typography scale** — display_size pushed to upper or lower bound of TYPO-01 table (not the safe middle)
+   - **Overlay** — non-default strength (push to 0.3–0.6 OR 1.4–1.6 depending on hero luminance)
+   - **Selo** — non-recommended colour variant if visual_dna supports it (and not `auto`-suggested)
+   - **Show flags** — turn off something usually on (e.g. `show_hairline: 0` or `show_wave: 0` for stark editorial)
+
+2. **Do your `inspired_by` refs actually shape `url_params`?**
+   For each ref you cite, ask: "what specific visual element from this ref am I translating into params?"
+   - If ref has `tags: ["asymmetric"]` → your `hero_position` should be off-centre
+   - If ref has `tags: ["minimal", "negative-space"]` → consider `show_selo: 0` or `show_hairline: 0`
+   - If ref has `tags: ["dramatic-shadow"]` → push `overlay_strength` higher
+   - If ref has `tags: ["large-typography"]` → push `display_size` toward upper bound
+   - If ref has `tags: ["bottom-heavy"]` → `hero_position: "top 30%"` and tipografia stretched in bottom 60%
+   In `experimentation_log.creative_risks_taken`, document at least ONE risk per ref cited.
+
+3. **If you'd produce essentially the same poster in standard mode, ABORT and pick differently.** Experimental mode means the user has accepted human review — they want to be surprised, not reassured.
 
 ### STEP 9 — Output JSON
 
@@ -305,6 +354,9 @@ Before returning JSON, ask yourself:
 - [ ] Is `human_review_required` correctly set for the mode?
 - [ ] Are `inspired_by` ref_ids real (in refs_index)?
 - [ ] Is the output strict JSON without markdown fences?
+- [ ] **If `mode == experimental`:** Did I pick a non-F02 family (or properly justify F02)?
+- [ ] **If `mode == experimental`:** Have I pushed at least 2 of the axes in STEP 8.5 away from defaults?
+- [ ] **If `mode == experimental`:** Does each `inspired_by` ref translate to a SPECIFIC param change (not just rationale fluff)?
 
 If any check fails, fix before responding.
 

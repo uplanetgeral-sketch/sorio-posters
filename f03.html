@@ -2,89 +2,100 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Só Rio · F03 Action & Motion</title>
+<title>Só Rio · F03 Editorial Split — Action & Motion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
-    background:#3F5548;
     width: 1080px;
     height: 1350px;
     overflow: hidden;
+    background: #1C1C1A;
   }
-  /* Canvas — fundo flat por default (FAM-F03-01: nunca wood deck texturizado) */
   .canvas {
     width: 1080px;
     height: 1350px;
     position: relative;
     overflow: hidden;
     font-family: 'Inter', sans-serif;
-    color: #F6F1E7;
   }
+
+  /* Two columns: bloco de cor + hero clipado */
+  .block {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+  .block--left { left: 0; }
+  .block--right { right: 0; }
+
   .hero {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
     background-size: cover;
     background-position: center;
+    z-index: 2;
   }
-  /* Overlay subtilíssimo só para legibilidade da tipografia bottom-left */
-  .overlay {
-    position: absolute; inset: 0;
+  /* Edge gradient subtil entre hero e bloco para suavizar transição */
+  .seam {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    z-index: 3;
     pointer-events: none;
   }
-  .masthead-top {
-    position: absolute;
-    top: 70px; left: 80px; right: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 3;
-    height: 200px;
-  }
+
+  /* MASTHEAD-TOP em-line — logo + selo dentro dos blocos */
   .logo {
-    width: 180px;
+    position: absolute;
+    z-index: 4;
     height: auto;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.40));
-  }
-  .selo {
-    width: 200px;
-    height: 200px;
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
   }
-  /* TÍTULO — bottom-LEFT, não centrado (COMP-04 asymmetry) */
-  .masthead-bottom {
+  .selo {
     position: absolute;
-    bottom: 90px; left: 80px;
-    z-index: 3;
-    max-width: 720px;
+    z-index: 4;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.50));
+  }
+
+  /* TIPOGRAFIA — lives no bloco de cor (não sobre o hero) */
+  .typo {
+    position: absolute;
+    z-index: 4;
+    color: #F6F1E7;
     text-align: left;
   }
   .info {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 21px;
-    letter-spacing: 0.28em;
-    color: #F6F1E7;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     opacity: 0.95;
   }
-  .info-top { margin-bottom: 22px; }
+  .info-top {
+    font-size: 19px;
+    margin-bottom: 24px;
+  }
   .info-bottom {
-    margin-top: 26px;
-    color: #C89853;
     font-size: 16px;
-    letter-spacing: 0.36em;
+    color: #C89853;
+    letter-spacing: 0.40em;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
   }
   .display-hero {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
-    line-height: 0.9;
+    line-height: 0.88;
     letter-spacing: 0.005em;
     text-transform: uppercase;
     color: #F6F1E7;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.50);
   }
   .accent {
     font-family: 'Cormorant Garamond', serif;
@@ -92,35 +103,48 @@
     font-weight: 500;
     line-height: 1.05;
     color: #C89853;
-    margin-top: 18px;
+    margin-top: 28px;
+    max-width: 90%;
   }
-  .hairline {
-    width: 56px;
-    height: 1.4px;
+  .rule {
+    width: 80px;
+    height: 1.6px;
     background: #C89853;
-    margin: 0 0 20px;
+    margin: 32px 0 0;
     opacity: 0.85;
   }
+
+  /* Diagonal accent line — F03 motion signature */
+  .diag {
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+  }
+
   .hidden { display: none !important; }
 </style>
 </head>
 <body>
 <div class="canvas" id="canvas">
+  <div class="block" id="block"></div>
   <div class="hero" id="hero"></div>
-  <div class="overlay" id="overlay"></div>
+  <div class="seam" id="seam"></div>
 
-  <div class="masthead-top">
-    <img class="logo" id="logo" alt="Só Rio">
-    <img class="selo" id="selo" alt="Selo Só Rio">
-  </div>
+  <svg class="diag hidden" id="diag" width="1080" height="1350" xmlns="http://www.w3.org/2000/svg">
+    <line id="diag-line" x1="0" y1="0" x2="0" y2="0"
+          stroke="#C89853" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  </svg>
 
-  <div class="masthead-bottom">
-    <div class="hairline" id="hairline"></div>
+  <img class="logo" id="logo" alt="Só Rio">
+  <img class="selo" id="selo" alt="Selo Só Rio">
+
+  <div class="typo" id="typo">
     <div class="info info-top" id="info-top"></div>
     <div class="display-hero" id="display-hero"></div>
+    <div class="rule" id="rule"></div>
     <div class="accent" id="accent"></div>
-    <div class="info info-bottom" id="info-bottom"></div>
   </div>
+  <div class="info info-bottom" id="info-bottom"></div>
 </div>
 
 <script>
@@ -130,60 +154,129 @@
   function bool(k, d) { var v = p.get(k); if (v === null) return d; return v === "1" || v === "true"; }
   function num(k, d) { var v = p.get(k); if (v === null || v === "") return d; var n = parseFloat(v); return isNaN(n) ? d : n; }
 
-  // Background flat color (FAM-F03-01)
-  var bgColor = get('bg_color', '#3F5548');
-  document.body.style.background = bgColor;
-  document.getElementById('canvas').style.background = bgColor;
+  // === FORMAT ===
+  var format = get('format', '1080x1350');
+  var fmtParts = format.split('x');
+  var canvasW = parseInt(fmtParts[0], 10) || 1080;
+  var canvasH = parseInt(fmtParts[1], 10) || 1350;
+  document.documentElement.style.width = canvasW + 'px';
+  document.documentElement.style.height = canvasH + 'px';
+  document.body.style.width = canvasW + 'px';
+  document.body.style.height = canvasH + 'px';
+  var canvas = document.getElementById('canvas');
+  canvas.style.width = canvasW + 'px';
+  canvas.style.height = canvasH + 'px';
+  var heightScale = canvasH / 1350;
+  var widthScale = canvasW / 1080;
 
+  // === ASSETS + COPY ===
   var hero = get('hero', 'assets/hero-sample.png');
   var logo = get('logo', 'assets/logo.png');
   var selo = get('selo', 'assets/selo-default.png');
 
-  var title = get('title', 'Esmeralda');
-  var infoTop = get('info_top', 'Hortelã · Pepino · Lima');
-  var accent = get('accent', 'O verão tem ritmo.');
+  var title = get('title', 'Cloud|Dance');
+  var infoTop = get('info_top', 'Vodka · Pera · Bianco · Baunilha');
+  var accent = get('accent', 'Calmo, dourado, nosso.');
   var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
 
+  // === LAYOUT PARAMS — F03 motion editorial ===
+  // block_side: 'left' | 'right' — onde fica o bloco de cor com tipografia
+  var blockSide = get('block_side', 'left');
+  // block_width: 0.30..0.55 — quanto ocupa o bloco de cor (0.45 default)
+  var blockWidth = num('block_width', 0.45);
+  blockWidth = Math.max(0.30, Math.min(0.55, blockWidth));
+  // bg_color: cor do bloco (default verde-salgueiro)
+  var bgColor = get('bg_color', '#3F5548');
+  // hero_position: como o hero é enquadrado dentro do seu lado
+  var heroPosition = get('hero_position', 'center');
+  // diag_intensity: 0..1 — força da linha diagonal motion (0 = sem)
+  var diagIntensity = num('diag_intensity', 0.6);
+  // tilt: -8..+8 graus — inclinação subtil do hero (motion)
+  var tilt = num('tilt', 0);
+  tilt = Math.max(-8, Math.min(8, tilt));
+
+  // === TIPOGRAFIA SCALES ===
+  var displaySize = num('display_size', Math.round(120 * heightScale));
+  var accentSize = num('accent_size', Math.round(38 * heightScale));
+
+  // === VISIBILITY ===
   var showLogo = bool('show_logo', true);
   var showSelo = bool('show_selo', true);
-  var showHairline = bool('show_hairline', true);
+  var showRule = bool('show_rule', true);
   var showAccent = bool('show_accent', true);
   var showInfoTop = bool('show_info_top', true);
   var showInfoBottom = bool('show_info_bottom', true);
+  var showDiag = bool('show_diag', true);
 
-  var displaySize = num('display_size', 110);
-  var accentSize = num('accent_size', 38);
-  var overlayStrength = num('overlay_strength', 0.35);
-  var heroPosition = get('hero_position', 'center');
-  var titleAlign = get('title_align', 'left');
-  var titleSide = get('title_side', 'left');
+  // === APPLY LAYOUT ===
+  var blockPx = Math.round(canvasW * blockWidth);
+  var heroPx = canvasW - blockPx;
+  var sideMargin = Math.round(80 * widthScale);
 
-  document.getElementById('hero').style.backgroundImage = 'url("' + hero + '")';
-  document.getElementById('hero').style.backgroundPosition = heroPosition;
+  var blockEl = document.getElementById('block');
+  blockEl.style.background = bgColor;
+  blockEl.style.width = blockPx + 'px';
 
-  // Subtle bottom-left overlay for typography legibility
-  var s = overlayStrength;
-  document.getElementById('overlay').style.background =
-    'radial-gradient(ellipse at bottom left,' +
-      'rgba(28,28,26,' + (0.55 * s) + ') 0%,' +
-      'rgba(28,28,26,' + (0.30 * s) + ') 30%,' +
-      'rgba(28,28,26,0) 60%' +
-    ')';
+  var heroEl = document.getElementById('hero');
+  heroEl.style.backgroundImage = 'url("' + hero + '")';
+  heroEl.style.backgroundPosition = heroPosition;
+  heroEl.style.width = heroPx + 'px';
 
-  document.getElementById('logo').src = logo;
-  document.getElementById('selo').src = selo;
-  if (!showLogo) document.getElementById('logo').classList.add('hidden');
-  if (!showSelo) document.getElementById('selo').classList.add('hidden');
+  var seamEl = document.getElementById('seam');
 
-  // Switch title side if requested
-  var mb = document.querySelector('.masthead-bottom');
-  if (titleSide === 'right') { mb.style.left = 'auto'; mb.style.right = '80px'; mb.style.textAlign = 'right'; }
-  else if (titleSide === 'center') { mb.style.left = '80px'; mb.style.right = '80px'; mb.style.textAlign = 'center'; mb.style.maxWidth = 'none'; }
-  if (titleAlign && (titleAlign === 'left' || titleAlign === 'right' || titleAlign === 'center')) {
-    mb.style.textAlign = titleAlign;
+  if (blockSide === 'right') {
+    blockEl.style.right = '0';
+    heroEl.style.left = '0';
+    seamEl.style.right = blockPx + 'px';
+    seamEl.style.background = 'linear-gradient(90deg, rgba(0,0,0,0) 0%, ' + bgColor + ' 100%)';
+  } else {
+    blockEl.style.left = '0';
+    heroEl.style.right = '0';
+    seamEl.style.left = blockPx + 'px';
+    seamEl.style.background = 'linear-gradient(270deg, rgba(0,0,0,0) 0%, ' + bgColor + ' 100%)';
   }
-  if (mb.style.textAlign === 'center' || mb.style.textAlign === 'right') {
-    document.getElementById('hairline').style.margin = '0 auto 20px';
+
+  // Aplicar tilt subtil ao hero (motion)
+  if (tilt !== 0) {
+    heroEl.style.transform = 'rotate(' + tilt + 'deg) scale(1.08)';
+    heroEl.style.transformOrigin = 'center';
+  }
+
+  // === LOGO + SELO ===
+  var logoEl = document.getElementById('logo');
+  logoEl.src = logo;
+  logoEl.style.width = Math.round(170 * heightScale) + 'px';
+  // Logo top do bloco de cor
+  if (blockSide === 'left') {
+    logoEl.style.left = sideMargin + 'px';
+  } else {
+    logoEl.style.right = sideMargin + 'px';
+  }
+  logoEl.style.top = Math.round(70 * heightScale) + 'px';
+  if (!showLogo) logoEl.classList.add('hidden');
+
+  var seloEl = document.getElementById('selo');
+  seloEl.src = selo;
+  var seloSize = Math.round(190 * heightScale);
+  seloEl.style.width = seloSize + 'px';
+  seloEl.style.height = seloSize + 'px';
+  // Selo top do lado do hero
+  if (blockSide === 'left') {
+    seloEl.style.right = sideMargin + 'px';
+  } else {
+    seloEl.style.left = sideMargin + 'px';
+  }
+  seloEl.style.top = Math.round(70 * heightScale) + 'px';
+  if (!showSelo) seloEl.classList.add('hidden');
+
+  // === TIPOGRAFIA — fica dentro do bloco de cor ===
+  var typoEl = document.getElementById('typo');
+  typoEl.style.top = Math.round(canvasH * 0.42) + 'px';
+  typoEl.style.width = (blockPx - sideMargin * 2) + 'px';
+  if (blockSide === 'left') {
+    typoEl.style.left = sideMargin + 'px';
+  } else {
+    typoEl.style.right = sideMargin + 'px';
   }
 
   document.getElementById('info-top').textContent = infoTop;
@@ -192,14 +285,55 @@
     return l.replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }).join('<br>');
   displayEl.style.fontSize = displaySize + 'px';
+
   document.getElementById('accent').textContent = accent;
   document.getElementById('accent').style.fontSize = accentSize + 'px';
-  document.getElementById('info-bottom').textContent = infoBottom;
 
-  if (!showHairline) document.getElementById('hairline').classList.add('hidden');
-  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+  // info-bottom no rodapé do bloco de cor
+  var infoBottomEl = document.getElementById('info-bottom');
+  infoBottomEl.textContent = infoBottom;
+  infoBottomEl.style.bottom = Math.round(70 * heightScale) + 'px';
+  infoBottomEl.style.width = (blockPx - sideMargin * 2) + 'px';
+  if (blockSide === 'left') {
+    infoBottomEl.style.left = sideMargin + 'px';
+  } else {
+    infoBottomEl.style.right = sideMargin + 'px';
+    infoBottomEl.style.left = 'auto';
+  }
+
   if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
-  if (!showInfoBottom) document.getElementById('info-bottom').classList.add('hidden');
+  if (!showInfoBottom) infoBottomEl.classList.add('hidden');
+  if (!showRule) document.getElementById('rule').classList.add('hidden');
+  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+
+  // === DIAGONAL motion line — F03 signature ===
+  if (showDiag && diagIntensity > 0) {
+    var diag = document.getElementById('diag');
+    var line = document.getElementById('diag-line');
+    diag.setAttribute('width', canvasW);
+    diag.setAttribute('height', canvasH);
+    diag.setAttribute('viewBox', '0 0 ' + canvasW + ' ' + canvasH);
+    // Diagonal cruza o hero do top-outside para bottom-edge
+    var startX, startY, endX, endY;
+    if (blockSide === 'left') {
+      startX = blockPx + heroPx * 0.15;
+      startY = 0;
+      endX = canvasW * 0.95;
+      endY = canvasH * 0.85;
+    } else {
+      startX = canvasW * 0.05;
+      startY = canvasH * 0.15;
+      endX = blockPx + (canvasW - blockPx) * 0.85;
+      endY = canvasH;
+    }
+    line.setAttribute('x1', startX);
+    line.setAttribute('y1', startY);
+    line.setAttribute('x2', endX);
+    line.setAttribute('y2', endY);
+    line.setAttribute('stroke-width', 1.6 * heightScale);
+    line.setAttribute('opacity', 0.45 * diagIntensity);
+    diag.classList.remove('hidden');
+  }
 })();
 </script>
 </body>
