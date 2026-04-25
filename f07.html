@@ -82,7 +82,7 @@
 </head>
 <body>
 <div class="canvas" id="canvas">
-  <div class="hero-band" id="hero-band"></div>
+  <div class="hero-band" id="hero"></div>
   <img class="logo" id="logo" alt="Só Rio">
   <img class="selo" id="selo" alt="Selo Só Rio">
   <div class="bottom-band" id="bottom-band">
@@ -140,7 +140,7 @@
   var heroPx = Math.round(canvasH * heroHeightPct);
   var bottomPx = canvasH - heroPx;
 
-  var heroEl = document.getElementById('hero-band');
+  var heroEl = document.getElementById('hero');
   heroEl.style.backgroundImage = 'url("' + hero + '")';
   heroEl.style.backgroundPosition = heroPosition;
   heroEl.style.height = heroPx + 'px';

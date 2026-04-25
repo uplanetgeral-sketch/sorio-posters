@@ -135,7 +135,9 @@ If you choose F02 in experimental, you MUST justify in `rationale` why F01/F03/F
 - `F09 Negative Space Float` — flat bg colour 80% canvas, isolated subject floating off-centre at rule-of-thirds, type compact in opposite zone. **HIGH boldness through restraint.** Picks: premium boutique feel, isolated single subject.
 - `F10 Circular Frame` — hero in circular crop, type wraps around (textPath SVG) OR stacks vertical. **HIGH boldness, geometric.** Picks: ritual moments, signature cocktails, "stamp" feel.
 
-If user passed `family_preference` and it's allowed, honor it. If `family_preference` is not allowed (e.g. user asked F03 but product marks F03 as `avoid`), use second-most-compatible family AND log a `family_preference_overridden` note in `rationale`.
+**`family_preference` is STRICT** — if the user passed `family_preference` in the payload, you MUST use that exact family. No exceptions, no overrides, even if `product.family_compatibility` marks it as `avoid`. The user explicitly requested this family from the CLI/UI; respect their choice. The only exception is if the family doesn't exist (typo) — then return `{"error": "unknown_family", "family_preference": "..."}` with no other field.
+
+If `family_preference` is not in the payload (no user override), use the selection logic above (mode-based). If your auto-pick lands on a family the user might not expect, that's fine — you have full discretion when no preference is set.
 
 ### STEP 4 — Pick mood
 

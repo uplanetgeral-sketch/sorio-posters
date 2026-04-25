@@ -103,15 +103,16 @@ for family in "${FAMILIES[@]}"; do
         # Run, capturing stdout
         log_file="$BATTERY_DIR/${run_label}.log"
         if eval "$cmd" 2>&1 | tee "$log_file"; then
-            # Find the actual run dir from the log ("Run dir: ...")
-            actual_run_dir=$(grep -oE "Run dir:\s+\S+" "$log_file" | tail -1 | awk '{print $NF}')
+            # Find the actual run dir from the log — usar sed em vez de grep -oE
+            # porque \S+ pára em espaços (paths com "CREATIVE STUDIO" partem-se).
+            actual_run_dir=$(grep "^Run dir:" "$log_file" | tail -1 | sed 's/^Run dir:[[:space:]]*//')
             if [[ -n "$actual_run_dir" ]] && [[ -d "$actual_run_dir" ]]; then
                 # Symlink it under battery_dir
                 ln -sf "$actual_run_dir" "$BATTERY_DIR/${run_label}_run"
-                # Find final PNG
-                final_png=$(grep -oE "Final PNG:\s+\S+" "$log_file" | tail -1 | awk '{print $NF}')
-                final_score=$(grep -oE "Final score:\s+\S+" "$log_file" | tail -1 | awk '{print $NF}')
-                final_publishable=$(grep -oE "Final publishable:\s+\S+" "$log_file" | tail -1 | awk '{print $NF}')
+                # Find final PNG / score / publishable (mesma lógica sed)
+                final_png=$(grep "^Final PNG:" "$log_file" | tail -1 | sed 's/^Final PNG:[[:space:]]*//')
+                final_score=$(grep "^Final score:" "$log_file" | tail -1 | sed 's/^Final score:[[:space:]]*//' | sed 's|/100||')
+                final_publishable=$(grep "^Final publishable:" "$log_file" | tail -1 | sed 's/^Final publishable:[[:space:]]*//')
 
                 # Copy final PNG to battery_dir for easy access
                 if [[ -n "$final_png" ]] && [[ -f "$actual_run_dir/$final_png" ]]; then

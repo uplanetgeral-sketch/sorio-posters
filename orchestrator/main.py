@@ -81,7 +81,7 @@ def call_decisor(client, payload):
     system = (REPO_ROOT / "decisor" / "system_prompt.md").read_text(encoding="utf-8")
     response = client.messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=4096,
+        max_tokens=8192,
         system=system,
         messages=[{"role": "user", "content": json.dumps(payload, ensure_ascii=False)}],
     )
@@ -102,25 +102,74 @@ def call_critique(client, image_path, decision, principles, refs_index):
     media_type = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png"}.get(suffix, "image/png")
 
     text_payload = {"decision": decision, "principles": principles, "refs_index": refs_index}
-    response = client.messages.create(
-        model="claude-sonnet-4-5",
-        max_tokens=4096,
-        system=system,
-        messages=[{
-            "role": "user",
-            "content": [
-                {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": b64}},
-                {"type": "text", "text": json.dumps(text_payload, ensure_ascii=False)},
-            ],
-        }],
-    )
-    raw = response.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = raw.split("```", 2)[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.rsplit("```", 1)[0].strip()
-    return json.loads(raw)
+
+    # Tentar duas vezes — primeira com 8192 tokens, segunda (se truncado) com 16384.
+    # Critique writes long violations → 4096 era apertado.
+    for attempt, max_tok in enumerate([8192, 16384]):
+        response = client.messages.create(
+            model="claude-sonnet-4-5",
+            max_tokens=max_tok,
+            system=system,
+            messages=[{
+                "role": "user",
+                "content": [
+                    {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": b64}},
+                    {"type": "text", "text": json.dumps(text_payload, ensure_ascii=False)},
+                ],
+            }],
+        )
+        raw = response.content[0].text.strip()
+        if raw.startswith("```"):
+            raw = raw.split("```", 2)[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+            raw = raw.rsplit("```", 1)[0].strip()
+
+        # Detectar truncation (stop_reason='max_tokens' ou JSON malformed)
+        stop_reason = getattr(response, 'stop_reason', None)
+        truncated = (stop_reason == 'max_tokens')
+
+        try:
+            parsed = json.loads(raw)
+            if truncated and attempt == 0:
+                log("CRITIQUE", f"WARN truncated at {max_tok} tokens — retentar com mais tokens")
+                continue
+            return parsed
+        except json.JSONDecodeError as e:
+            log("CRITIQUE", f"JSON parse failed (attempt {attempt+1}): {e}")
+            if attempt == 0:
+                # Tentar salvage — fechar JSON truncado heurísticamente
+                salvaged = _salvage_truncated_json(raw)
+                if salvaged is not None:
+                    log("CRITIQUE", "JSON salvaged via heuristic")
+                    return salvaged
+                # Caso contrário, retry com mais tokens
+                log("CRITIQUE", f"Retentar com {16384} tokens")
+                continue
+            else:
+                # Última tentativa falhou — re-raise para o orchestrator decidir
+                raise
+
+    raise RuntimeError("Critique falhou em ambas as tentativas")
+
+
+def _salvage_truncated_json(raw):
+    """Tentar fechar JSON truncado. Útil quando Critique cortou no meio de uma string.
+    Devolve dict ou None se não conseguir."""
+    # Estratégia: ir cortando o final até encontrar JSON válido.
+    # Limita a 1000 tentativas (não loop infinito).
+    for chop in range(0, min(2000, len(raw)), 5):
+        candidate = raw[:len(raw) - chop]
+        # Tentar fechar com strings + arrays + objects pendentes
+        for closer in ['', '"', '"}', '"}]', '"}]}', '}', ']', ']}', '"]}', '"]}}']:
+            attempt_str = candidate + closer
+            try:
+                d = json.loads(attempt_str)
+                if isinstance(d, dict) and ('score' in d or 'violations' in d):
+                    return d
+            except Exception:
+                continue
+    return None
 
 
 def _is_local_path(s):

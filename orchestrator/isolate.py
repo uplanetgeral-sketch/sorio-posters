@@ -53,22 +53,44 @@ def _log(msg):
 
 
 def _isolate_via_rembg(source_path, out_path):
-    """rembg local — devolve True se OK."""
+    """rembg local com alpha matting para edges crisp.
+    Devolve True se OK."""
     if not HAS_REMBG:
         _log("rembg não instalado (`pip3 install rembg`) — skip")
         return False
     try:
         with open(source_path, "rb") as f:
             input_bytes = f.read()
-        _log(f"rembg processing {source_path.name} ({len(input_bytes)//1024}KB)...")
-        output_bytes = rembg_remove(input_bytes)
+        _log(f"rembg processing {source_path.name} ({len(input_bytes)//1024}KB) com alpha matting...")
+        # Alpha matting refina edges — mais lento (~5-10s extra) mas resultado muito superior.
+        # Foreground threshold: pixels >= 240 são definitivamente foreground.
+        # Background threshold: pixels <= 10 são definitivamente background.
+        # Erode size 5: erosão para criar trimap mais conservador.
+        output_bytes = rembg_remove(
+            input_bytes,
+            alpha_matting=True,
+            alpha_matting_foreground_threshold=240,
+            alpha_matting_background_threshold=10,
+            alpha_matting_erode_size=5,
+        )
         with open(out_path, "wb") as f:
             f.write(output_bytes)
         _log(f"rembg OK · output {len(output_bytes)//1024}KB · {out_path.name}")
         return True
     except Exception as e:
-        _log(f"rembg falhou: {e}")
-        return False
+        # Se alpha_matting falhar (pode acontecer com images grandes), fallback sem alpha matting
+        _log(f"rembg com alpha matting falhou: {e} · tentar sem")
+        try:
+            with open(source_path, "rb") as f:
+                input_bytes = f.read()
+            output_bytes = rembg_remove(input_bytes)
+            with open(out_path, "wb") as f:
+                f.write(output_bytes)
+            _log(f"rembg OK (sem alpha matting) · output {len(output_bytes)//1024}KB")
+            return True
+        except Exception as e2:
+            _log(f"rembg falhou completamente: {e2}")
+            return False
 
 
 def _isolate_via_gemini(source_path, out_path, api_key):
