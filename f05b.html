@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Só Rio · F05b Editorial Grid Info-Graphic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background: #F6F1E7;
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+  }
+  .canvas {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    background: #F6F1E7;
+    font-family: 'Inter', sans-serif;
+    color: #1C1C1A;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  /* MASTHEAD-TOP */
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 110px;
+    margin-bottom: 28px;
+  }
+  .logo { width: 130px; height: auto; }
+  .editorial-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.42em;
+    color: #6B4A2D;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  /* MAIN GRID — esquerda hero · direita info blocks */
+  .main {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    flex: 1;
+    min-height: 0;
+  }
+  .hero {
+    background-size: cover;
+    background-position: center;
+  }
+  .info-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .info-block {
+    border-top: 1px solid rgba(107,74,45,0.35);
+    padding-top: 22px;
+  }
+  .info-block:first-child { border-top: none; padding-top: 0; }
+  .info-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: #6B4A2D;
+    margin-bottom: 12px;
+  }
+  .ingredients-list {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.35;
+    color: #1C1C1A;
+  }
+  .quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.25;
+    color: #6B4A2D;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-number {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 86px;
+    line-height: 1;
+    letter-spacing: 0.005em;
+    color: #1C1C1A;
+  }
+  .stat-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #6B4A2D;
+    margin-top: 2px;
+  }
+  /* FOOTER */
+  .footer {
+    margin-top: 28px;
+    text-align: center;
+    border-top: 1px solid rgba(107,74,45,0.35);
+    padding-top: 28px;
+  }
+  .display-hero {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: #1C1C1A;
+  }
+  .accent {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    color: #6B4A2D;
+    margin-top: 8px;
+  }
+  .info-bottom {
+    margin-top: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.42em;
+    color: #6B4A2D;
+    text-transform: uppercase;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="masthead-top">
+    <img class="logo" id="logo" alt="Só Rio">
+    <div class="editorial-label" id="editorial-label"></div>
+  </div>
+
+  <div class="main">
+    <div class="hero" id="hero"></div>
+    <div class="info-stack">
+      <div class="info-block" id="block-ingredients">
+        <div class="info-label">Ingredientes</div>
+        <div class="ingredients-list" id="ingredients-list"></div>
+      </div>
+      <div class="info-block" id="block-quote">
+        <div class="info-label">Ritual</div>
+        <div class="quote" id="quote"></div>
+      </div>
+      <div class="info-block" id="block-stat">
+        <div class="info-label" id="stat-label-top"></div>
+        <div class="stat">
+          <div class="stat-number" id="stat-number"></div>
+          <div class="stat-label" id="stat-label"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="display-hero" id="title"></div>
+    <div class="accent" id="accent"></div>
+    <div class="info-bottom" id="info-bottom"></div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  function get(k, d) { var v = p.get(k); return (v === null || v === "") ? d : v; }
+  function bool(k, d) { var v = p.get(k); if (v === null) return d; return v === "1" || v === "true"; }
+  function num(k, d) { var v = p.get(k); if (v === null || v === "") return d; var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+  var logo = get('logo', 'assets/logo.png');
+  var hero = get('hero', 'assets/hero-sample.png');
+
+  var ingredientsRaw = get('ingredients', 'Maracujá|Lima|Cachaça|Mel do Ribatejo');
+  var quote = get('quote', 'Sem pressa. Com rio.');
+  var statNumber = get('stat_number', '20:14');
+  var statLabel = get('stat_label', 'Hora do sunset');
+  var statLabelTop = get('stat_label_top', 'Pico da Estação');
+
+  var title = get('title', 'Caipirinha de Maracujá');
+  var accent = get('accent', 'Verão Sem Pressa · Vol. IV');
+  var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
+  var editorialLabel = get('editorial_label', 'Ritual Só Rio');
+
+  var showLogo = bool('show_logo', true);
+  var showLabel = bool('show_label', true);
+  var showIngredients = bool('show_ingredients', true);
+  var showQuote = bool('show_quote', true);
+  var showStat = bool('show_stat', true);
+  var showAccent = bool('show_accent', true);
+  var showInfoBottom = bool('show_info_bottom', true);
+
+  var titleSize = num('title_size', 64);
+  var heroPosition = get('hero_position', 'center');
+
+  document.getElementById('logo').src = logo;
+  if (!showLogo) document.getElementById('logo').classList.add('hidden');
+  document.getElementById('editorial-label').textContent = editorialLabel;
+  if (!showLabel) document.getElementById('editorial-label').classList.add('hidden');
+
+  document.getElementById('hero').style.backgroundImage = 'url("' + hero + '")';
+  document.getElementById('hero').style.backgroundPosition = heroPosition;
+
+  // Ingredients list (split por '|')
+  var ingredients = ingredientsRaw.split('|').map(function(s){ return s.trim(); }).filter(Boolean);
+  document.getElementById('ingredients-list').innerHTML = ingredients.map(function(i){
+    return i.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }).join('<br>');
+  if (!showIngredients) document.getElementById('block-ingredients').classList.add('hidden');
+
+  document.getElementById('quote').textContent = quote;
+  if (!showQuote) document.getElementById('block-quote').classList.add('hidden');
+
+  document.getElementById('stat-number').textContent = statNumber;
+  document.getElementById('stat-label').textContent = statLabel;
+  document.getElementById('stat-label-top').textContent = statLabelTop;
+  if (!showStat) document.getElementById('block-stat').classList.add('hidden');
+
+  var titleEl = document.getElementById('title');
+  titleEl.innerHTML = title.split('|').map(function(l){
+    return l.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }).join('<br>');
+  titleEl.style.fontSize = titleSize + 'px';
+  document.getElementById('accent').textContent = accent;
+  document.getElementById('info-bottom').textContent = infoBottom;
+  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+  if (!showInfoBottom) document.getElementById('info-bottom').classList.add('hidden');
+})();
+</script>
+</body>
+</html>
