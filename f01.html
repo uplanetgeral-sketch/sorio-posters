@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="_shared/branding.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
@@ -181,6 +182,10 @@
   if (!showAccent) document.getElementById('accent').classList.add('hidden');
   if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
   if (!showInfoBottom) document.getElementById('info-bottom').classList.add('hidden');
+  // Universal branding override — lê logo_position/scale + selo_position/scale do URL
+  if (typeof applyBranding === 'function') {
+    applyBranding({ canvasW, canvasH, heightScale, widthScale, p, logo, selo });
+  }
 })();
 </script>
 </body>

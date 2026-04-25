@@ -205,6 +205,18 @@ For the chosen template family, fill in:
 - `hero_position` — default `"center 55%"` for COMP-01 lower-third focal
 - `show_*` flags — all true by default; override only if a principle/family demands
 
+#### Universal branding placement (ALL families v1.6+)
+Each template aceita estes params para variar logo/selo. Decisor deve usá-los em variation/experimental para evitar repetição visual:
+- `logo_position` — `"top-left"` (default) | `"top-center"` | `"top-right"` | `"bottom-left"` | `"bottom-right"` | `"hidden"`. Para refs com logo centrado top, usar `"top-center"`. Logo bottom é raro mas válido para layouts onde o subject ocupa toda a top half.
+- `logo_scale` — `0.6..1.4`, default `1.0`. Scale `0.7-0.8` quando o logo é discreto (F09 negative space, F06 type-as-subject); `1.2-1.3` para statement layouts (F07 cover).
+- `selo_position` — `"top-right"` (default) | `"top-left"` | `"top-center"` | `"bottom-right"` | `"bottom-left"` | `"over-hero"` (centro grande sobre hero, F07 cover-style stamp) | `"hidden"`.
+- `selo_scale` — `0.5..1.6`, default `1.0`. Scale `0.5-0.7` para selo sutil inline com type (F09); `1.3-1.6` para selo dominante como statement (F07 over-hero, F06 inline grande).
+
+**Quando usar variação**:
+- Standard mode → defaults. Não perder tempo a variar logo/selo.
+- Variation/experimental → DEVE variar baseado nos `inspired_by` refs. Se ref tem logo centrado, aplica `logo_position: "top-center"`. Se ref tem selo bottom, aplica `selo_position: "bottom-right"`. Se ref tem selo grande estilo cover-stamp, `selo_position: "over-hero"` + `selo_scale: 1.4`.
+- Documentar a escolha em `experimentation_log.creative_risks_taken` referenciando o ref.
+
 #### Family-specific extras
 - `F01`: `editorial_label` (PT-PT), `title_size` (instead of display_size), `accent_size`
 - `F03` (Editorial Split — Action & Motion):

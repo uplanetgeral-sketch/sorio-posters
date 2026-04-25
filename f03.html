@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="_shared/branding.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
@@ -40,15 +41,8 @@
     background-position: center;
     z-index: 2;
   }
-  /* Edge gradient subtil entre hero e bloco para suavizar transição */
-  .seam {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 60px;
-    z-index: 3;
-    pointer-events: none;
-  }
+  /* Seam removed v1.6 — hard edge entre block e hero é correcto editorial.
+     Soft gradient criava linha aparente que parecia misaligned. */
 
   /* MASTHEAD-TOP em-line — logo + selo dentro dos blocos */
   .logo {
@@ -145,7 +139,6 @@
 <div class="canvas" id="canvas">
   <div class="block" id="block"></div>
   <div class="hero" id="hero"></div>
-  <div class="seam" id="seam"></div>
 
   <svg class="diag hidden" id="diag" width="1080" height="1350" xmlns="http://www.w3.org/2000/svg">
     <line id="diag-line" x1="0" y1="0" x2="0" y2="0"
@@ -245,18 +238,12 @@
   heroEl.style.backgroundPosition = heroPosition;
   heroEl.style.width = heroPx + 'px';
 
-  var seamEl = document.getElementById('seam');
-
   if (blockSide === 'right') {
     blockEl.style.right = '0';
     heroEl.style.left = '0';
-    seamEl.style.right = blockPx + 'px';
-    seamEl.style.background = 'linear-gradient(90deg, rgba(0,0,0,0) 0%, ' + bgColor + ' 100%)';
   } else {
     blockEl.style.left = '0';
     heroEl.style.right = '0';
-    seamEl.style.left = blockPx + 'px';
-    seamEl.style.background = 'linear-gradient(270deg, rgba(0,0,0,0) 0%, ' + bgColor + ' 100%)';
   }
 
   // Aplicar tilt subtil ao hero (motion)
@@ -380,6 +367,10 @@
       echoEl.style.right = '0';
     }
     echoEl.classList.remove('hidden');
+  }
+  // Universal branding override — lê logo_position/scale + selo_position/scale do URL
+  if (typeof applyBranding === 'function') {
+    applyBranding({ canvasW, canvasH, heightScale, widthScale, p, logo, selo });
   }
 })();
 </script>

@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@500&display=swap" rel="stylesheet">
+<script src="_shared/branding.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { width: 1080px; height: 1350px; overflow: hidden; background: #1C1C1A; }
@@ -117,15 +118,18 @@
   var accent = get('accent', 'Calmo, dourado, nosso.');
   var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
 
-  var sliceAngle = num('slice_angle', 18);
+  // F08 v2 defaults — slice mais gentil, hero protagonista
+  var sliceAngle = num('slice_angle', 12);  // era 18 — agora 12° menos agressivo
   sliceAngle = Math.max(-25, Math.min(25, sliceAngle));
-  var slicePosition = num('slice_position', 0.50);
-  slicePosition = Math.max(0.35, Math.min(0.65, slicePosition));
+  var slicePosition = num('slice_position', 0.42);  // era 0.50 — agora 0.42 = block 42%, hero 58%
+  slicePosition = Math.max(0.30, Math.min(0.65, slicePosition));
   var heroSide = get('hero_side', 'right');
   var bgColor = get('bg_color', '#3F5548');
   var displaySize = num('display_size', Math.round(130 * heightScale));
   var accentSize = num('accent_size', Math.round(36 * heightScale));
   var heroPosition = get('hero_position', 'center');
+  // typeRotated=false default — slice fornece motion; texto horizontal mantém legibilidade.
+  // Quando true, ROTA O BLOCO TODO de tipografia junto (não só display) para coerência.
   var typeRotated = bool('type_rotated', false);
 
   var showLogo = bool('show_logo', true);
@@ -183,11 +187,11 @@
     typoEl2.style.textAlign = 'right';
   }
 
-  // Optional rotated display matching slice angle
+  // Optional rotated typography matching slice angle — roda BLOCO TODO, não só display
   if (typeRotated) {
-    var displayEl = document.getElementById('display-slice');
-    displayEl.style.transform = 'rotate(' + (-sliceAngle * 0.6) + 'deg)';
-    displayEl.style.transformOrigin = 'left center';
+    var typoBlock = document.getElementById('typo');
+    typoBlock.style.transform = 'rotate(' + (-sliceAngle * 0.5) + 'deg)';
+    typoBlock.style.transformOrigin = (heroSide === 'right' ? 'left' : 'right') + ' center';
   }
 
   // Logo + selo
@@ -229,6 +233,10 @@
   if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
   if (!showAccent) document.getElementById('accent').classList.add('hidden');
   if (!showInfoBottom) infoBottomEl.classList.add('hidden');
+  // Universal branding override — lê logo_position/scale + selo_position/scale do URL
+  if (typeof applyBranding === 'function') {
+    applyBranding({ canvasW, canvasH, heightScale, widthScale, p, logo, selo });
+  }
 })();
 </script>
 </body>
