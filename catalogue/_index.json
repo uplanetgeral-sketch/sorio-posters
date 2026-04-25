@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "client": "Só Rio",
+  "scope": "Catálogo de produtos do menu Só Rio. Cada entrada aponta para uma sub-pasta com product.json + object_sheet.png + vision_analysis.json + approved_heroes/. Consumido pelo Decisor (input crítico para layout específico de produto) e pelo Designer/Gemini (object_sheet.png como visual reference).",
+  "last_updated": "2026-04-25",
+  "curator": "Gonçalo Carvoeiras · Bolder AI Creative Studio",
+  "philosophy": "Brand DNA (Blueprint) + Menu DNA (este catálogo) = sistema completo. Sem catálogo, o Decisor decide layouts mas inventa ingredientes. Com catálogo, fala fielmente da casa.",
+
+  "stats": {
+    "total_products": 0,
+    "by_category": {
+      "BEBIDA": 0,
+      "PRATO": 0,
+      "AMBIENTE": 0,
+      "RITUAL": 0
+    },
+    "by_subcategory": {
+      "cocktail": 0,
+      "spritz": 0,
+      "wine": 0,
+      "snack": 0,
+      "main": 0,
+      "dessert": 0
+    }
+  },
+
+  "products": [],
+
+  "schema_example": {
+    "_comment": "Esta entry NÃO é real — apenas mostra a forma. Eliminar quando houver produtos reais.",
+    "id": "caipirinha_maracuja",
+    "name": "Caipirinha de Maracujá",
+    "folder": "produtos/caipirinha_maracuja/",
+    "object_sheet": "produtos/caipirinha_maracuja/object_sheet.png",
+    "category": "BEBIDA",
+    "subcategory": "cocktail",
+    "mood_default": "evening_riverside",
+    "ingredients_short": "Maracujá · Lima · Cachaça · Mel",
+    "approved_heroes_count": 1,
+    "added_date": "2026-04-25",
+    "last_updated": "2026-04-25"
+  }
+}

@@ -254,6 +254,47 @@
     }
   },
 
+  "severity_modifiers": {
+    "description": "Como cada princípio se comporta nos 3 modos do Decisor (ver creative_modes.json). 'core' = identidade da marca, NUNCA muda em qualquer modo. 'soft' = pode aliviar com creative_freedom maior.",
+    "schema": "principle_id → { standard, variation, experimental }",
+    "modifiers": {
+      "UNI-01": { "standard": "critical", "variation": "critical", "experimental": "major", "type": "soft" },
+      "UNI-02": { "standard": "major",    "variation": "minor",    "experimental": "minor", "type": "soft" },
+      "UNI-03": { "standard": "major",    "variation": "minor",    "experimental": "minor", "type": "soft" },
+      "UNI-04": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" },
+      "UNI-05": { "standard": "minor",    "variation": "ignore",   "experimental": "ignore", "type": "soft" },
+      "TYPO-01": { "standard": "critical", "variation": "major",   "experimental": "minor", "type": "soft" },
+      "TYPO-02": { "standard": "major",    "variation": "minor",   "experimental": "ignore", "type": "soft" },
+      "TYPO-03": { "standard": "major",    "variation": "minor",   "experimental": "minor", "type": "soft" },
+      "TYPO-04": { "standard": "major",    "variation": "minor",   "experimental": "minor", "type": "soft" },
+      "COMP-01": { "standard": "major",    "variation": "minor",   "experimental": "ignore", "type": "soft" },
+      "COMP-02": { "standard": "minor",    "variation": "ignore",  "experimental": "ignore", "type": "soft" },
+      "COMP-03": { "standard": "major",    "variation": "major",   "experimental": "minor", "type": "soft" },
+      "COMP-04": { "standard": "minor",    "variation": "ignore",  "experimental": "ignore", "type": "soft" },
+      "COLOR-01": { "standard": "major",   "variation": "minor",   "experimental": "minor", "type": "soft" },
+      "COLOR-02": { "standard": "major",   "variation": "minor",   "experimental": "minor", "type": "soft" },
+      "COLOR-03": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" },
+      "LEG-01": { "standard": "major",     "variation": "major",   "experimental": "major", "type": "soft" },
+      "LEG-02": { "standard": "minor",     "variation": "ignore",  "experimental": "ignore", "type": "soft" },
+      "LEG-03": { "standard": "minor",     "variation": "ignore",  "experimental": "ignore", "type": "soft" },
+      "FAM-F02-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
+      "FAM-F03-01": { "standard": "major",  "variation": "minor",  "experimental": "ignore", "type": "soft" },
+      "FAM-F05a-01": { "standard": "major", "variation": "minor",  "experimental": "ignore", "type": "soft" },
+      "FAM-F05b-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
+      "ANTI-01": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" },
+      "ANTI-02": { "standard": "minor",    "variation": "ignore",   "experimental": "ignore", "type": "soft" },
+      "ANTI-03": { "standard": "minor",    "variation": "ignore",   "experimental": "ignore", "type": "soft" },
+      "ANTI-04": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" }
+    },
+    "core_invariants": [
+      "UNI-04 · Restrição cromática (paleta)",
+      "COLOR-03 · Paleta Blueprint",
+      "ANTI-01 · Garnish nunca inventado",
+      "ANTI-04 · Nunca figuras públicas reais"
+    ],
+    "see_also": "creative_modes.json"
+  },
+
   "references": {
     "see_also": "design_references/_index.json",
     "philosophy": "Princípios = guardrails (evita falhas). Referências = aspirações (steer toward good). Os dois inputs são complementares para o Claude Decisor."

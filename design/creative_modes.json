@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "client": "Só Rio",
+  "scope": "Define os 3 modos de operação do Decisor (standard / variation / experimental) — quanto da brand pode ser desafiada, quais refs ficam disponíveis, como princípios mudam de severidade. Consumido pelo Decisor (Fase D) e exposto na Boldy como slider/presets.",
+  "last_updated": "2026-04-25",
+  "philosophy": "A marca não é prisão. Tem core (paleta, identidade, ANTI-patterns) que nunca cede. Mas tem periferia (tipografia exacta, layout exacto, mood exacto) que pode ceder a serviço de comunicação mais forte. Os 3 modos definem quando ceder.",
+
+  "modes": [
+    {
+      "id": "standard",
+      "label": "Standard",
+      "creative_freedom_range": [0.0, 0.3],
+      "default_freedom": 0.15,
+      "description": "Brand-faithful máximo. Usado para: comunicação operacional regular (post de bebida do dia, post de prato em destaque, posts repetidos da mesma família). Coerência total com o Blueprint e Principles.",
+      "refs_pool": ["canonical", "analog"],
+      "principles_severity": "use 'standard' column from severity_modifier",
+      "documentation_required": false,
+      "vision_critique_threshold": 75,
+      "use_cases": [
+        "Daily drop social media (post operacional)",
+        "Posts de série (5 cocktails iguais, formato consistente)",
+        "Ads paid (consistência crítica)"
+      ]
+    },
+    {
+      "id": "variation",
+      "label": "Variation",
+      "creative_freedom_range": [0.3, 0.6],
+      "default_freedom": 0.45,
+      "description": "Mantém tom e identidade mas pisca para fora. Decisor pode quebrar minor/major principles em casos justificados, documentar a escolha, usar refs exploration. Usado para: posts âncora de campanha, anúncios de evento, conteúdos editoriais semanais.",
+      "refs_pool": ["canonical", "analog", "exploration"],
+      "principles_severity": "use 'variation' column from severity_modifier",
+      "documentation_required": true,
+      "vision_critique_threshold": 70,
+      "use_cases": [
+        "Post âncora de Verão (1 por mês)",
+        "Anúncio de evento especial (Mesa do Chef, Pico da Estação)",
+        "Conteúdo editorial (carrossel storytelling)",
+        "Stories quando se quer um beat diferente"
+      ],
+      "documentation_format": {
+        "principle_broken": "FAM-F02-01",
+        "reason": "string · porque foi necessário",
+        "ref_inspiration": "ref_007_kinfolk_minimal_typography",
+        "approved_by_critique": true
+      }
+    },
+    {
+      "id": "experimental",
+      "label": "Experimental",
+      "creative_freedom_range": [0.6, 1.0],
+      "default_freedom": 0.75,
+      "description": "Bold move. Decisor usa todas as refs (incluindo provocation), pode quebrar major principles MAS NUNCA critical (paleta, ANTI-patterns, identidade). Usado para: campanhas-chave, lançamentos, momentos disruptivos. Sempre acompanhado de aprovação humana antes de publicar.",
+      "refs_pool": ["canonical", "analog", "exploration", "provocation"],
+      "principles_severity": "use 'experimental' column from severity_modifier",
+      "documentation_required": true,
+      "vision_critique_threshold": 60,
+      "human_approval_required": true,
+      "use_cases": [
+        "Campanha de abertura/encerramento de estação",
+        "Colaborações especiais",
+        "Aniversário Só Rio",
+        "Apresentação a imprensa / lookbook anual",
+        "Momentos manifesto"
+      ]
+    }
+  ],
+
+  "boldy_presets": [
+    {
+      "id": "daily_drop",
+      "label": "Daily Drop",
+      "icon": "circle",
+      "mode": "standard",
+      "creative_freedom": 0.15,
+      "tooltip": "Brand-faithful · máxima coerência · uso diário"
+    },
+    {
+      "id": "fresh_take",
+      "label": "Fresh Take",
+      "icon": "leaf",
+      "mode": "variation",
+      "creative_freedom": 0.45,
+      "tooltip": "Mantém tom mas pisca · campanhas semanais · âncoras"
+    },
+    {
+      "id": "bold_move",
+      "label": "Bold Move",
+      "icon": "spark",
+      "mode": "experimental",
+      "creative_freedom": 0.8,
+      "tooltip": "Para campanhas-chave · revisão humana obrigatória"
+    }
+  ],
+
+  "core_invariants": {
+    "description": "O que NUNCA muda independentemente do modo. Estes princípios são a identidade — se cedem, deixa de ser Só Rio.",
+    "principle_ids": [
+      "UNI-04",
+      "COLOR-03",
+      "ANTI-01",
+      "ANTI-04"
+    ],
+    "non_negotiables_text": [
+      "Paleta restrita às 8 cores do Blueprint",
+      "Tipografia em uma das 2 cores (off-white ou dourado)",
+      "Garnish nunca inventado dentro de bebidas",
+      "Nunca figuras públicas reais"
+    ]
+  },
+
+  "experimentation_log_path": "design/experimentation_log.json",
+  "experimentation_log_format": {
+    "_comment": "Cada vez que o Decisor opera em variation/experimental, escreve uma linha aqui. Em 1-2 meses temos dataset para hardcode regras boas/eliminar más.",
+    "entries_schema": {
+      "timestamp": "ISO datetime",
+      "product_id": "string",
+      "mode": "variation | experimental",
+      "creative_freedom": "float",
+      "principles_relaxed": ["array of principle IDs"],
+      "refs_inspired_by": ["array of ref IDs"],
+      "decision_summary": "string",
+      "vision_critique_score": "int 0-100",
+      "human_approved": "boolean",
+      "human_notes": "string"
+    }
+  }
+}
