@@ -33,7 +33,7 @@ Note systematically:
 - **Typography** — are 3 layers present (display + accent + info)? sizes consistent? hierarchy clear? legibility OK?
 - **Color** — palette restricted to 8 Só Rio colors? text in off-white or dourado only?
 - **Composition** — focal point single? respiration nas margens? rule-of-thirds applied?
-- **Family adherence** — for F02, overlay strong enough? For F03, bg flat (not wood deck)? For F05a, grid aligned? For F05b, no abstract shapes?
+- **Family adherence** — for F02, overlay strong enough? For **F03 (Editorial Split layout)**, is the **colour BLOCK half** (the side that holds the typography) a flat solid colour with no gradient/texture/pattern? **CRITICAL: F03's flat-colour rule applies ONLY to the block half. The hero photo half may have ANY natural textures (wood, herbs, dishes, ambient surfaces, grain) — that is NOT a F03 violation when image-first flow is used.** For F05a, grid aligned? For F05b, no abstract shapes?
 - **Anti-patterns** — any garnish inside drink that's NOT in real ingredients? Any abstract shapes (green circles, yellow squares)? Cream/beige default bg? Real public figures?
 - **Brand consistency** — does this feel Só Rio (premium, restrained, hospitality boutique)?
 

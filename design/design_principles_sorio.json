@@ -185,10 +185,21 @@
       },
       {
         "id": "FAM-F03-01",
-        "name": "F03 Action & Motion · fundo flat ou clean blur",
-        "rule": "F03 (ingredientes em movimento, splash) precisa de fundo simples: cor flat (Verde Salgueiro/Areia/Off-white) OU blur suave de exterior. NUNCA wood deck texturizado, NUNCA paredes com padrão. Razão: motion + texture = clutter.",
+        "name": "F03 Editorial Split · bloco de cor flat",
+        "rule": "F03 v2 é split layout: bloco de cor sólida (Verde Salgueiro / Madeira Queimada / Preto Rio / Areia) onde vive a tipografia + hero photo no lado oposto. Esta regra aplica-se EXCLUSIVAMENTE ao bloco de cor — o bloco tem de ser flat solid color, nunca texturizado, nunca gradiente, nunca padrão. NÃO se aplica à fotografia do hero — a foto pode ter mesa de madeira, granulado, plano de fundo natural. Em image-first flow (user fornece o hero), a textura interna da foto é responsabilidade editorial do user, não do template. O critique deve avaliar APENAS a metade do bloco.",
         "applies_to": "F03",
-        "fail_signs": ["ingredientes voadores sobre madeira queimada granulada", "splash + ramos + parede de pedra"]
+        "fail_signs": [
+          "bloco de cor com gradiente em vez de flat",
+          "bloco de cor com padrão/textura/noise",
+          "bloco de cor com imagem de fundo blurred",
+          "bloco de cor a degradar para hero side sem hard edge"
+        ],
+        "does_not_apply_to": [
+          "textura natural dentro da fotografia hero (mesa de madeira, ingredientes, ambient surfaces)",
+          "grain fotográfico inerente ao hero",
+          "transições de luminosidade dentro da foto"
+        ],
+        "image_first_note": "Quando hero é fornecido externamente (Boldy image-first), o Vision Critique deve focar-se apenas no bloco lateral ao avaliar este principle. Hero side é avaliado por outros principles (UNI-01 hero presence, COMP-01 subject position, COLOR-01 hero/typography contrast)."
       },
       {
         "id": "FAM-F05a-01",
@@ -215,8 +226,8 @@
       },
       {
         "id": "ANTI-02",
-        "name": "Wood deck + motion = clutter",
-        "rule": "Combinação proibida: hero com ingredientes em movimento (F03) sobre fundo de wood deck texturizado. Ver FAM-F03-01."
+        "name": "F03 bloco texturizado",
+        "rule": "Em F03 v2 (editorial split), o bloco de cor lateral nunca pode ter textura, padrão ou gradiente. Tem de ser flat solid color. Ver FAM-F03-01. Esta anti-pattern NÃO se aplica ao hero side — a fotografia user-supplied pode ter qualquer textura natural."
       },
       {
         "id": "ANTI-03",
