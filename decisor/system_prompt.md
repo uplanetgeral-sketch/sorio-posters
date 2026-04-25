@@ -142,6 +142,17 @@ For the chosen template family, fill in:
   - if `product.selo_color_pref == "auto"`: apply COLOR-02 logic with `product.visual_dna.dominant_colors`
   - else: use the explicit pref
   - format: `"assets/selos/<selo>-<color>.png"`
+  - **WHITELIST OF VALID SELO PATHS — only output one of these EXACT strings:**
+    - `assets/selos/sunset-creme.png` · `assets/selos/sunset-dourado.png` · `assets/selos/sunset-verde.png`
+    - `assets/selos/chef-creme.png` · `assets/selos/chef-dourado.png` · `assets/selos/chef-verde.png`
+    - `assets/selos/pico-creme.png` · `assets/selos/pico-dourado.png` · `assets/selos/pico-verde.png`
+    - `assets/selos/rio-says-creme.png` · `assets/selos/rio-says-dourado.png` · `assets/selos/rio-says-verde.png`
+    - `assets/selos/mesa-creme.png` · `assets/selos/mesa-dourado.png` · `assets/selos/mesa-verde.png`
+    - `assets/selos/ritual-creme.png` · `assets/selos/ritual-dourado.png` · `assets/selos/ritual-verde.png`
+  - Mapping `product.selo_recommendation` value → selo prefix:
+    - `sunset` → `sunset` · `mesa_chef` or `mesa` → `mesa` · `pico_estacao` or `pico` → `pico`
+    - `rio_says` → `rio-says` · `para_a_mesa` → `mesa` · `ritual_so_rio` or `ritual` → `ritual`
+  - **NEVER invent selo filenames. If `product.selo_recommendation` value doesn't map cleanly, use `ritual` as fallback.**
 - `title` — from `product.name`. Apply TYPO-02 line break with `|` if 2+ words and longest word doesn't fit single-line at chosen size
 - `accent` — pick best from `product.claim_recommendations` weighted by mood + context (≤8 words per TYPO-03)
 - `info_top` — `product.ingredients.display_short` (already ≤36 chars per TYPO-04 constraint enforced at catalogue ingest)

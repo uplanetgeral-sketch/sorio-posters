@@ -182,14 +182,23 @@
 
   var overlayEl = document.getElementById('overlay');
   var s = overlayStrength;
+  // Curva re-equilibrada — quando s > 1.0 também sobe o break-point do gradient,
+  // tornando a zona escura mais dominante (mais palco para tipografia bottom).
+  // s=1.0 → bottom escuro arranca em 55% · s=1.4 → bottom escuro arranca em 45% (palco maior)
+  var breakStart = 18;
+  var breakMid = Math.max(40, 55 - (s - 1.0) * 25);  // s=1.0 → 55% · s=1.4 → 45% · s=1.6 → 40%
+  var s72 = 72 - (s - 1.0) * 8;                       // s=1.0 → 72 · s=1.4 → 68.8 · s=1.6 → 67.2
+  var alpha72 = Math.min(1, 0.45 * s);
+  var alpha90 = Math.min(1, 0.85 * s);
+  var alpha100 = Math.min(1, 0.95 * s);
   overlayEl.style.background =
     'linear-gradient(180deg,' +
-      'rgba(28,28,26,' + (0.35 * s) + ') 0%,' +
-      'rgba(28,28,26,0.00) 18%,' +
-      'rgba(28,28,26,0.00) 55%,' +
-      'rgba(28,28,26,' + (0.45 * s) + ') 72%,' +
-      'rgba(28,28,26,' + (0.85 * s) + ') 90%,' +
-      'rgba(28,28,26,' + Math.min(1, 0.95 * s) + ') 100%' +
+      'rgba(28,28,26,' + (0.35 * s).toFixed(3) + ') 0%,' +
+      'rgba(28,28,26,0.00) ' + breakStart + '%,' +
+      'rgba(28,28,26,0.00) ' + breakMid.toFixed(1) + '%,' +
+      'rgba(28,28,26,' + alpha72.toFixed(3) + ') ' + s72.toFixed(1) + '%,' +
+      'rgba(28,28,26,' + alpha90.toFixed(3) + ') 90%,' +
+      'rgba(28,28,26,' + alpha100.toFixed(3) + ') 100%' +
     ')';
 
   var logoEl = document.getElementById('logo');
