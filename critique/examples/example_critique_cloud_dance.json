@@ -1,0 +1,50 @@
+{
+  "_comment": "Exemplo manualmente escrito do output ideal do Vision Critique para o Cloud Dance F03 que gerámos hoje. Útil como golden test e para understanding do esquema.",
+
+  "critique_id": "20260425_140530_cloud_dance",
+  "decision_id": "20260425_140000_cloud_dance",
+  "product_id": "cloud_dance",
+  "family_critiqued": "F03",
+  "mode_evaluated": "standard",
+
+  "score": 92,
+  "publishable": true,
+  "publishable_threshold": 75,
+
+  "violations": [],
+  "principles_passed": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-03",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-02",
+    "TYPO-03",
+    "TYPO-04",
+    "COMP-01",
+    "COMP-03",
+    "COMP-04",
+    "COLOR-01",
+    "COLOR-02",
+    "COLOR-03",
+    "LEG-01",
+    "LEG-02",
+    "LEG-03",
+    "FAM-F03-01",
+    "ANTI-01",
+    "ANTI-02",
+    "ANTI-03",
+    "ANTI-04"
+  ],
+
+  "closest_ref": "ref_010_negroni_week_mombasa_editorial",
+  "closest_ref_similarity": 0.78,
+  "closest_ref_notes": "Hero subject lower-third + dark warm bg + tracked caps subtitle minimal + restraint absoluta — mesma linguagem editorial premium.",
+
+  "suggested_fixes": [],
+
+  "vision_summary": "Poster Cloud Dance em F03 com hero motion full-bleed mostrando coupe glass com foam, pear slice e vanilla pods + pear peel ribbon a dançar em background flat cocoa-brown. Logo Só Rio top-left, selo Ritual creme top-right. Tipografia bottom-left assimétrica: tracked caps 'Vodka Pera · Bianco · Baunilha' acima do display 'CLOUD DANCE' Oswald, accent 'Sem pressa. Com rio.' italic dourado, footer tracked dourado 'Valada do Ribatejo · sorio.pt'. Fundo flat respeita FAM-F03-01. Garnish todo real (vanilla pods + pear peel = ingredientes do drink). Tipografia 3 camadas Blueprint. Paleta restrita às 8 cores Só Rio.",
+
+  "human_review_required": false
+}

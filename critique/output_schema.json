@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vision Critique Output Schema v1.0",
+  "type": "object",
+  "required": [
+    "critique_id",
+    "product_id",
+    "family_critiqued",
+    "mode_evaluated",
+    "score",
+    "publishable",
+    "publishable_threshold",
+    "violations",
+    "principles_passed",
+    "closest_ref",
+    "closest_ref_similarity",
+    "suggested_fixes",
+    "vision_summary",
+    "human_review_required"
+  ],
+  "properties": {
+    "critique_id": {"type": "string"},
+    "decision_id": {"type": "string"},
+    "product_id": {"type": "string"},
+    "family_critiqued": {"enum": ["F01", "F02", "F03", "F05a", "F05b"]},
+    "mode_evaluated": {"enum": ["standard", "variation", "experimental"]},
+
+    "score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "publishable": {"type": "boolean"},
+    "publishable_threshold": {"type": "integer"},
+
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["principle_id", "severity_in_mode", "evidence", "score_impact"],
+        "properties": {
+          "principle_id": {"type": "string"},
+          "severity_in_mode": {"enum": ["critical", "major", "minor", "ignore"]},
+          "evidence": {"type": "string"},
+          "score_impact": {"type": "integer", "maximum": 0}
+        }
+      }
+    },
+
+    "principles_passed": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+
+    "closest_ref": {"type": "string"},
+    "closest_ref_similarity": {"type": "number", "minimum": 0, "maximum": 1},
+    "closest_ref_notes": {"type": "string"},
+
+    "suggested_fixes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue", "fix_action", "principle_id"],
+        "properties": {
+          "issue": {"type": "string"},
+          "fix_action": {"type": "string"},
+          "url_param_change": {
+            "oneOf": [
+              {"type": "object"},
+              {"type": "null"}
+            ]
+          },
+          "designer_negative_prompt_addition": {
+            "oneOf": [
+              {"type": "string"},
+              {"type": "null"}
+            ]
+          },
+          "principle_id": {"type": "string"},
+          "expected_score_gain": {"type": "integer"}
+        }
+      }
+    },
+
+    "vision_summary": {"type": "string"},
+    "human_review_required": {"type": "boolean"}
+  }
+}
