@@ -1,0 +1,18 @@
+# Netlify config — sorio-posters
+# Deploy estático. Sem build step.
+
+[build]
+  publish = "."
+
+# CORS liberal para permitir screenshot por serviços externos (Placid, Playwright remoto, etc.)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=300"
+
+# Força UTF-8 em HTML (Google Fonts + acentos PT)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Content-Type = "text/html; charset=utf-8"

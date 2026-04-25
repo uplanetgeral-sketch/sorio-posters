@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Só Rio · F02 Full-Color Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background:#1C1C1A;
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+  }
+  .canvas {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    overflow: hidden;
+    background: #1C1C1A;
+    font-family: 'Inter', sans-serif;
+    color: #F6F1E7;
+  }
+  .hero {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+  }
+  .masthead-top {
+    position: absolute;
+    top: 70px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3;
+    height: 220px;
+  }
+  .logo {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+  }
+  .selo {
+    width: 220px;
+    height: 220px;
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.40));
+  }
+  .masthead-bottom {
+    position: absolute;
+    bottom: 70px;
+    left: 80px;
+    right: 80px;
+    z-index: 3;
+    text-align: center;
+  }
+  .info {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.28em;
+    color: #F6F1E7;
+    text-transform: uppercase;
+    opacity: 0.95;
+  }
+  .info-top { margin-bottom: 28px; }
+  .info-bottom {
+    margin-top: 34px;
+    color: #C89853;
+    font-size: 18px;
+    letter-spacing: 0.36em;
+  }
+  .display-hero {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: #F6F1E7;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+  .accent {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.05;
+    color: #C89853;
+    margin-top: 22px;
+    letter-spacing: 0.005em;
+  }
+  .wave {
+    width: 140px;
+    height: 20px;
+    margin: 26px auto 0;
+    display: block;
+    opacity: 0.80;
+  }
+  .hairline {
+    width: 56px;
+    height: 1.4px;
+    background: #C89853;
+    margin: 0 auto 22px;
+    opacity: 0.75;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="canvas" id="canvas">
+  <div class="hero" id="hero"></div>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="masthead-top" id="masthead-top">
+    <img class="logo" id="logo" alt="Só Rio">
+    <img class="selo" id="selo" alt="Selo Só Rio">
+  </div>
+
+  <div class="masthead-bottom">
+    <div class="hairline" id="hairline"></div>
+    <div class="info info-top" id="info-top"></div>
+    <div class="display-hero" id="display-hero"></div>
+    <svg class="wave" id="wave" viewBox="0 0 140 20" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <path d="M1 10 Q 18 1, 35 10 T 70 10 T 105 10 T 139 10"
+            stroke="#C89853" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <div class="accent" id="accent"></div>
+    <div class="info info-bottom" id="info-bottom"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  function get(k, d) { var v = p.get(k); return (v === null || v === "") ? d : v; }
+  function bool(k, d) { var v = p.get(k); if (v === null) return d; return v === "1" || v === "true"; }
+  function num(k, d) { var v = p.get(k); if (v === null || v === "") return d; var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+  // === ASSETS ===
+  var hero = get('hero', 'hero.png');
+  var logo = get('logo', 'logo.png');
+  var selo = get('selo', 'selo.png');
+
+  // === COPY (PT-PT defaults — Blueprint Só Rio v1.5) ===
+  var title = get('title', 'Caipirinha|de Maracujá');        // '|' = line break
+  var infoTop = get('info_top', 'Maracujá · Lima · Cachaça · Mel do Ribatejo');
+  var accent = get('accent', 'Sem pressa. Com rio.');
+  var infoBottom = get('info_bottom', 'Valada do Ribatejo · sorio.pt');
+
+  // === VISIBILITY ===
+  var showLogo = bool('show_logo', true);
+  var showSelo = bool('show_selo', true);
+  var showHairline = bool('show_hairline', true);
+  var showWave = bool('show_wave', true);
+  var showInfoTop = bool('show_info_top', true);
+  var showInfoBottom = bool('show_info_bottom', true);
+  var showAccent = bool('show_accent', true);
+
+  // === TYPOGRAPHY SIZES (overridable for long titles / short product names) ===
+  var displaySize = num('display_size', 108);    // px
+  var accentSize = num('accent_size', 46);       // px
+
+  // === OVERLAY INTENSITY ===
+  // 0.0 = no darkening, 1.0 = full default gradient, >1 = darker than default
+  var overlayStrength = num('overlay_strength', 1.0);
+
+  // === HERO FRAMING ===
+  var heroPosition = get('hero_position', 'center'); // e.g. "center", "50% 40%", "top", etc.
+
+  // === APPLY ===
+  var canvas = document.getElementById('canvas');
+  var heroEl = document.getElementById('hero');
+  heroEl.style.backgroundImage = 'url("' + hero + '")';
+  heroEl.style.backgroundPosition = heroPosition;
+
+  var overlayEl = document.getElementById('overlay');
+  var s = overlayStrength;
+  overlayEl.style.background =
+    'linear-gradient(180deg,' +
+      'rgba(28,28,26,' + (0.35 * s) + ') 0%,' +
+      'rgba(28,28,26,0.00) 18%,' +
+      'rgba(28,28,26,0.00) 55%,' +
+      'rgba(28,28,26,' + (0.45 * s) + ') 72%,' +
+      'rgba(28,28,26,' + (0.85 * s) + ') 90%,' +
+      'rgba(28,28,26,' + Math.min(1, 0.95 * s) + ') 100%' +
+    ')';
+
+  var logoEl = document.getElementById('logo');
+  var seloEl = document.getElementById('selo');
+  logoEl.src = logo;
+  seloEl.src = selo;
+  if (!showLogo) logoEl.classList.add('hidden');
+  if (!showSelo) seloEl.classList.add('hidden');
+
+  document.getElementById('info-top').textContent = infoTop;
+  document.getElementById('accent').textContent = accent;
+  document.getElementById('info-bottom').textContent = infoBottom;
+
+  var displayEl = document.getElementById('display-hero');
+  displayEl.innerHTML = title.split('|').map(function(l) {
+    return l.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }).join('<br>');
+  displayEl.style.fontSize = displaySize + 'px';
+
+  document.getElementById('accent').style.fontSize = accentSize + 'px';
+
+  if (!showHairline) document.getElementById('hairline').classList.add('hidden');
+  if (!showWave) document.getElementById('wave').classList.add('hidden');
+  if (!showInfoTop) document.getElementById('info-top').classList.add('hidden');
+  if (!showInfoBottom) document.getElementById('info-bottom').classList.add('hidden');
+  if (!showAccent) document.getElementById('accent').classList.add('hidden');
+})();
+</script>
+</body>
+</html>
