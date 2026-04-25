@@ -174,11 +174,20 @@ For the chosen template family, fill in:
 - `accent` — pick best from `product.claim_recommendations` weighted by mood + context (≤8 words per TYPO-03)
 - `info_top` — `product.ingredients.display_short` (already ≤36 chars per TYPO-04 constraint enforced at catalogue ingest)
 - `info_bottom` — default `"Valada do Ribatejo · sorio.pt"` unless brief overrides
-- `display_size` — from TYPO-01 table:
-  - ≤8 chars → 140–160
-  - 9–12 → 120–130
-  - 13–16 → 100–110
-  - 17–22 → 84–94
+- `display_size` — from TYPO-01 table. **Count chars including space and bracket as INCLUSIVE upper bound (≤). Apply UPPER bound of bracket in experimental, MIDDLE in variation, MIDDLE in standard.**
+  - ≤8 chars → 140–160 (e.g. "Esmeralda" 9 chars → wrong bracket, use 9-12)
+  - 9–12 chars → 120–130
+  - 13–16 chars → 100–110
+  - 17–22 chars → 84–94
+
+  **Worked examples — copy this logic exactly:**
+  - `title="Cloud Dance"` → `len("Cloud Dance") = 11 chars` → bracket 9-12 → standard mode pick 125 (middle), experimental pick 130 (upper). NOT 84-94 (that's bracket 17-22).
+  - `title="Caipirinha de Maracujá"` → 22 chars → bracket 17-22 → pick 88-94.
+  - `title="Mojito"` → 6 chars → bracket ≤8 → standard 150, experimental 160.
+  - `title="Ceviche de Peixe Branco"` → 23 chars → over bracket 17-22 → use lower bound 84 OR break with `|` into 2 lines (e.g. `Ceviche|de Peixe Branco` → line 1 = 7 chars, line 2 = 15 chars → display_size based on longest line = 15 → bracket 13-16 → pick 100-110 in experimental).
+  - `title="Tinto"` → 5 chars → bracket ≤8 → push to 160 in experimental for dramatic display.
+
+  **Crucial: count chars on the LONGEST line if title has `|` linebreak.** A two-line title like `Cloud|Dance` is `max(5, 5) = 5 chars` for size purposes, not 11. So `title="Cloud|Dance"` → 5 chars → bracket ≤8 → 140–160. Push to 160 in experimental.
 - `accent_size` — default 46, smaller if accent is long
 - `overlay_strength` — from COLOR-01 by `product.visual_dna.dominant_colors` luminance estimate:
   - dark dominant colors → 0.5–0.7
@@ -191,13 +200,14 @@ For the chosen template family, fill in:
 - `F01`: `editorial_label` (PT-PT), `title_size` (instead of display_size), `accent_size`
 - `F03` (Editorial Split — Action & Motion):
   - `block_side` — `"left"` or `"right"`. Determines which half holds the colour block + typography. Choose based on hero composition (subject leans left → block on right, and vice versa).
-  - `block_width` — `0.30` to `0.55`, default `0.45`. Wider block = more typography presence; narrower = hero dominates.
-  - `bg_color` — colour of the block. Default `#3F5548` (verde-salgueiro). Can use any Blueprint palette colour: `#6B7F5E` (verde-tejo), `#6B4A2D` (madeira queimada), `#1C1C1A` (preto-rio), `#D9C8A8` (areia).
-  - `tilt` — `-8` to `+8` degrees rotation applied to hero element. Use `±3..±6` for action energy. `0` = static.
+  - `block_width` — `0.30` to `0.55`, default `0.42`. Use `0.38–0.42` when hero is the protagonist (cocktails, signature dishes — let the photo dominate). Use `0.45–0.50` when typography needs to lead (editorial features, info-heavy posters).
+  - `bg_color` — colour of the block. **Subject to STEP 8.6 thermal contrast rule** — must be opposite temperature of hero. Allowed: `#3F5548` (verde-salgueiro), `#6B7F5E` (verde-tejo), `#6B4A2D` (madeira queimada), `#1C1C1A` (preto-rio), `#D9C8A8` (areia).
+  - `tilt` — `-8` to `+8` degrees rotation applied to hero element. Use `±3..±6` for action energy. `0` = static. In experimental, prefer `±4..±6` for visible motion.
   - `diag_intensity` — `0.0` to `1.0`, default `0.6`. Subtle diagonal accent line crossing the hero. Set `0` for stark/minimal, `0.8+` for high-motion energy.
-  - `hero_position` — `"center"`, `"left"`, `"right"`, or `"X% Y%"`.
+  - `hero_position` — `"center"` (default), `"left"`, `"right"`, or `"X% Y%"`. **Use `"center"` unless the hero photo subject is clearly off-centre and you want to compose around that asymmetry.**
   - `show_diag` — `1` or `0` to toggle the diagonal line entirely.
-  - `display_size` defaults to `120px @ 4:5` (smaller than F02 because typography lives in narrower block).
+  - `type_pattern` — `"none"` (default) or `"echo"`. When `"echo"`, the display title is repeated as subtle background pattern within the block (very low opacity, oversized type echo). Inspired by ref_005 sushi, ref_008 hoshi-poke, ref_023 — bold typographic depth move. Use in experimental for editorial daring; keep `"none"` for restrained classic.
+  - `display_size` defaults to `140px @ 4:5` (was 120 — increased per refs library showing bold display dominance).
 - `F05a`: `hero1`, `hero2`, `hero3`, `hero4`, `caption1..4` (4 close-up angles or 4 product variants), `editorial_label`
 - `F05b`: `ingredients` (pipe-separated), `quote`, `stat_number`, `stat_label`, `stat_label_top`, `editorial_label`
 
@@ -222,24 +232,50 @@ A short PT-PT string for the Vision Critique stage to anchor on. Include:
 Before writing the JSON, run this self-check:
 
 1. **Does the chosen family + url_params actually look different from a standard run?**
-   If you'd give the same `display_size`, `accent_size`, `overlay_strength`, `hero_position`, and `selo` choice as you'd give in standard mode, you have NOT been experimental — you've just relaxed one principle and called it experimental. Push at least 2 of these axes:
+   If you'd give the same `display_size`, `accent_size`, `overlay_strength`, `hero_position`, and `selo` choice as you'd give in standard mode, you have NOT been experimental — you've just relaxed one principle and called it experimental. Push at least 3 of these axes (was 2 — increased to 3):
    - **Family** — non-F02 (per STEP 3)
    - **Composition** — non-default `hero_position` (try `"top"`, `"left"`, `"right 35%"`, `"center 30%"`)
-   - **Typography scale** — display_size pushed to upper or lower bound of TYPO-01 table (not the safe middle)
+   - **Typography scale** — display_size pushed to **UPPER bound** of TYPO-01 table (not middle, not lower). Editorial bold refs in our library consistently use the largest type the layout can accept. When in doubt, go bigger by 10-20%.
    - **Overlay** — non-default strength (push to 0.3–0.6 OR 1.4–1.6 depending on hero luminance)
    - **Selo** — non-recommended colour variant if visual_dna supports it (and not `auto`-suggested)
    - **Show flags** — turn off something usually on (e.g. `show_hairline: 0` or `show_wave: 0` for stark editorial)
+   - **Block colour (F03 only)** — pick a Blueprint colour that is the OPPOSITE temperature of the hero (see STEP 8.6 below — this is mandatory, not optional)
 
 2. **Do your `inspired_by` refs actually shape `url_params`?**
    For each ref you cite, ask: "what specific visual element from this ref am I translating into params?"
    - If ref has `tags: ["asymmetric"]` → your `hero_position` should be off-centre
    - If ref has `tags: ["minimal", "negative-space"]` → consider `show_selo: 0` or `show_hairline: 0`
    - If ref has `tags: ["dramatic-shadow"]` → push `overlay_strength` higher
-   - If ref has `tags: ["large-typography"]` → push `display_size` toward upper bound
+   - If ref has `tags: ["large-typography", "bold_typography", "display_as_pattern"]` → push `display_size` to UPPER bound of bracket
    - If ref has `tags: ["bottom-heavy"]` → `hero_position: "top 30%"` and tipografia stretched in bottom 60%
+   - If ref has `tags: ["asymmetric_grid", "split_composition"]` → use F03 with explicit `block_side` choice (left or right based on hero composition)
+   - If ref has `tags: ["high-contrast", "two-colour"]` → enforce strong tonal opposition between bg and hero
    In `experimentation_log.creative_risks_taken`, document at least ONE risk per ref cited.
 
 3. **If you'd produce essentially the same poster in standard mode, ABORT and pick differently.** Experimental mode means the user has accepted human review — they want to be surprised, not reassured.
+
+### STEP 8.6 — Block-hero contrast obligatory (F03 only)
+
+When `family == "F03"`, the colour block and the hero must occupy **OPPOSITE thermal halves of the palette**. This is non-negotiable. Match-the-hero is a beginner mistake that destroys the entire point of split layout (visual contrast).
+
+**Hero temperature classification — read `product.visual_dna.dominant_colors`:**
+- **WARM hero**: dominant colours include any of `madeira-queimada`, `cocoa`, `amber`, `caramel`, `golden-spill`, `wood-deck`, `terracotta`, `warm-cream`, `cocoa-brown`, `pear-yellow`, `vanilla-dark`. Or hex codes in the warm half (#6B4A2D family, #C89853 family, brown/orange/yellow/red).
+- **COOL hero**: dominant colours include `verde-salgueiro`, `verde-tejo`, `green-olive`, `mint`, `teal`, `blue-river`, `slate`, `preto-rio` (when used for cool moods). Or hex codes in the cool half (#3F5548, #6B7F5E, #1C1C1A used for shadow/atmosphere).
+- **NEUTRAL hero**: dominant colours `linen`, `areia`, `off-white`, `cream`, `light-grey`. These are flexible — block can go warm or cool.
+
+**Block colour rule:**
+| Hero temperature | Allowed `bg_color` for block |
+|---|---|
+| WARM | `#3F5548` (verde-salgueiro), `#6B7F5E` (verde-tejo), `#1C1C1A` (preto-rio), `#D9C8A8` (areia) |
+| COOL | `#6B4A2D` (madeira-queimada), `#C89853` (dourado as block — rare, only for editorial drama), `#1C1C1A` (preto-rio works for both) |
+| NEUTRAL | any Blueprint colour. Pick the one that creates strongest tonal opposition with hero subject. |
+
+**Concrete examples:**
+- Cocktail with cocoa-brown bg + cream foam (WARM hero) → block `#3F5548` verde-salgueiro. NEVER `#6B4A2D` (would match hero bg).
+- Riverside green ambient hero (COOL) → block `#6B4A2D` madeira-queimada or `#D9C8A8` areia.
+- Salada com linen napkin + neutrais (NEUTRAL hero) → block `#3F5548` for editorial calm, OR `#6B4A2D` for warmth.
+
+**Validation step:** before outputting JSON, check if your chosen `bg_color` is in the same thermal half as `product.visual_dna.dominant_colors`. If yes, swap to the opposite half. Document the choice in `rationale`: "Hero é WARM (cocoa+amber+cream), bloco verde-salgueiro para contraste tonal — não madeira-queimada que iria fundir."
 
 ### STEP 9 — Output JSON
 

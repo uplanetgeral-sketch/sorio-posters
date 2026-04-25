@@ -202,6 +202,19 @@
         "image_first_note": "Quando hero é fornecido externamente (Boldy image-first), o Vision Critique deve focar-se apenas no bloco lateral ao avaliar este principle. Hero side é avaliado por outros principles (UNI-01 hero presence, COMP-01 subject position, COLOR-01 hero/typography contrast)."
       },
       {
+        "id": "FAM-F03-02",
+        "name": "F03 Editorial Split · contraste térmico bloco vs hero obrigatório",
+        "rule": "Em F03 split layout, o bloco de cor e o hero photo TÊM de ocupar metades térmicas opostas da paleta Blueprint. Hero WARM (cocoa/amber/madeira/golden/wood) → bloco COOL (verde-salgueiro #3F5548, verde-tejo #6B7F5E, preto-rio #1C1C1A, areia #D9C8A8). Hero COOL (verde/azul/dark/slate) → bloco WARM (madeira-queimada #6B4A2D, dourado #C89853 raro). Hero NEUTRAL (linen/areia/cream) → qualquer cor com tonal opposition. Match-the-hero analógico (bloco cocoa-brown sobre hero cocoa-brown) anula o split visual e é considerado erro de composição grave.",
+        "applies_to": "F03",
+        "fail_signs": [
+          "bloco castanho/madeira-queimada sobre hero com mesa de madeira / fundo cocoa",
+          "bloco verde-salgueiro sobre hero predominantemente verde (ribeirinho com folhagem)",
+          "bloco e hero com luminance similar (<15% diferença) — perdem distinção visual",
+          "decisão de bg_color sem referência explícita a product.visual_dna.dominant_colors no rationale"
+        ],
+        "validation": "Decisor deve documentar no rationale a temperatura do hero detectada e justificar a escolha térmica oposta. Critique deve verificar se as duas metades são visualmente distintas — luminance + hue distance significativos."
+      },
+      {
         "id": "FAM-F05a-01",
         "name": "F05a Editorial Grid · alinhamento estrito",
         "rule": "F05a Flat-Lay grid: 4 cells alinhadas ao mesmo baseline horizontal e vertical. Cada cell respeita o mesmo padding interno (mínimo 18px). NUNCA cells com tamanhos diferentes.",
@@ -250,7 +263,7 @@
         "UNI-01", "UNI-04", "TYPO-01", "COLOR-03", "FAM-F02-01", "FAM-F05b-01", "ANTI-01"
       ],
       "major_violations": [
-        "UNI-02", "UNI-03", "TYPO-02", "TYPO-03", "TYPO-04", "COMP-01", "COMP-03", "COLOR-01", "COLOR-02", "LEG-01", "FAM-F03-01"
+        "UNI-02", "UNI-03", "TYPO-02", "TYPO-03", "TYPO-04", "COMP-01", "COMP-03", "COLOR-01", "COLOR-02", "LEG-01", "FAM-F03-01", "FAM-F03-02"
       ],
       "minor_violations": [
         "UNI-05", "COMP-02", "COMP-04", "LEG-02", "LEG-03", "ANTI-02", "ANTI-03"
@@ -290,6 +303,7 @@
       "LEG-03": { "standard": "minor",     "variation": "ignore",  "experimental": "ignore", "type": "soft" },
       "FAM-F02-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
       "FAM-F03-01": { "standard": "major",  "variation": "minor",  "experimental": "ignore", "type": "soft" },
+      "FAM-F03-02": { "standard": "critical", "variation": "major", "experimental": "major", "type": "soft" },
       "FAM-F05a-01": { "standard": "major", "variation": "minor",  "experimental": "ignore", "type": "soft" },
       "FAM-F05b-01": { "standard": "critical", "variation": "major", "experimental": "minor", "type": "soft" },
       "ANTI-01": { "standard": "critical", "variation": "critical", "experimental": "critical", "type": "core" },

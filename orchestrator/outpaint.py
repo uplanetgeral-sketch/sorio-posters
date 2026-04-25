@@ -314,5 +314,50 @@ def maybe_outpaint(source_path, target_format, out_dir, api_key, hint=""):
     except Exception as e:
         _log(f"WARN ao normalizar dimensões: {e}")
 
+    # === EDGE VALIDATION ===
+    # Verifica se o Gemini deixou padding off-white residual nas bordas.
+    # Off-white target: rgb(246, 241, 231) com tolerância ±15.
+    # Se >12% dos pixels nas bandas das bordas (5% top + 5% bottom + 5% sides) estão
+    # dentro da tolerância off-white, o outpaint falhou — fallback para source.
+    try:
+        with Image.open(out_path) as im:
+            im_rgb = im.convert("RGB")
+            iw, ih = im_rgb.size
+            edge_pct = 0.05  # 5% de cada lado
+            band_top = max(1, int(ih * edge_pct))
+            band_side = max(1, int(iw * edge_pct))
+
+            # Sample edges (top band, bottom band, left band, right band)
+            samples = []
+            samples.append(im_rgb.crop((0, 0, iw, band_top)))           # top
+            samples.append(im_rgb.crop((0, ih - band_top, iw, ih)))      # bottom
+            samples.append(im_rgb.crop((0, 0, band_side, ih)))           # left
+            samples.append(im_rgb.crop((iw - band_side, 0, iw, ih)))     # right
+
+            target_r, target_g, target_b = 246, 241, 231
+            tol = 15  # ±15 em cada canal
+            offwhite_count = 0
+            total_count = 0
+            for s in samples:
+                pixels = list(s.getdata())
+                total_count += len(pixels)
+                for r, g, b in pixels:
+                    if (abs(r - target_r) <= tol and
+                            abs(g - target_g) <= tol and
+                            abs(b - target_b) <= tol):
+                        offwhite_count += 1
+
+            offwhite_ratio = offwhite_count / max(1, total_count)
+            _log(f"Edge validation · off-white residual {offwhite_ratio*100:.1f}% (threshold 12%)")
+
+            if offwhite_ratio > 0.12:
+                _log(f"FAIL · Gemini deixou off-white residual nas bordas · fallback para source com cover-crop")
+                # Renomear o resultado falhado para ficar como audit trail mas devolver source
+                failed_path = out_dir / f"{source_path.stem}.outpainted.FAILED.png"
+                out_path.rename(failed_path)
+                return source_path
+    except Exception as e:
+        _log(f"WARN edge validation crashed: {e} · usar resultado mesmo assim")
+
     _log(f"Outpaint concluído · {out_path}")
     return out_path

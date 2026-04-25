@@ -121,6 +121,23 @@
     pointer-events: none;
   }
 
+  /* Type pattern echo — display name repetido subtilmente atrás da tipografia principal
+     (inspirado em refs bold da library: ref_005, ref_008, ref_023) */
+  .type-echo {
+    position: absolute;
+    z-index: 2;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #F6F1E7;
+    opacity: 0.06;
+    line-height: 0.85;
+    letter-spacing: 0;
+    pointer-events: none;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
   .hidden { display: none !important; }
 </style>
 </head>
@@ -134,6 +151,8 @@
     <line id="diag-line" x1="0" y1="0" x2="0" y2="0"
           stroke="#C89853" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
   </svg>
+
+  <div class="type-echo hidden" id="type-echo"></div>
 
   <img class="logo" id="logo" alt="Só Rio">
   <img class="selo" id="selo" alt="Selo Só Rio">
@@ -182,22 +201,26 @@
   // === LAYOUT PARAMS — F03 motion editorial ===
   // block_side: 'left' | 'right' — onde fica o bloco de cor com tipografia
   var blockSide = get('block_side', 'left');
-  // block_width: 0.30..0.55 — quanto ocupa o bloco de cor (0.45 default)
-  var blockWidth = num('block_width', 0.45);
+  // block_width: 0.30..0.55 — quanto ocupa o bloco de cor (0.42 default — hero protagonista)
+  var blockWidth = num('block_width', 0.42);
   blockWidth = Math.max(0.30, Math.min(0.55, blockWidth));
   // bg_color: cor do bloco (default verde-salgueiro)
   var bgColor = get('bg_color', '#3F5548');
-  // hero_position: como o hero é enquadrado dentro do seu lado
+  // hero_position: como o hero é enquadrado dentro do seu lado (default center, não 40%)
   var heroPosition = get('hero_position', 'center');
   // diag_intensity: 0..1 — força da linha diagonal motion (0 = sem)
   var diagIntensity = num('diag_intensity', 0.6);
   // tilt: -8..+8 graus — inclinação subtil do hero (motion)
   var tilt = num('tilt', 0);
   tilt = Math.max(-8, Math.min(8, tilt));
+  // type_pattern: 'none' | 'echo' — display name repetido como pattern subtil de fundo no bloco
+  // (inspirado em ref_005, ref_008, ref_023 — bold typography refs)
+  var typePattern = get('type_pattern', 'none');
 
   // === TIPOGRAFIA SCALES ===
-  var displaySize = num('display_size', Math.round(120 * heightScale));
-  var accentSize = num('accent_size', Math.round(38 * heightScale));
+  // F03 v2.1: defaults aumentados — em experimental refs library mostra display BIG, não medium
+  var displaySize = num('display_size', Math.round(140 * heightScale));
+  var accentSize = num('accent_size', Math.round(40 * heightScale));
 
   // === VISIBILITY ===
   var showLogo = bool('show_logo', true);
@@ -333,6 +356,30 @@
     line.setAttribute('stroke-width', 1.6 * heightScale);
     line.setAttribute('opacity', 0.45 * diagIntensity);
     diag.classList.remove('hidden');
+  }
+
+  // === TYPE ECHO — display name repetido subtilmente atrás (bold refs library)
+  if (typePattern === 'echo') {
+    var echoEl = document.getElementById('type-echo');
+    var firstLine = title.split('|')[0];
+    // 4-6 repetições verticais, dependendo da altura
+    var repeatCount = Math.max(3, Math.round(canvasH / 280));
+    var rows = [];
+    for (var i = 0; i < repeatCount; i++) {
+      rows.push(firstLine.toUpperCase());
+    }
+    echoEl.innerHTML = rows.join('<br>');
+    echoEl.style.fontSize = Math.round(displaySize * 1.6) + 'px';
+    echoEl.style.lineHeight = '0.85';
+    echoEl.style.top = '0';
+    echoEl.style.height = canvasH + 'px';
+    echoEl.style.width = blockPx + 'px';
+    if (blockSide === 'left') {
+      echoEl.style.left = '0';
+    } else {
+      echoEl.style.right = '0';
+    }
+    echoEl.classList.remove('hidden');
   }
 })();
 </script>
