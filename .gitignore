@@ -14,3 +14,6 @@ orchestrator/outputs/
 orchestrator/__pycache__/
 **/__pycache__/
 docs/
+
+# Battery test runs — contêm symlinks para orchestrator/outputs/ que partiriam o deploy Cloudflare
+tests/battery_runs/
