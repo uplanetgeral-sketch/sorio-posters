@@ -37,10 +37,20 @@ except ImportError as e:
     print(f"Erro: faltam libs. {e}\nInstala: pip3 install anthropic requests jsonschema playwright")
     sys.exit(1)
 
+# Outpaint module (opcional — só usado quando GEMINI_API_KEY definida)
+try:
+    from outpaint import maybe_outpaint
+    HAS_OUTPAINT = True
+except ImportError:
+    HAS_OUTPAINT = False
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ORCH_DIR = Path(__file__).resolve().parent
-NETLIFY_BASE = "https://sorio-posters.netlify.app"
+# Static host serving HTML templates + design refs + catalogue JSON.
+# Migrated from Netlify (Apr 2026) → Cloudflare Pages (unlimited bandwidth + 500 builds free).
+TEMPLATES_BASE = "https://sorio-posters.pages.dev"
+NETLIFY_BASE = TEMPLATES_BASE  # alias para retrocompatibilidade — referências antigas continuam a funcionar
 
 MODE_PRESETS = {
     "standard": {"freedom": 0.15, "threshold": 75},
@@ -105,31 +115,117 @@ def call_critique(client, image_path, decision, principles, refs_index):
     return json.loads(raw)
 
 
-def render_url(family, url_params, hero_url, output_path):
-    """Playwright headless screenshot do template HTML param-driven."""
+def _is_local_path(s):
+    """True se s parece um caminho local (não URL com protocolo)."""
+    if not s:
+        return False
+    if s.startswith(("http://", "https://", "data:", "file://")):
+        return False
+    return s.startswith("/") or s.startswith("./") or s.startswith("../") or os.path.exists(s)
+
+
+def _local_file_to_data_url(path):
+    """Lê ficheiro local e devolve data URL base64. Se for muito grande, faz downsize via sips."""
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(f"Hero local não encontrado: {path}")
+
+    # Se > 1.5MB, faz downsize para ~1500px de largura (mantém qualidade hero, evita data URL gigante)
+    MAX_BYTES = 1_500_000
+    if p.stat().st_size > MAX_BYTES:
+        smaller = p.with_name(p.stem + ".compressed.png")
+        try:
+            subprocess.run(
+                ["sips", "-Z", "1500", str(p), "--out", str(smaller)],
+                capture_output=True, check=True
+            )
+            p = smaller
+            log("HERO", f"Hero comprimido: {p.stat().st_size/1024:.0f}KB")
+        except Exception as e:
+            log("HERO", f"WARN: sips falhou ({e}) · usando original")
+
+    suffix = p.suffix.lower().lstrip(".")
+    mime = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png", "webp": "image/webp"}.get(suffix, "image/png")
+    with open(p, "rb") as f:
+        b64 = base64.standard_b64encode(f.read()).decode("ascii")
+    return f"data:{mime};base64,{b64}"
+
+
+def render_url(family, url_params, hero_url, output_path, format_wh="1080x1350"):
+    """Playwright headless screenshot do template HTML param-driven.
+    format_wh: 'WxH' string. Determina viewport + URL param `format=...`.
+
+    Hero injection:
+    - URL pública (http/https) → passa via URL param `hero=...`
+    - Caminho local absoluto → converte para data URL base64 e injecta via page.evaluate()
+      (evita mixed-content blocking quando template está em HTTPS e hero em file://)
+    - Path relativo (catalogue/...) → passa como URL param (resolvido relativamente ao template)
+    """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         log("RENDER", "ERRO: playwright não instalado. `pip3 install playwright && playwright install chromium`")
         sys.exit(1)
 
-    # Inject hero URL
+    try:
+        w, h = format_wh.split("x")
+        canvas_w, canvas_h = int(w), int(h)
+    except Exception:
+        canvas_w, canvas_h = 1080, 1350
+
+    # --- Hero handling ---
     full_params = dict(url_params)
-    if hero_url:
-        full_params["hero"] = hero_url
+    hero_inject_data_url = None  # se preenchido, injecta após page load
+
+    if hero_url and hero_url != "<HERO_URL>":
+        if _is_local_path(hero_url):
+            # Local file → convert to data URL, inject via JS post-load (não cabe / é frágil em URL param)
+            try:
+                hero_inject_data_url = _local_file_to_data_url(hero_url)
+                log("HERO", f"Local → data URL ({len(hero_inject_data_url)//1024}KB base64)")
+            except Exception as e:
+                log("HERO", f"ERRO converter local→data URL: {e}")
+                # fallback: ainda passa por URL param (vai falhar mas pelo menos render continua)
+                full_params["hero"] = hero_url
+        else:
+            # URL pública ou path relativo → passa por URL param normalmente
+            full_params["hero"] = hero_url
+
     # Remove placeholder
     if full_params.get("hero") == "<HERO_URL>":
         full_params.pop("hero", None)
+    # Format param para template responder ao tamanho
+    full_params["format"] = format_wh
 
     template_url = f"{NETLIFY_BASE}/{family.lower()}.html?{urlencode(full_params)}"
     log("RENDER", f"URL: {template_url[:120]}{'...' if len(template_url) > 120 else ''}")
+    log("RENDER", f"Canvas: {canvas_w}x{canvas_h}")
+    if hero_inject_data_url:
+        log("RENDER", "Hero será injectado via JS após page load (evita mixed-content)")
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        page = browser.new_page(viewport={"width": 1080, "height": 1350}, device_scale_factor=2)
+        page = browser.new_page(viewport={"width": canvas_w, "height": canvas_h}, device_scale_factor=2)
         page.goto(template_url, wait_until="networkidle")
+
+        # Inject local hero as data URL (post-load) — bypassa CORS/mixed-content
+        if hero_inject_data_url:
+            page.evaluate(
+                """(dataUrl) => {
+                    const heroEl = document.getElementById('hero');
+                    if (heroEl) {
+                        heroEl.style.backgroundImage = 'url("' + dataUrl + '")';
+                    }
+                }""",
+                hero_inject_data_url,
+            )
+            # Esperar o decode da imagem antes do screenshot
+            page.wait_for_timeout(800)
+
         page.wait_for_timeout(2500)
-        page.screenshot(path=str(output_path), omit_background=False)
+        page.screenshot(path=str(output_path), omit_background=False, clip={
+            "x": 0, "y": 0, "width": canvas_w, "height": canvas_h
+        })
         browser.close()
     return template_url
 
@@ -168,6 +264,16 @@ def main():
     parser.add_argument("--max-iter", type=int, default=2)
     parser.add_argument("--no-auto-fix", action="store_true")
     parser.add_argument("--family", default=None, choices=["F01", "F02", "F03", "F05a", "F05b"])
+    parser.add_argument("--hero", default=None,
+                        help="Override hero — caminho local ou URL pública. "
+                             "Quando passado, ignora product.approved_heroes[0].")
+    parser.add_argument("--product-json", default=None,
+                        help="Caminho para product.json ad-hoc (ignora catalogue/produtos/<id>/product.json). "
+                             "Útil para produtos que ainda não estão no catálogo.")
+    parser.add_argument("--format", default="1080x1350",
+                        help="Output format WxH px. Defaults: 1080x1080 (1:1), 1080x1350 (4:5), 1080x1920 (9:16)")
+    parser.add_argument("--no-outpaint", action="store_true",
+                        help="Desactiva outpaint Gemini condicional (mesmo se GEMINI_API_KEY estiver definida).")
     args = parser.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -186,20 +292,60 @@ def main():
 
     # Load knowledge bases (cached for the run)
     log("LOAD", "Knowledge bases...")
-    try:
-        product = fetch_json(f"{NETLIFY_BASE}/catalogue/produtos/{args.product_id}/product.json")
-    except Exception:
-        log("LOAD", f"ERRO: produto '{args.product_id}' não está no catálogo Netlify ainda")
-        sys.exit(1)
+    if args.product_json:
+        # Ad-hoc product (não está no catalogue Netlify, vem inline da Boldy)
+        try:
+            with open(args.product_json, "r", encoding="utf-8") as f:
+                product = json.load(f)
+            log("LOAD", f"Product (ad-hoc): {product.get('name', args.product_id)}")
+        except Exception as e:
+            log("LOAD", f"ERRO ao ler product.json ad-hoc: {e}")
+            sys.exit(1)
+    else:
+        try:
+            product = fetch_json(f"{NETLIFY_BASE}/catalogue/produtos/{args.product_id}/product.json")
+        except Exception:
+            log("LOAD", f"ERRO: produto '{args.product_id}' não está no catálogo Netlify ainda")
+            sys.exit(1)
     principles = fetch_json(f"{NETLIFY_BASE}/design/design_principles_sorio.json")
     creative_modes = fetch_json(f"{NETLIFY_BASE}/design/creative_modes.json")
     refs_index = fetch_json(f"{NETLIFY_BASE}/design/design_references/_index.json")
 
-    # Hero URL: pick first approved_heroes if exists
+    # Hero URL resolution priority:
+    # 1) --hero CLI override (from Boldy drop-image flow ou manual)
+    # 2) product.approved_heroes[0] do catalogue
+    # 3) None (Designer/Gemini gera novo — fora do scope deste orchestrator v1)
     hero_url = None
-    if product.get("approved_heroes"):
+    if args.hero:
+        hero_url = args.hero
+        log("HERO", f"Override: {hero_url}")
+    elif product.get("approved_heroes"):
         hero_path = product["approved_heroes"][0]
         hero_url = f"catalogue/produtos/{args.product_id}/{hero_path}"
+        log("HERO", f"Catalogue approved: {hero_url}")
+
+    # === Outpaint condicional ===
+    # Aplicar APENAS se: hero é local + format aspect mismatch significativo + GEMINI_API_KEY + flag não desactivada
+    if (hero_url and not args.no_outpaint and HAS_OUTPAINT and
+            os.path.exists(hero_url)):  # path local existente
+        gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        if gemini_key:
+            hint = f"{product.get('name', args.product_id)} · Só Rio · Valada do Ribatejo · river beach lounge food/drink photography"
+            try:
+                new_hero = maybe_outpaint(
+                    source_path=Path(hero_url),
+                    target_format=args.format,
+                    out_dir=run_dir,
+                    api_key=gemini_key,
+                    hint=hint,
+                )
+                if str(new_hero) != hero_url:
+                    hero_url = str(new_hero)
+                    log("HERO", f"Outpainted → {hero_url}")
+            except Exception as e:
+                log("HERO", f"WARN outpaint falhou — usar source · {e}")
+        else:
+            log("HERO", "GEMINI_API_KEY ausente — skip outpaint (cover-crop fallback)")
 
     client = Anthropic()
 
@@ -227,7 +373,7 @@ def main():
         # Render
         log(f"ITER {iter_n}", "RENDER")
         png_path = run_dir / f"poster_iter{iter_n}.png"
-        url = render_url(decision["family"], decision["url_params"], hero_url, png_path)
+        url = render_url(decision["family"], decision["url_params"], hero_url, png_path, format_wh=args.format)
 
         # Resize if needed
         critique_input = resize_if_needed(png_path)
