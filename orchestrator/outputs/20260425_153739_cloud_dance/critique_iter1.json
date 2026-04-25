@@ -1,0 +1,60 @@
+{
+  "critique_id": "20260425_cloud_dance",
+  "decision_id": "20260425_cloud_dance",
+  "product_id": "cloud_dance",
+  "family_critiqued": "F02",
+  "mode_evaluated": "standard",
+  "score": 93,
+  "publishable": true,
+  "publishable_threshold": 75,
+  "violations": [
+    {
+      "principle_id": "COLOR-02",
+      "severity_in_mode": "major",
+      "evidence": "Selo Ritual Só Rio em dourado posicionado no canto superior direito sobre fundo cocoa-brown (#6B4A2D) quente dominante. Com o hero também em tons amber/cream e fundo cocoa-brown, o selo dourado perde presença — cor tonal harmony excessiva reduz contraste funcional.",
+      "score_impact": -7
+    }
+  ],
+  "principles_passed": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-03",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-02",
+    "TYPO-03",
+    "TYPO-04",
+    "COMP-01",
+    "COMP-02",
+    "COMP-03",
+    "COMP-04",
+    "COLOR-01",
+    "COLOR-03",
+    "LEG-01",
+    "LEG-02",
+    "LEG-03",
+    "FAM-F02-01",
+    "ANTI-01",
+    "ANTI-02",
+    "ANTI-03",
+    "ANTI-04"
+  ],
+  "closest_ref": "ref_024_mojito_olive_minimal_classic",
+  "closest_ref_similarity": 0.82,
+  "closest_ref_notes": "Ambos F02 minimal editorial com single hero centrado, overlay forte para tipografia dominante, paleta restrita (olive green vs cocoa-brown), serif display italic + tracked subtitle, restraint premium — Cloud Dance partilha mood evening_riverside calmo e composição análoga.",
+  "suggested_fixes": [
+    {
+      "issue": "Selo dourado sobre hero dominante cocoa-brown amber competing — perde-se visualmente",
+      "fix_action": "Trocar selo para variante Ritual Só Rio creme (#F6F1E7) para contraste warm com presença",
+      "url_param_change": {
+        "selo": "assets/selos/ritual_so_rio-creme.png"
+      },
+      "designer_negative_prompt_addition": null,
+      "principle_id": "COLOR-02",
+      "expected_score_gain": 7
+    }
+  ],
+  "vision_summary": "Poster F02 Cloud Dance com coupe glass centrado lower-third sobre fundo cocoa-brown flat. Tipografia Blueprint 3 camadas correta: Display off-white 'Cloud|Dance' quebrado naturalmente 2 linhas, accent italic dourado 'Calmo, dourado, nosso.', info tracked off-white ingredientes e rodapé. Hero foam silky egg white bem renderizado com pear slice no rim, vanilla pod diagonal externa, pear peel ribbon spiral floating right — garnish respeitando warning_never_inside. Overlay strength 1.1 eficaz para legibilidade. Selo dourado top-right visível mas competing tonalmente com palette warm dominante.",
+  "human_review_required": false
+}

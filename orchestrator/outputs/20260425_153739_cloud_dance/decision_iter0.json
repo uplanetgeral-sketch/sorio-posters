@@ -1,0 +1,82 @@
+{
+  "decision_id": "20260425_cloud_dance",
+  "product_id": "cloud_dance",
+  "mode": "standard",
+  "creative_freedom": 0.15,
+  "family": "F02",
+  "rationale": "F02 Full-Color Poster ideal para Cloud Dance — cocktail elegante com foam delicado e tons quentes (cocoa-brown, cream-white) que pedem hero dominante sobre fundo flat ou ligeiro blur. Mood evening_riverside + selo Ritual Só Rio reforçam sofisticação sem pressa. Product compatibility F02 = ideal.",
+  "url_params": {
+    "hero": "<HERO_URL>",
+    "logo": "assets/logo.png",
+    "selo": "assets/selos/ritual_so_rio-creme.png",
+    "title": "Cloud|Dance",
+    "info_top": "Vodka Pera · Bianco · Baunilha",
+    "accent": "Calmo, dourado, nosso.",
+    "info_bottom": "Valada do Ribatejo · sorio.pt",
+    "display_size": 140,
+    "accent_size": 46,
+    "overlay_strength": 1.1,
+    "hero_position": "center 55%",
+    "show_logo": 1,
+    "show_selo": 1,
+    "show_accent": 1,
+    "show_hairline": 1,
+    "show_wave": 1,
+    "show_info_top": 1,
+    "show_info_bottom": 1
+  },
+  "designer_brief": {
+    "subject": "Coupe glass cocktail with silky egg white foam crown, center lower-third",
+    "ingredients_visible": [
+      "pear slice on rim",
+      "egg white foam"
+    ],
+    "ingredients_outside": [
+      "vanilla pod diagonal lean",
+      "pear peel ribbon spiral",
+      "cocoa-sugar dust particles scattered"
+    ],
+    "warning_never_inside": [
+      "mint",
+      "thyme",
+      "rosemary",
+      "cinnamon stick"
+    ],
+    "lighting": "warm directional from upper-right, dramatic chiaroscuro on flat cocoa-brown background, golden hour spill on foam texture",
+    "background": "flat cocoa-brown (#6B4A2D Madeira Queimada variation) with soft ambient glow — motion-friendly per FAM-F03-01 but this is F02 so flat premium warmth",
+    "subject_position": "center lower-third (55% vertical offset)",
+    "color_palette_keywords": [
+      "cocoa-brown",
+      "cream-white-foam",
+      "pear-yellow-green",
+      "vanilla-dark-ribbed",
+      "warm-amber-glow"
+    ],
+    "object_sheet_url": "object_sheet.png",
+    "negative_prompt": "no mint, no thyme, no rosemary, no cinnamon stick inside glass, no neon, no high saturation, no abstract geometric shapes, no wood deck texture (clean flat bg only), no clutter, no garnish invented beyond canonical list"
+  },
+  "inspired_by": [
+    "ref_024_mojito_olive_minimal_classic",
+    "ref_026_negroni_burgundy_serif_display",
+    "ref_028_cocktails_split_stone_peach"
+  ],
+  "principles_applied": [
+    "UNI-01",
+    "UNI-03",
+    "UNI-04",
+    "TYPO-01",
+    "TYPO-02",
+    "COMP-01",
+    "COMP-03",
+    "COLOR-01",
+    "COLOR-02",
+    "COLOR-03",
+    "LEG-01",
+    "FAM-F02-01",
+    "ANTI-01"
+  ],
+  "principles_relaxed": [],
+  "experimentation_log": null,
+  "vision_critique_brief": "F02 evening_riverside Cloud Dance. Verifica: garnish NUNCA mint/thyme/rosemary/cinnamon stick dentro do copo (warning crítico do produto). Hero subject posicionado lower-third (center 55%). Tipografia 3 camadas Blueprint: Display off-white 140px (title 'Cloud|Dance' quebrado naturalmente em 2 linhas iguais) · Accent italic dourado 46px ('Calmo, dourado, nosso.') · Info tracked off-white 18px. Overlay strength 1.1 para legibilidade sobre cocoa-brown médio. Selo Ritual Só Rio variante creme (COLOR-02: hero dominante warm + evening mood = creme para presença). Contraste mínimo WCAG AA (off-white sobre overlay). Fundo flat cocoa-brown sem texture — respiração clean para foam delicado. Margem mínimo 80px todos os lados. Focal point único = hero coupe glass.",
+  "human_review_required": false
+}

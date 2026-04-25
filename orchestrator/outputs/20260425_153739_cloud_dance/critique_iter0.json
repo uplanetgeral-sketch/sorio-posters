@@ -1,0 +1,73 @@
+{
+  "critique_id": "20260425_171432_cloud_dance",
+  "decision_id": "20260425_cloud_dance",
+  "product_id": "cloud_dance",
+  "family_critiqued": "F02",
+  "mode_evaluated": "standard",
+  "score": 78,
+  "publishable": true,
+  "publishable_threshold": 75,
+  "violations": [
+    {
+      "principle_id": "ANTI-01",
+      "severity_in_mode": "critical",
+      "evidence": "Vanilla pod visível DENTRO do copo junto ao foam — a baunilha é ingrediente do drink mas nunca entra fisicamente no copo servido. A vagem escura está mergulhada no líquido junto à fatia de pêra.",
+      "score_impact": -15
+    },
+    {
+      "principle_id": "COLOR-02",
+      "severity_in_mode": "major",
+      "evidence": "Selo 'Ritual Só Rio' variante creme aplicado, mas hero dominante é cocoa-brown médio (luminância ~42%) — pelo princípio COLOR-02, hero warm + evening mood deveria usar selo DOURADO para tonal harmony, não creme. O creme cria contraste frio que quebra a warmth do poster.",
+      "score_impact": -7
+    }
+  ],
+  "principles_passed": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-03",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-02",
+    "TYPO-03",
+    "TYPO-04",
+    "COMP-01",
+    "COMP-02",
+    "COMP-03",
+    "COMP-04",
+    "COLOR-01",
+    "COLOR-03",
+    "LEG-01",
+    "LEG-02",
+    "LEG-03",
+    "FAM-F02-01",
+    "ANTI-02",
+    "ANTI-03",
+    "ANTI-04"
+  ],
+  "closest_ref": "ref_024_mojito_olive_minimal_classic",
+  "closest_ref_similarity": 0.82,
+  "closest_ref_notes": "Ambos F02 com hero single cocktail dominante, fundo flat warm (olive green vs cocoa-brown), tipografia display off-white restrained, mood premium evening-to-midday transition — esta ref é o modelo de contenção que Cloud Dance segue correctamente.",
+  "suggested_fixes": [
+    {
+      "issue": "Vagem de baunilha dentro do copo — viola ANTI-01 core invariant",
+      "fix_action": "Re-render hero com negative_prompt reforçado para garantir vagem FORA do copo",
+      "url_param_change": null,
+      "designer_negative_prompt_addition": "absolutely no vanilla pod inside the glass, vanilla bean must be positioned outside and diagonal to the coupe glass, never submerged in liquid",
+      "principle_id": "ANTI-01",
+      "expected_score_gain": 15
+    },
+    {
+      "issue": "Selo creme sobre hero cocoa-brown warm perde tonal harmony",
+      "fix_action": "Trocar selo para variante dourada — hero dominante quente + evening mood pedem dourado",
+      "url_param_change": {
+        "selo": "assets/selos/ritual_so_rio-dourado.png"
+      },
+      "designer_negative_prompt_addition": null,
+      "principle_id": "COLOR-02",
+      "expected_score_gain": 7
+    }
+  ],
+  "vision_summary": "Poster F02 Cloud Dance com coupe glass hero centrado lower-third sobre fundo cocoa-brown flat. Tipografia 3 camadas Blueprint correcta: display 'CLOUD|DANCE' off-white quebrado naturalmente, accent italic dourado 'Calmo, dourado, nosso.', info tracked off-white. Overlay strength 1.1 aplicado. Garnish: fatia de pêra no rim do copo (correcto), vagem de baunilha diagonal (incorrectamente posicionada DENTRO do líquido junto ao foam — violação ANTI-01), peel ribbons espirais dourados fora do copo (correcto). Selo Ritual Só Rio variante creme top-right. Composição respira margens, focal point único hero, hierarquia clara.",
+  "human_review_required": true
+}
