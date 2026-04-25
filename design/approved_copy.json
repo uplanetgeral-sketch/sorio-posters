@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "client": "sorio",
+  "updated": "2026-04-26",
+  "notes": "Single source of truth para frases/textos aprovados Só Rio. Lido por Boldy (dropdowns) e potencialmente Decisor (validação). Editar este ficheiro em vez de cada um dos 3 spots dispersos (blueprint_sorio.json, decisor system_prompt, product.json).",
+
+  "master_claim": "Verão Sem Pressa",
+
+  "title_examples": [
+    {"text": "Aperol Spritz", "category": "bebida"},
+    {"text": "Cloud Dance", "category": "bebida"},
+    {"text": "Mojito", "category": "bebida"},
+    {"text": "Caipirinha", "category": "bebida"},
+    {"text": "Robalo", "category": "prato"},
+    {"text": "Polvo à Lagareiro", "category": "prato"},
+    {"text": "Mesa do Chef", "category": "prato"},
+    {"text": "Pico da Estação", "category": "prato"}
+  ],
+
+  "accent_claims": {
+    "bebida": [
+      {"text": "Sem pressa. Com rio.", "moment": "evening_riverside"},
+      {"text": "Tarde no Tejo.", "moment": "sunset"},
+      {"text": "A hora dourada.", "moment": "golden_hour"},
+      {"text": "Gelo, lima, verão.", "moment": "any"},
+      {"text": "O brinde demora.", "moment": "evening"},
+      {"text": "Ritual do fim do dia.", "moment": "evening"}
+    ],
+    "prato": [
+      {"text": "Sem pressa. Com terra.", "moment": "any"},
+      {"text": "A mesa demora.", "moment": "lunch"},
+      {"text": "Comer devagar.", "moment": "any"},
+      {"text": "Do Tejo à mesa.", "moment": "any"},
+      {"text": "Terra. Fogo. Mesa.", "moment": "any"},
+      {"text": "Sabor lento.", "moment": "any"}
+    ],
+    "moment_specific": {
+      "golden_hour": ["A hora dourada.", "Luz que demora.", "O sol sem pressa."],
+      "lunch": ["A mesa demora.", "Meio-dia lento.", "Pausa de sol."],
+      "sunset": ["O fim do dia sabe.", "Rio dourado.", "Tarde no Tejo."],
+      "evening": ["Ritual do fim do dia.", "Sem pressa. Com rio.", "O brinde demora."]
+    },
+    "chef_seasonal": [
+      {"text": "Mesa do Chef.", "use": "chef_special"},
+      {"text": "Hoje, do chef.", "use": "chef_special"},
+      {"text": "Assinatura da casa.", "use": "chef_special"},
+      {"text": "Pico da estação.", "use": "seasonal"},
+      {"text": "Do Tejo, de hoje.", "use": "fish_of_day"},
+      {"text": "Peixe que acaba de chegar.", "use": "fish_of_day"}
+    ]
+  },
+
+  "info_top_patterns": [
+    {"label": "Cocktail · 4 ingredientes", "example": "MARACUJÁ · LIMA · CACHAÇA · MEL DO RIBATEJO"},
+    {"label": "Cocktail · 3 ingredientes simples", "example": "VODKA PERA · BIANCO · BAUNILHA"},
+    {"label": "Cocktail · clássico", "example": "APEROL · SODA · ESPUMANTE"},
+    {"label": "Prato peixe · 4 ingredientes", "example": "ROBALO · AZEITE DO RIBATEJO · FLOR DE SAL · LIMÃO"},
+    {"label": "Prato carne · 3 ingredientes", "example": "NOVILHO FATIADO · PIMENTO DOCE · SALTE"},
+    {"label": "Prato vegetal · 3 ingredientes", "example": "BERINJELA · MISO · CORIANDRO"}
+  ],
+  "info_top_rules": {
+    "max_elements": 4,
+    "max_chars": 36,
+    "separator": " · ",
+    "case": "uppercase",
+    "font": "Inter Medium tracked 0.28em"
+  },
+
+  "info_bottom_patterns": [
+    {"label": "Default — completa", "text": "Valada do Ribatejo · sorio.pt"},
+    {"label": "Curto — só URL", "text": "sorio.pt"},
+    {"label": "Evento (placeholder)", "text": "Valada do Ribatejo · {data} · sorio.pt"},
+    {"label": "Evento sábado", "text": "Sábado · 18 Abr · 20h"},
+    {"label": "Reserva", "text": "Reserva · sorio.pt · +351 ___"}
+  ],
+
+  "selos": [
+    {"id": "ritual-dourado", "label": "Ritual (dourado)", "file": "assets/selos/ritual-dourado.png", "uses": "Cocktail signature, evening, ritual moment"},
+    {"id": "ritual-creme", "label": "Ritual (creme)", "file": "assets/selos/ritual-creme.png", "uses": "Cocktail standard sobre fundo escuro"},
+    {"id": "ritual-verde", "label": "Ritual (verde)", "file": "assets/selos/ritual-verde.png", "uses": "Cocktail brand variant"},
+    {"id": "sunset-dourado", "label": "Sunset (dourado)", "file": "assets/selos/sunset-dourado.png", "uses": "Golden hour, evening drinks"},
+    {"id": "sunset-creme", "label": "Sunset (creme)", "file": "assets/selos/sunset-creme.png", "uses": "Sunset sobre fundo escuro"},
+    {"id": "sunset-verde", "label": "Sunset (verde)", "file": "assets/selos/sunset-verde.png", "uses": "Sunset brand variant"},
+    {"id": "pico-dourado", "label": "Pico da Estação (dourado)", "file": "assets/selos/pico-dourado.png", "uses": "Peixe do dia, ingredient peak, sazonal"},
+    {"id": "pico-creme", "label": "Pico da Estação (creme)", "file": "assets/selos/pico-creme.png", "uses": "Sazonal sobre fundo escuro"},
+    {"id": "pico-verde", "label": "Pico da Estação (verde)", "file": "assets/selos/pico-verde.png", "uses": "Sazonal brand variant"},
+    {"id": "chef-dourado", "label": "Mesa do Chef (dourado)", "file": "assets/selos/chef-dourado.png", "uses": "Chef special, signature dish, tasting"},
+    {"id": "chef-creme", "label": "Mesa do Chef (creme)", "file": "assets/selos/chef-creme.png", "uses": "Chef sobre fundo escuro"},
+    {"id": "chef-verde", "label": "Mesa do Chef (verde)", "file": "assets/selos/chef-verde.png", "uses": "Chef brand variant"},
+    {"id": "mesa-dourado", "label": "Para a Mesa (dourado)", "file": "assets/selos/mesa-dourado.png", "uses": "Menu partilha, full meal"},
+    {"id": "mesa-creme", "label": "Para a Mesa (creme)", "file": "assets/selos/mesa-creme.png", "uses": "Partilha sobre fundo escuro"},
+    {"id": "mesa-verde", "label": "Para a Mesa (verde)", "file": "assets/selos/mesa-verde.png", "uses": "Partilha brand variant"},
+    {"id": "rio-says-dourado", "label": "Rio Says (dourado)", "file": "assets/selos/rio-says-dourado.png", "uses": "Storytelling, brand voice, quote"},
+    {"id": "rio-says-creme", "label": "Rio Says (creme)", "file": "assets/selos/rio-says-creme.png", "uses": "Storytelling sobre fundo escuro"},
+    {"id": "rio-says-verde", "label": "Rio Says (verde)", "file": "assets/selos/rio-says-verde.png", "uses": "Storytelling brand variant"}
+  ],
+  "selo_selection_logic": {
+    "cocktail_evening": "ritual-dourado",
+    "cocktail_golden_hour": "sunset-dourado",
+    "fish_of_day": "pico-dourado",
+    "chef_special": "chef-creme",
+    "shared_menu": "mesa-creme",
+    "brand_voice_storytelling": "rio-says-verde",
+    "fallback_bebida": "ritual-dourado",
+    "fallback_prato": "chef-creme"
+  },
+
+  "voice": {
+    "tone": "Sereno, confiante, não arrogante. PT-PT. Frases curtas. Comunica pausa como valor.",
+    "bebida_tone": "Ritual, ritmo de tarde, golden hour",
+    "prato_tone": "Hearty, territorial, warm",
+    "constraints": {
+      "accent_max_words": 8,
+      "accent_max_chars": 50,
+      "accent_no_exclamation": true,
+      "accent_no_emojis": true,
+      "case": "sentence case com pontuação editorial"
+    }
+  },
+
+  "forbidden_words": [
+    "explosão", "irresistível", "loucura", "mega", "brutal",
+    "imperdível", "experiência única", "super-desconto",
+    "promoção", "desconto", "barato", "wow", "incrível"
+  ]
+}
