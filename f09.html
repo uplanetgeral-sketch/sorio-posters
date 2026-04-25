@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <script src="_shared/branding.js"></script>
+<script src="_shared/editor.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { width: 1080px; height: 1350px; overflow: hidden; background: #D9C8A8; }
@@ -73,15 +74,15 @@
 </head>
 <body>
 <div class="canvas" id="canvas">
-  <div class="hero" id="hero"></div>
-  <img class="logo" id="logo" alt="Só Rio">
-  <img class="selo" id="selo" alt="Selo Só Rio">
+  <div class="hero" id="hero" data-layer="hero"></div>
+  <img class="logo" id="logo" data-layer="logo" alt="Só Rio">
+  <img class="selo" id="selo" data-layer="selo" alt="Selo Só Rio">
   <div class="typo-zone" id="typo-zone">
-    <div class="info-top" id="info-top"></div>
-    <div class="display-float" id="display-float"></div>
-    <div class="accent" id="accent"></div>
+    <div class="info-top" id="info-top" data-layer="info_top"></div>
+    <div class="display-float" id="display-float" data-layer="title"></div>
+    <div class="accent" id="accent" data-layer="accent"></div>
   </div>
-  <div class="info-bottom" id="info-bottom"></div>
+  <div class="info-bottom" id="info-bottom" data-layer="info_bottom"></div>
 </div>
 
 <script>
@@ -207,6 +208,17 @@
   // Universal branding override — lê logo_position/scale + selo_position/scale do URL
   if (typeof applyBranding === 'function') {
     applyBranding({ canvasW, canvasH, heightScale, widthScale, p, logo, selo });
+  }
+
+  // Universal editor module — z-index, cor por campo, transforms (x/y/rot/scale)
+  // + postMessage protocol para Boldy editor interactivo.
+  if (typeof applyEditor === 'function') {
+    applyEditor({
+      canvasW: canvasW,
+      canvasH: canvasH,
+      p: p,
+      layers: ['hero', 'title', 'accent', 'info_top', 'info_bottom', 'logo', 'selo'],
+    });
   }
 })();
 </script>

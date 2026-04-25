@@ -229,20 +229,54 @@ def main():
     log("FT", f"Saved {new_decision_path.name}")
 
     # Hero — find from previous run
+    # Priority:
+    #   1. --hero CLI override
+    #   2. decision._hero_url_used (gravado por main.py post-outpaint/isolate)
+    #   3. Last iteration's hero_url_used em run_log.json
+    #   4. Processed file no run_dir (*.outpainted.png / *.isolated.png)
+    #   5. url_params.hero (se não for placeholder)
     hero_url = args.hero
     if not hero_url:
-        # Try to find isolated/outpainted hero in run_dir
+        # 2. Decision-level hint
+        prev_hero = decision.get("_hero_url_used")
+        if prev_hero:
+            hero_url = prev_hero
+            log("FT", f"Hero from decision._hero_url_used: {hero_url}")
+    if not hero_url:
+        # 3. Run log timeline
+        run_log_path = run_dir / "run_log.json"
+        if run_log_path.exists():
+            try:
+                rl = json.loads(run_log_path.read_text(encoding="utf-8"))
+                iterations = rl.get("iterations", [])
+                for it in reversed(iterations):
+                    h = it.get("hero_url_used")
+                    if h:
+                        hero_url = h
+                        log("FT", f"Hero from run_log iter {it.get('iter')}: {hero_url}")
+                        break
+            except Exception as e:
+                log("FT", f"WARN couldn't read run_log for hero: {e}")
+    if not hero_url:
+        # 4. Processed file already in run_dir
         for candidate in ["*.outpainted.png", "*.isolated.png"]:
             matches = list(run_dir.glob(candidate))
             if matches:
                 hero_url = str(matches[0])
                 log("FT", f"Reusing processed hero: {hero_url}")
                 break
-        if not hero_url:
-            # Last resort: use catalogue path from URL params (if present)
-            url_hero = new_decision["url_params"].get("hero")
-            if url_hero and url_hero != "<HERO_URL>":
-                hero_url = url_hero
+    if not hero_url:
+        # 5. Last resort: catalogue path em url_params (se não placeholder)
+        url_hero = new_decision["url_params"].get("hero")
+        if url_hero and url_hero != "<HERO_URL>":
+            hero_url = url_hero
+            log("FT", f"Hero from url_params: {hero_url}")
+    if not hero_url:
+        log("FT", "ERRO: não consigo recuperar hero do run anterior. Abort para evitar render com fallback errado.")
+        sys.exit(3)
+
+    # Persist for next iteration
+    new_decision["_hero_url_used"] = hero_url
 
     # Format — preserve from previous run.
     # Priority: --format CLI override → decision.url_params.format → run_log timeline URL → default

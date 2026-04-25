@@ -501,6 +501,12 @@ def main():
         else:
             log("HERO", f"Family {chosen_family} → cover-crop nativo (sem processing)")
 
+    # Persist the actual hero_url used (post outpaint/isolate) so fine_tune.py
+    # can recover it on subsequent re-renders. The Decisor stores "<HERO_URL>"
+    # placeholder in url_params, so without this hint fine_tune would lose the hero.
+    decision["_hero_url_used"] = hero_url
+    (run_dir / f"decision_iter{iter_n}.json").write_text(json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8")
+
     while True:
         # Render
         log(f"ITER {iter_n}", "RENDER")
@@ -523,6 +529,7 @@ def main():
             "iter": iter_n,
             "url": url,
             "png": str(png_path.name),
+            "hero_url_used": hero_url,
             "score": score,
             "publishable": publishable,
             "violations": critique.get("violations", []),
@@ -549,6 +556,7 @@ def main():
         log(f"FIX iter {iter_n}", f"applying {len(url_fixes)} url_param_change(s)")
         new_decision, applied = apply_url_fixes(decision, url_fixes)
         decision = new_decision
+        decision["_hero_url_used"] = hero_url  # carry forward — fine_tune precisa
         iter_n += 1
         (run_dir / f"decision_iter{iter_n}.json").write_text(json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8")
 
