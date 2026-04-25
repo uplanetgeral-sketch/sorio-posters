@@ -1,0 +1,42 @@
+{
+  "id": "ref_012_indio_cerveza_de_alma_guerrera",
+  "title": "Indio Cerveza De Alma Guerrera",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Cerveza Indio · 'De Alma Guerrera' campaign (Mexico)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "brand_campaign",
+    "green_dominant",
+    "gold_typography",
+    "rhythm_pattern",
+    "warrior_label",
+    "premium_beer",
+    "spanish"
+  ],
+  "family": "F02",
+  "mood": "evening_riverside",
+  "typography_summary": "Oswald Bold em duas cores (gold accent + dark verde) + small tracked caps",
+  "composition_summary": "Bottle centro · typography rhythm em todos os 4 cantos",
+  "color_palette_summary": "verde-deep-saturated + gold-warm + cream-bottle-label",
+  "why_good": [
+    "Repeating 'INDIO' em gold + Oswald 'DE ALMA GUERRERA' duplicada vertical = rhythm visual fortíssimo",
+    "Brand mark anchorada centro com hop ornaments tonal-harmony",
+    "Three layers de tipografia sobrepostas (top/middle/bottom) sem clutter",
+    "Texture grain bg dá artesanal premium sem ruído"
+  ],
+  "caveats": [
+    "Verde dominante muito saturado — adaptar para Verde Salgueiro Só Rio (#3F5548). Excellent typography rhythm."
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-01",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

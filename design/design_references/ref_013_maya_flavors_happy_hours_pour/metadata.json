@@ -1,0 +1,38 @@
+{
+  "id": "ref_013_maya_flavors_happy_hours_pour",
+  "title": "Maya Flavors Happy Hours Pour",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "Maya Flavors of India · Happy Hours promo",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "happy_hour",
+    "slab_serif",
+    "beer_pour",
+    "dark_bg",
+    "yellow_accent",
+    "commercial_loud"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Slab serif display + script accent + sans body",
+  "composition_summary": "Hero esquerda (pour shot) · text bloco direita",
+  "color_palette_summary": "dark-warm + yellow-accent + cream-foam",
+  "why_good": [
+    "Slab serif typography dá artisan-craft feel — diferente do default sans Só Rio",
+    "Beer pour shot cria motion + product story",
+    "Two-column layout (left product / right info) é estrutura útil"
+  ],
+  "caveats": [
+    "Slab serif fora da paleta tipográfica Só Rio. Useful como 'tipografia narrativa diferente' apenas. Estética happy-hour pricing-loud não copiar."
+  ],
+  "principle_match": [
+    "TYPO-01"
+  ],
+  "principle_violation": []
+}

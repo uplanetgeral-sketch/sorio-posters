@@ -1,0 +1,55 @@
+{
+  "_comment": "Exemplo de input que o user message envia ao Decisor. O payload completo inclui também: principles, creative_modes, refs_index (descarregados pelo wrapper antes de chamar). Aqui mostro apenas a parte 'business' do payload.",
+
+  "product_id": "caipirinha_maracuja",
+  "creative_freedom": 0.15,
+  "format": "instagram_post_1080x1350",
+  "brief_extra": "Post operacional Sexta · meio de tarde · primeiro post do feed",
+  "previous_decisions": [],
+
+  "product": {
+    "id": "caipirinha_maracuja",
+    "name": "Caipirinha de Maracujá",
+    "category": "BEBIDA",
+    "subcategory": "cocktail",
+    "active": true,
+    "ingredients": {
+      "canonical": ["Maracujá fresco", "Lima", "Cachaça reserva", "Mel do Ribatejo"],
+      "display_short": "Maracujá · Lima · Cachaça · Mel",
+      "display_long": "Maracujá fresco · Lima · Cachaça reserva · Mel do Ribatejo",
+      "highlight": "Mel do Ribatejo"
+    },
+    "garnish": {
+      "inside_glass": ["lime wheel", "passionfruit pulp"],
+      "outside_glass": ["passionfruit shell", "ice spray"],
+      "warning_never_inside": ["thyme leaf", "rosemary"],
+      "warning_never_present": []
+    },
+    "mood_default": "evening_riverside",
+    "mood_alternatives": ["aperitivo_18h"],
+    "selo_recommendation": ["sunset", "ritual_so_rio"],
+    "selo_color_pref": "auto",
+    "claim_recommendations": [
+      {"text": "Sem pressa. Com rio.", "context": "evening", "weight": 1.0},
+      {"text": "O verão tem ritmo.", "context": "midday", "weight": 0.7}
+    ],
+    "visual_dna": {
+      "dominant_colors": ["amber-yellow", "lime-green", "warm-wood"],
+      "lighting": "warm directional, golden hour spill",
+      "subject_position_default": "lower-third",
+      "background_default": "wood deck blurred",
+      "texture_keywords": ["glass condensation", "ice crystals", "passionfruit seeds visible"]
+    },
+    "family_compatibility": {
+      "F01": "ideal",
+      "F02": "ideal",
+      "F03": "good",
+      "F05a": "acceptable",
+      "F05b": "good"
+    },
+    "object_sheet": "object_sheet.png",
+    "vision_analysis": "vision_analysis.json",
+    "approved_heroes": [],
+    "notes": "Signature drink. Sementes do maracujá visíveis no copo são essenciais para autenticidade."
+  }
+}

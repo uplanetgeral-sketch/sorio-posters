@@ -1,0 +1,44 @@
+{
+  "id": "ref_034_pizza_day_distressed_green_golden_script",
+  "title": "Pizza Day Distressed Green Golden Script",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Generic Pizza Day menu (AI-aided design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05a",
+    "distressed_green",
+    "verde_tejo_rustic",
+    "golden_script",
+    "scattered_plates",
+    "ornament_dividers",
+    "rustic_premium",
+    "pizza_menu",
+    "vintage_feel"
+  ],
+  "family": "F05a",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Golden cursive script + golden small caps labels + ornament dividers",
+  "composition_summary": "Scattered plates 7 cells · ornament corner frames + center golden script",
+  "color_palette_summary": "verde-tejo-distressed + golden-script + cream-plates-warm + ornament-gold",
+  "why_good": [
+    "Distressed verde-tejo bg dá rustic-premium feel — mood diferente mas paleta on-brand",
+    "Golden script 'Celatrea' display = mesma família tipográfica que #032/#033",
+    "Ornament dividers (acanto-style swirls) entre sections = elegant alternativa às lines simples",
+    "7 dishes curados em scattered layout = balança variety com restraint",
+    "Border verde fino + cantos ornament = frame editorial subtilíssimo"
+  ],
+  "caveats": [
+    "Text garbled (AI artefact). Border ornaments podem ser too rustic — Só Rio usaria simples hairlines + wave SVG. Mood vintage interessante para campanha sazonal"
+  ],
+  "principle_match": [
+    "UNI-04",
+    "UNI-05",
+    "COLOR-03"
+  ],
+  "principle_violation": []
+}

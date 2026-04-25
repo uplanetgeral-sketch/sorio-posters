@@ -1,0 +1,46 @@
+{
+  "id": "ref_033_seafood_menu_dark_green_scattered_premium",
+  "title": "Seafood Menu Dark Green Scattered Premium",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Generic premium seafood menu poster (AI-aided design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05b",
+    "dark_green_premium",
+    "verde_tejo",
+    "white_display",
+    "scattered_dishes",
+    "section_labels",
+    "premium_seafood",
+    "restraint_editorial",
+    "ai_artifact_text",
+    "section_layout"
+  ],
+  "family": "F05b",
+  "mood": "evening_riverside",
+  "typography_summary": "White sans display section + small tracked caps body + dark bg",
+  "composition_summary": "Scattered dishes em 5 zones · 3 section labels grouping",
+  "color_palette_summary": "verde-tejo-deep + cream-white-display + plate-warm-cream + sage-parsley-accent",
+  "why_good": [
+    "Dark green deep bg = Verde Tejo Só Rio direct match, mais saturado",
+    "White display + tracked caps small body = Só Rio typography language exato",
+    "Multiple sections (Seafood Menu / Past Menu / Reaffont Mens) com headers + body curtos = EXCELLENT structure for F05b sectioned menu",
+    "Plate variety (top-down full + small bowls + sauce dishes) = real menu curation",
+    "Sage parsley accent bottom-right = natural ornament consistent com Só Rio palette"
+  ],
+  "caveats": [
+    "Text garbled (AI artefact). Substituir por 'Menu Pico da Estação' e 'Mesa do Chef' para se transformar em referência canónica Só Rio absoluta"
+  ],
+  "principle_match": [
+    "UNI-04",
+    "UNI-05",
+    "TYPO-04",
+    "FAM-F05b-01"
+  ],
+  "principle_violation": []
+}

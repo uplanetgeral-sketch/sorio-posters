@@ -1,0 +1,42 @@
+{
+  "id": "ref_011_mojitos_yellow_display_overlap_script",
+  "title": "Mojitos Yellow Display Overlap Script",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "La Casa de Adobe · Mojitos promo (LATAM)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "yellow_display",
+    "script_overlay",
+    "hand_holding",
+    "mojito",
+    "overlap_typography",
+    "off_white_bg",
+    "pricing"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Display sans yellow + cursive script overlay + serif body",
+  "composition_summary": "Hero direita (mão+copo) · display+script esquerda",
+  "color_palette_summary": "yellow-warm + off-white-bg + green-mint-pop",
+  "why_good": [
+    "Yellow display 'MOJITOS' duplicated com cursive 'frescos deliciosos' overlaid = layering técnica forte",
+    "Hand holding cocktail é human element — diferente de cold studio shot, vibrante",
+    "Off-white bg cria limpeza editorial em vez de bar-warm",
+    "Multiple typography weights working together com hierarquia clara"
+  ],
+  "caveats": [
+    "Pricing 'todos a $100' fora de tom Só Rio. Útil para typography overlap technique"
+  ],
+  "principle_match": [
+    "TYPO-01",
+    "TYPO-02",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

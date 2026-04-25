@@ -1,0 +1,43 @@
+{
+  "id": "ref_004_lap_pistachio_cream_latte_navy",
+  "title": "Lap Pistachio Cream Latte Navy",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "LAP Productions · The Pistachio Cream Latte (festival nominated 2024)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F05b",
+    "infographic",
+    "navy_bg",
+    "display_dominant",
+    "layered_typography",
+    "ratings",
+    "quote",
+    "festival_laurel",
+    "premium"
+  ],
+  "family": "F05b",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Tracked caps top + Oswald display + italic Cormorant quote + tracked bottom",
+  "composition_summary": "Centrada simétrica · pesado top-bottom",
+  "color_palette_summary": "navy-dark + cream-typography + gold-particles + cinema-amber-glass",
+  "why_good": [
+    "Quatro camadas tipográficas harmoniosas: top tracked + display Oswald + italic quote + bottom labels",
+    "Info-graphic forte sem usar formas geométricas abstractas (zero círculos/quadrados)",
+    "Navy dark bg faz copo + gold particles popular",
+    "Festival laurel + rated badge dão authority sem ser commercial"
+  ],
+  "caveats": [
+    "Tom 'cinematic film festival' é diferente de Só Rio. Usar como referência DE STRUCTURE de info-graphic com 4 camadas, não de tom"
+  ],
+  "principle_match": [
+    "UNI-03",
+    "TYPO-01",
+    "FAM-F05b-01"
+  ],
+  "principle_violation": []
+}

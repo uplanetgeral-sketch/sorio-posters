@@ -1,0 +1,42 @@
+{
+  "id": "ref_003_cocktail_life_too_short_tropical",
+  "title": "Cocktail Life Too Short Tropical",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Tropical bar campaign (origin unknown, design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "cocktail",
+    "dramatic_lighting",
+    "tropical",
+    "evening",
+    "italic_display",
+    "cherry_garnish",
+    "wood_serving_board"
+  ],
+  "family": "F02",
+  "mood": "evening_riverside",
+  "typography_summary": "Display italic display + tracked caps secondary",
+  "composition_summary": "Hero centrado com leve lower-third, masthead-bottom oferta",
+  "color_palette_summary": "warm-amber + tropical-green-blur + dark-shadow",
+  "why_good": [
+    "Chiaroscuro lighting cria drama hospitality premium",
+    "Display italic Cormorant-feel + tracked caps subtitle = 2 camadas tipográficas claras",
+    "Garnish visível e respeitada (orange wheel + cherry — ambos reais)",
+    "Background tropical leaves blur dá ambiente sem competir com glass"
+  ],
+  "caveats": [
+    "A oferta 'BUY 1 GET 1 FREE' é uso comercial — Só Rio nunca faz isto. Usar para mood/lighting apenas"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "COLOR-01",
+    "COMP-01"
+  ],
+  "principle_violation": []
+}

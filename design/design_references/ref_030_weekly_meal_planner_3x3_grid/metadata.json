@@ -1,0 +1,44 @@
+{
+  "id": "ref_030_weekly_meal_planner_3x3_grid",
+  "title": "Weekly Meal Planner 3X3 Grid",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Generic Weekly Meal Planner template (design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05a",
+    "grid_3x3",
+    "flat_lay",
+    "multiple_dishes",
+    "weekly_planner",
+    "beige_warm",
+    "decorative_leaves",
+    "italic_display_mix"
+  ],
+  "family": "F05a",
+  "mood": "fresh_midday",
+  "typography_summary": "Italic display mix + sans display + tracked caps day labels",
+  "composition_summary": "3x3 strict grid · masthead top + footer bottom",
+  "color_palette_summary": "beige-warm + cream-plates + multicolor-food-pop",
+  "why_good": [
+    "3x3 grid demonstra como gerir 9 dishes flat-lay numa única composição com restraint absoluta",
+    "Italic display 'Weekly' + sans display 'MEAL PLANNER' = 2 camadas tipográficas equilibradas",
+    "Beige warm bg deixa pratos individuais respirarem e popping",
+    "Decorative leaves ornament minimal nos cantos sem clutter — ideal para F05a editorial grid",
+    "Day labels (MONDAY/TUESDAY...) tracked caps abaixo de cada cell = exemplo de cell-caption Só Rio compatible"
+  ],
+  "caveats": [
+    "Estilo 'meal planner' é função-driven; Só Rio usaria menos cells (4 em 2x2 conforme FAM-F05a-01) e captions mais editoriais"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-05",
+    "FAM-F05a-01"
+  ],
+  "principle_violation": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ref_014_pizza_massa_veia_red_pattern_circular",
+  "title": "Pizza Massa Veia Red Pattern Circular",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Massa Véia · Pizza promo (PT-BR delivery)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "display_as_pattern",
+    "red_cream",
+    "circular_label",
+    "top_down_pizza",
+    "circular_text",
+    "delivery"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Display sans + circular text + tracked caps badge",
+  "composition_summary": "Top-down hero centrado · pattern background",
+  "color_palette_summary": "red-deep + cream-warm + pizza-warm-amber",
+  "why_good": [
+    "Display 'PIZZA' repeated como pattern + circular text 'PEÇA JÁ A SUA' à volta da pizza — rotation typography divertida",
+    "Pizza top-down preserva ingredientes visíveis (pepperoni, queijo)",
+    "Circular badge central é selo-equivalent (parecido com selos Só Rio)",
+    "Two-color palette restrita red+cream com warmth"
+  ],
+  "caveats": [
+    "Vermelho dominante NÃO Só Rio. Técnica circular text à volta do hero é interessante para integrar com selos"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-01"
+  ],
+  "principle_violation": []
+}

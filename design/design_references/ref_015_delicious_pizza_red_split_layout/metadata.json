@@ -1,0 +1,39 @@
+{
+  "id": "ref_015_delicious_pizza_red_split_layout",
+  "title": "Delicious Pizza Red Split Layout",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "elancuy · Delicious Pizza promo (Indonesia)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "split_layout",
+    "red_dominant",
+    "sans_bold_display",
+    "pizza",
+    "two_column",
+    "social_handles"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Bold sans display + sans body",
+  "composition_summary": "Split 50/50 vertical · text esquerda · hero direita",
+  "color_palette_summary": "red-tomato + cream-warm + pepperoni-warm-amber",
+  "why_good": [
+    "Split layout 50/50 cream-text-side / red-pizza-side — clean grid",
+    "Bold sans display em cor accent contra cream bg",
+    "Cinematography simple e direta"
+  ],
+  "caveats": [
+    "'DELICIOUS PIZZA · NEW MENU' tom commercial. Útil só para split-layout technique"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

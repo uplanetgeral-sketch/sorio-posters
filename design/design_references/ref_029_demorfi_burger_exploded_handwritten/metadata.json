@@ -1,0 +1,41 @@
+{
+  "id": "ref_029_demorfi_burger_exploded_handwritten",
+  "title": "Demorfi Burger Exploded Handwritten",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "De Morfi by Los Troncos · Burger campaign (Argentina)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F03",
+    "exploded_ingredients",
+    "motion",
+    "handwritten_labels",
+    "dark_brown_bg",
+    "burger",
+    "ingredients_floating",
+    "argentine"
+  ],
+  "family": "F03",
+  "mood": "evening_riverside",
+  "typography_summary": "Hand-written script + sans body footer + brand-mark",
+  "composition_summary": "Vertical exploded composition · ingredientes weaving",
+  "color_palette_summary": "dark-brown-flat + amber-burger + green-lettuce + red-tomato",
+  "why_good": [
+    "Exploded burger ingredients flutuando = F03 exemplar para 'motion' family",
+    "Hand-written PT-script labels weaving entre ingredientes = info-graphic warmth playful",
+    "Dark brown bg flat = NOT wood deck (FAM-F03-01 respeitado)",
+    "Wooden table no bottom dá grounding sem competir"
+  ],
+  "caveats": [
+    "Hand-written labels playful style é distante de Só Rio Cormorant. Mas estrutura exploded-ingredients + flat-bg é exemplar F03"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "FAM-F03-01"
+  ],
+  "principle_violation": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "ref_032_menu_dark_green_golden_script_scattered",
+  "title": "Menu Dark Green Golden Script Scattered",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Generic premium menu poster (AI-aided design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05b",
+    "dark_green_premium",
+    "verde_tejo",
+    "golden_script",
+    "scattered_layout",
+    "thin_connective_lines",
+    "restraint",
+    "ai_artifact_text",
+    "rustic_premium"
+  ],
+  "family": "F05b",
+  "mood": "evening_riverside",
+  "typography_summary": "Golden cursive script display + small golden tracked caps labels",
+  "composition_summary": "Scattered top-down dishes · thin string connectors",
+  "color_palette_summary": "verde-tejo-deep + golden-script + cream-plates-warm",
+  "why_good": [
+    "Dark green bg muito perto de Verde Tejo Só Rio (#6B7F5E ish) — direct palette match",
+    "Golden script display sobre dark green = exact Só Rio dourado + tipografia language",
+    "Thin connective string-lines entre dishes = inspiration para divisores/connectors melhores que abstract shapes",
+    "Scattered top-down plates layout = info-graphic editorial sem grids rigid",
+    "Restraint absoluta — 5 plates curados em vez de 9 cluttered"
+  ],
+  "caveats": [
+    "Texto está garbled (artefacto AI) — usar para COMPOSITION + PALETTE, não para text content"
+  ],
+  "principle_match": [
+    "UNI-04",
+    "UNI-05",
+    "FAM-F05b-01"
+  ],
+  "principle_violation": []
+}

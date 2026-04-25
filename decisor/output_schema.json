@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Decisor Output Schema v1.0",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "product_id",
+    "mode",
+    "creative_freedom",
+    "family",
+    "rationale",
+    "url_params",
+    "designer_brief",
+    "inspired_by",
+    "principles_applied",
+    "principles_relaxed",
+    "vision_critique_brief",
+    "human_review_required"
+  ],
+  "properties": {
+    "decision_id": {"type": "string"},
+    "product_id": {"type": "string"},
+    "mode": {"enum": ["standard", "variation", "experimental"]},
+    "creative_freedom": {"type": "number", "minimum": 0, "maximum": 1},
+    "family": {"enum": ["F01", "F02", "F03", "F05a", "F05b"]},
+    "rationale": {"type": "string", "maxLength": 400},
+
+    "url_params": {
+      "type": "object",
+      "required": ["hero", "logo", "selo", "title", "info_top", "accent", "info_bottom"],
+      "properties": {
+        "hero": {"type": "string"},
+        "logo": {"type": "string"},
+        "selo": {"type": "string"},
+        "title": {"type": "string"},
+        "info_top": {"type": "string", "maxLength": 50},
+        "accent": {"type": "string", "maxLength": 60},
+        "info_bottom": {"type": "string"},
+        "display_size": {"type": "number", "minimum": 60, "maximum": 200},
+        "accent_size": {"type": "number", "minimum": 24, "maximum": 72},
+        "title_size": {"type": "number"},
+        "overlay_strength": {"type": "number", "minimum": 0, "maximum": 2},
+        "hero_position": {"type": "string"},
+        "bg_color": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+        "title_align": {"enum": ["left", "center", "right"]},
+        "title_side": {"enum": ["left", "center", "right"]},
+        "editorial_label": {"type": "string"},
+        "show_logo": {"enum": [0, 1]},
+        "show_selo": {"enum": [0, 1]},
+        "show_accent": {"enum": [0, 1]},
+        "show_hairline": {"enum": [0, 1]},
+        "show_wave": {"enum": [0, 1]},
+        "show_info_top": {"enum": [0, 1]},
+        "show_info_bottom": {"enum": [0, 1]},
+        "show_label": {"enum": [0, 1]},
+
+        "hero1": {"type": "string"},
+        "hero2": {"type": "string"},
+        "hero3": {"type": "string"},
+        "hero4": {"type": "string"},
+        "caption1": {"type": "string"},
+        "caption2": {"type": "string"},
+        "caption3": {"type": "string"},
+        "caption4": {"type": "string"},
+
+        "ingredients": {"type": "string"},
+        "quote": {"type": "string"},
+        "stat_number": {"type": "string"},
+        "stat_label": {"type": "string"},
+        "stat_label_top": {"type": "string"}
+      }
+    },
+
+    "designer_brief": {
+      "type": "object",
+      "required": ["subject", "ingredients_visible", "warning_never_inside", "negative_prompt"],
+      "properties": {
+        "subject": {"type": "string"},
+        "ingredients_visible": {"type": "array", "items": {"type": "string"}},
+        "ingredients_outside": {"type": "array", "items": {"type": "string"}},
+        "warning_never_inside": {"type": "array", "items": {"type": "string"}},
+        "lighting": {"type": "string"},
+        "background": {"type": "string"},
+        "subject_position": {"type": "string"},
+        "color_palette_keywords": {"type": "array", "items": {"type": "string"}},
+        "object_sheet_url": {"type": ["string", "null"]},
+        "negative_prompt": {"type": "string"}
+      }
+    },
+
+    "inspired_by": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+    "principles_applied": {"type": "array", "items": {"type": "string"}},
+    "principles_relaxed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["principle_id", "reason"],
+        "properties": {
+          "principle_id": {"type": "string"},
+          "severity_in_mode": {"type": "string"},
+          "reason": {"type": "string"}
+        }
+      }
+    },
+
+    "experimentation_log": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "principles_relaxed": {"type": "array"},
+            "ref_inspired_by": {"type": "array"},
+            "decision_summary": {"type": "string"}
+          }
+        }
+      ]
+    },
+
+    "vision_critique_brief": {"type": "string"},
+    "human_review_required": {"type": "boolean"}
+  }
+}

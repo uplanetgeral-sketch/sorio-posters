@@ -1,0 +1,41 @@
+{
+  "id": "ref_002_avocado_toast_handdrawn_infographic",
+  "title": "Avocado Toast Handdrawn Infographic",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "editorial_external",
+  "source_attribution": "Adobe Stock #161394826 (Visual ref only — design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05b",
+    "infographic",
+    "hand_drawn",
+    "flat_lay",
+    "playful",
+    "breakfast",
+    "sage_green",
+    "labels_with_arrows"
+  ],
+  "family": "F05b",
+  "mood": "fresh_midday",
+  "typography_summary": "Handwritten script + sans body labels",
+  "composition_summary": "Top-down flat-lay com hero centrado e labels orbitais",
+  "color_palette_summary": "sage-green + cream-white + green-accent",
+  "why_good": [
+    "Hand-drawn arrows com labels criam warmth de info-graphic sem formas geométricas abstractas",
+    "Sage green flat bg pulls food-pop forward",
+    "Tipografia handwritten cursive cria personalidade onde Oswald seria genérico",
+    "Layout circular dos labels guia o olhar à volta do prato"
+  ],
+  "caveats": [
+    "Estilo handwritten é distante do Só Rio (que usa Cormorant italic). Usar como inspiração para info-graphic warmth, NÃO para imitar handwriting."
+  ],
+  "principle_match": [
+    "UNI-05",
+    "FAM-F05b-01"
+  ],
+  "principle_violation": []
+}

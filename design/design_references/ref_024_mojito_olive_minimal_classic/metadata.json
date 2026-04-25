@@ -1,0 +1,45 @@
+{
+  "id": "ref_024_mojito_olive_minimal_classic",
+  "title": "Mojito Olive Minimal Classic",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Generic premium Mojito poster (origin unknown · design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "minimal_classic",
+    "olive_green_bg",
+    "single_word_display",
+    "cormorant_serif",
+    "mint_lime",
+    "premium_drink",
+    "restraint"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Display Cormorant-feel single word ALL CAPS off-white",
+  "composition_summary": "Hero centrado lower-third · display-only top",
+  "color_palette_summary": "olive-green-flat (very-close-Verde-Tejo) + cream-display + mint-green-pop + glass-clear",
+  "why_good": [
+    "Single-word display 'MOJITO' Cormorant-serif-style off-white sobre olive-green flat bg = MAXIMUM restraint",
+    "Garnish (mint sprig + lime wheel + paper straw) tudo real e visível — ANTI-01 perfeitamente respeitado",
+    "Background flat olive — VERDE TEJO direto da paleta Só Rio",
+    "Zero ornamentação — só hero + display = lesson em restraint absoluta"
+  ],
+  "caveats": [
+    "NEAREST TO SÓ RIO de toda a inbox. Pode literalmente ser referência canónica para qualquer F02 minimal Só Rio"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-03",
+    "ANTI-01"
+  ],
+  "principle_violation": []
+}

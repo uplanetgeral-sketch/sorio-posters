@@ -1,0 +1,41 @@
+{
+  "id": "ref_020_sate_sushi_beige_coral_floating",
+  "title": "Sate Sushi Beige Coral Floating",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Sate Sushi promo (Indonesian)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "asymmetric_grid",
+    "beige_coral",
+    "display_pattern",
+    "floating_accents",
+    "sushi_skewer",
+    "split_composition"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Bold sans coral + sans body + sans tracked caps",
+  "composition_summary": "Asymmetric vertical split · pattern left · hero+display right",
+  "color_palette_summary": "beige-warm + coral-red + cream-pattern",
+  "why_good": [
+    "Asymmetric split (left pattern panel / right hero+display) — composition forte",
+    "Floating sushi pieces como accents reforçam product story",
+    "Display 'SATE SUSHI' coral em beige bg = warm two-tone restraint",
+    "Wave pattern subtle no beige bg dá texture sem ruído"
+  ],
+  "caveats": [
+    "Coral red mais saturado que paleta Só Rio. Composition split + floating accents é a key takeaway"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "COMP-04",
+    "TYPO-01"
+  ],
+  "principle_violation": []
+}

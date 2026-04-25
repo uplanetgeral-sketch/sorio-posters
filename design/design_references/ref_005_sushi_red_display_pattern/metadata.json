@@ -1,0 +1,41 @@
+{
+  "id": "ref_005_sushi_red_display_pattern",
+  "title": "Sushi Red Display Pattern",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "JuhiDesigns · Sushi promo (design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "display_as_pattern",
+    "red_bg",
+    "top_down",
+    "asian",
+    "bold_typography",
+    "sushi"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Display sans cream sobre red-bg (background) + tracked caps body",
+  "composition_summary": "Top-down hero centrado com display behind",
+  "color_palette_summary": "red-saturated + cream-display + wood-warm-plate",
+  "why_good": [
+    "Display 'SUSHI' repeated como background pattern atrás do hero — técnica forte para reforçar produto sem clutter",
+    "Hero top-down com madeira-prato anchora visualmente",
+    "Mini-elements (sushi pieces) flutuam como accents respiração",
+    "Footer minimalista com info de contacto tracked"
+  ],
+  "caveats": [
+    "Vermelho dominante NÃO está na paleta Só Rio. Useful para a TÉCNICA (display-as-pattern), não para a cor"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-01",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

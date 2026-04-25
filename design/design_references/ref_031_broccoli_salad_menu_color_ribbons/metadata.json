@@ -1,0 +1,44 @@
+{
+  "id": "ref_031_broccoli_salad_menu_color_ribbons",
+  "title": "Broccoli Salad Menu Color Ribbons",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Broccoli's Salad Menu (UAE)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F05a",
+    "salad",
+    "menu_layout",
+    "color_ribbons",
+    "color_coded",
+    "cream_bg",
+    "multiple_products",
+    "price_integrated",
+    "delicate_typography"
+  ],
+  "family": "F05a",
+  "mood": "fresh_midday",
+  "typography_summary": "Sans display nome em color + sans body small + price integrated",
+  "composition_summary": "Two-row grid 3+3 + 1 hero bottom assimétrico",
+  "color_palette_summary": "cream-warm + color-ribbons-multi + bowl-cream-warm",
+  "why_good": [
+    "Cada item tem identidade própria via color ribbon + nome em cor matching = system pattern útil",
+    "Cream bg neutral deixa cada bowl pop individualmente sem competir",
+    "Two-row + 1 hero = composition assimétrica equilibrada (não rigid grid)",
+    "Price integrado tastefully (não loud) — só a cor numérica pequena diferencia",
+    "Delicate sans typography permite cada produto ter voice própria"
+  ],
+  "caveats": [
+    "Color coding overhead — Só Rio usaria color_pref do selo (dourado/creme/verde) em vez de N cores arbitrárias. AED pricing fora de tom"
+  ],
+  "principle_match": [
+    "UNI-02",
+    "UNI-05",
+    "FAM-F05a-01"
+  ],
+  "principle_violation": []
+}

@@ -1,0 +1,37 @@
+{
+  "id": "ref_017_sextou_budweiser_template_rhythm",
+  "title": "Sextou Budweiser Template Rhythm",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "Generic 'Sextou' Budweiser template (PT-BR Friday-vibe)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "template_loud",
+    "rhythm_pattern",
+    "red_white",
+    "friday_vibe",
+    "weekend"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Bold sans display repeated",
+  "composition_summary": "Bottle centered + display rhythm pattern",
+  "color_palette_summary": "red-loud + white-display + bottle-amber",
+  "why_good": [
+    "'SEXTOU' (Friday/casual PT-BR) repeated 4x cria rhythmic visual energy",
+    "Bottle floating centro com torn-paper top edge = layering técnica",
+    "Template visa social-friendly — mood amizade/celebração"
+  ],
+  "caveats": [
+    "É um TEMPLATE genérico, não brand original — útil para study de rhythm typography apenas"
+  ],
+  "principle_match": [
+    "TYPO-01"
+  ],
+  "principle_violation": []
+}

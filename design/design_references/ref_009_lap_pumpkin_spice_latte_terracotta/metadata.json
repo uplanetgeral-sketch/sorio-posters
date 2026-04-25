@@ -1,0 +1,45 @@
+{
+  "id": "ref_009_lap_pumpkin_spice_latte_terracotta",
+  "title": "Lap Pumpkin Spice Latte Terracotta",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "LAP Productions · The Pumpkin Spice Latte (sister of Pistachio ref)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F05b",
+    "infographic",
+    "terracotta_bg",
+    "display_dominant",
+    "layered_typography",
+    "ratings",
+    "quote",
+    "festival_laurel",
+    "premium",
+    "autumn",
+    "series_template"
+  ],
+  "family": "F05b",
+  "mood": "evening_riverside",
+  "typography_summary": "Tracked caps top + Oswald display + italic Cormorant quote + tracked bottom · sister to #004",
+  "composition_summary": "Centrada simétrica · idêntica a #004",
+  "color_palette_summary": "terracotta-warm + cream-display + amber-glass + spice-particles",
+  "why_good": [
+    "Sister design da Pistachio — prova que template é repeatable mantendo authority",
+    "Terracotta swap por navy faz mood diferente mantendo structure",
+    "Top labels (PUMPKIN PUREE / OAT MILK / COOKIE CRUMBS) = ingredientes destacados",
+    "Italic quote + 5-star rating constrói credibility editorial"
+  ],
+  "caveats": [
+    "Tom 'rated for cult classic' é cinematográfico — adaptar para Só Rio com 'Mesa do Chef recomenda' ou similar"
+  ],
+  "principle_match": [
+    "UNI-03",
+    "TYPO-01",
+    "FAM-F05b-01"
+  ],
+  "principle_violation": []
+}

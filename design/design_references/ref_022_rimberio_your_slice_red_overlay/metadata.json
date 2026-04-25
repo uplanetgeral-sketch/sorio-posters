@@ -1,0 +1,38 @@
+{
+  "id": "ref_022_rimberio_your_slice_red_overlay",
+  "title": "Rimberio Your Slice Red Overlay",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "Rimberio Pizza · Your Slice campaign",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "display_overlay_script",
+    "red_cream",
+    "pizza_top_corner",
+    "order_button",
+    "italian"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Display sans cream + cursive italic accent + body sans + button sans",
+  "composition_summary": "Hero corner (top-right) · text+display centro/esquerda",
+  "color_palette_summary": "red-deep + cream-display + cursive-black + pizza-warm",
+  "why_good": [
+    "Display 'YOUR SLICE' sans com cursive 'awaits' overlay — typography layering técnica clara",
+    "Pizza no topo direito (corner placement) deixa text bloco esquerda respirar",
+    "Body copy + ORDER NOW button bem estruturado para ação"
+  ],
+  "caveats": [
+    "ORDER NOW button é commercial. Display + script overlay technique é a takeaway"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-02"
+  ],
+  "principle_violation": []
+}

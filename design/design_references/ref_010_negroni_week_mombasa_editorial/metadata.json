@@ -1,0 +1,43 @@
+{
+  "id": "ref_010_negroni_week_mombasa_editorial",
+  "title": "Negroni Week Mombasa Editorial",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Imbibe + Campari · Negroni Week 2023 · Mombasa bar (Spain)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "editorial_premium",
+    "dark_bg",
+    "italic_script_display",
+    "negroni",
+    "rosemary_garnish",
+    "wood_serving",
+    "hospitality_boutique"
+  ],
+  "family": "F02",
+  "mood": "evening_riverside",
+  "typography_summary": "Italic script display 'Negroni' + Oswald-feel 'Week' + tracked caps subtitle/footer",
+  "composition_summary": "Hero glass centrado lower-third · masthead simétrico top",
+  "color_palette_summary": "dark-wood-warm + cream-script + gold-glass-amber-warmth",
+  "why_good": [
+    "Cinematic dark wood com light-leak natural — referência maior para evening_riverside Só Rio",
+    "Italic script display 'Negroni Week' = 1 layer dominante + tracked caps secondary muito restrained",
+    "Garnish (rosemary sprig) presente e real — ANTI-01 respeitado",
+    "Footer 'TE ESPERAMOS · MOMBASA' tracked simples = info-bottom Só Rio equivalent"
+  ],
+  "caveats": [
+    "VERY CLOSE TO SÓ RIO — útil quase como template directo. Substituir 'Negroni Week Mombasa' por 'Pico da Estação Só Rio' e está"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-05",
+    "TYPO-03",
+    "ANTI-01"
+  ],
+  "principle_violation": []
+}

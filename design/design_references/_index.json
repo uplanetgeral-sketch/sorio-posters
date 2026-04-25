@@ -5,50 +5,737 @@
   "last_updated": "2026-04-25",
   "curator": "Gonçalo Carvoeiras · Bolder AI Creative Studio",
   "philosophy": "Esta biblioteca não é exaustiva — é curada. Apenas refs que o curador acha exemplares entram. Quantidade < qualidade. 30 refs excelentes valem mais que 300 medíocres.",
-
   "stats": {
-    "total_refs": 0,
+    "total_refs": 34,
     "by_source": {
       "own_production": 0,
       "competitor_study": 0,
-      "editorial_external": 0,
+      "editorial_external": 1,
       "packaging_external": 0,
-      "art_direction_external": 0
+      "art_direction_external": 33
     },
     "by_family": {
-      "F01": 0, "F02": 0, "F03": 0, "F05a": 0, "F05b": 0, "external": 0
+      "F01": 1,
+      "F02": 24,
+      "F03": 1,
+      "F05a": 3,
+      "F05b": 5,
+      "external": 0
+    },
+    "by_category": {
+      "canonical": 0,
+      "analog": 8,
+      "exploration": 17,
+      "provocation": 9
     }
   },
-
-  "references": [],
-
-  "schema_example": {
-    "_comment": "Esta entry NÃO é uma ref real — apenas mostra a forma. Eliminar quando houver refs reais.",
-    "id": "ref_000_schema_example",
-    "title": "Caipirinha de Maracujá · golden hour · F02",
-    "folder": "ref_000_schema_example/",
-    "image": "ref_000_schema_example/poster.png",
-    "thumbnail": "ref_000_schema_example/thumb.jpg",
-    "source": "own_production",
-    "source_attribution": "Sessão 23 Abril 2026 — Bolder AI · Creative Studio",
-    "added_date": "2026-04-25",
-    "approved_by": "Gonçalo Carvoeiras",
-    "tags": ["bebida", "F02", "evening_riverside", "citrus", "dark_overlay", "selo_dourado", "wood_deck"],
-    "family": "F02",
-    "category": "BEBIDA",
-    "mood": "evening_riverside",
-    "typography_summary": "Display Oswald Bold 130px · Accent Cormorant italic 46px dourado · Info Inter 22px tracked",
-    "composition_summary": "Hero centrado com subject lower-third. Masthead-top simétrico. Masthead-bottom 4 camadas com hairline + wave divider.",
-    "color_palette_summary": "Madeira queimada dominante + dourado + off-white tipografia. Overlay 1.0 strength.",
-    "why_good": [
-      "Tipografia 100% fiel às 3 camadas do Blueprint sem invenção",
-      "Hero subject fora do centro absoluto (terço inferior)",
-      "Selo dourado harmoniza com madeira sem competir",
-      "Restraint decorativo: apenas hairline + wave"
-    ],
-    "caveats": [
-      "Não copiar literal — usar como referência de balance, não de layout exacto"
-    ],
-    "principle_match": ["UNI-01", "UNI-03", "UNI-04", "TYPO-01", "COLOR-02", "FAM-F02-01"]
-  }
+  "references": [
+    {
+      "id": "ref_001_farmaaish_happy_hour_tower",
+      "title": "Farmaaish Happy Hour Tower",
+      "folder": "ref_001_farmaaish_happy_hour_tower/",
+      "image": "ref_001_farmaaish_happy_hour_tower/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "happy_hour",
+        "display_dominant",
+        "commercial_loud",
+        "yellow_oswald",
+        "bar_interior",
+        "english"
+      ]
+    },
+    {
+      "id": "ref_002_avocado_toast_handdrawn_infographic",
+      "title": "Avocado Toast Handdrawn Infographic",
+      "folder": "ref_002_avocado_toast_handdrawn_infographic/",
+      "image": "ref_002_avocado_toast_handdrawn_infographic/poster.jpg",
+      "category": "exploration",
+      "source": "editorial_external",
+      "family": "F05b",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F05b",
+        "infographic",
+        "hand_drawn",
+        "flat_lay",
+        "playful",
+        "breakfast",
+        "sage_green",
+        "labels_with_arrows"
+      ]
+    },
+    {
+      "id": "ref_003_cocktail_life_too_short_tropical",
+      "title": "Cocktail Life Too Short Tropical",
+      "folder": "ref_003_cocktail_life_too_short_tropical/",
+      "image": "ref_003_cocktail_life_too_short_tropical/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "evening_riverside",
+      "tags": [
+        "bebida",
+        "F02",
+        "cocktail",
+        "dramatic_lighting",
+        "tropical",
+        "evening",
+        "italic_display",
+        "cherry_garnish",
+        "wood_serving_board"
+      ]
+    },
+    {
+      "id": "ref_004_lap_pistachio_cream_latte_navy",
+      "title": "Lap Pistachio Cream Latte Navy",
+      "folder": "ref_004_lap_pistachio_cream_latte_navy/",
+      "image": "ref_004_lap_pistachio_cream_latte_navy/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05b",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F05b",
+        "infographic",
+        "navy_bg",
+        "display_dominant",
+        "layered_typography",
+        "ratings",
+        "quote",
+        "festival_laurel",
+        "premium"
+      ]
+    },
+    {
+      "id": "ref_005_sushi_red_display_pattern",
+      "title": "Sushi Red Display Pattern",
+      "folder": "ref_005_sushi_red_display_pattern/",
+      "image": "ref_005_sushi_red_display_pattern/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "prato",
+        "F02",
+        "display_as_pattern",
+        "red_bg",
+        "top_down",
+        "asian",
+        "bold_typography",
+        "sushi"
+      ]
+    },
+    {
+      "id": "ref_006_pesto_pasta_textured_bg_overlay",
+      "title": "Pesto Pasta Textured Bg Overlay",
+      "folder": "ref_006_pesto_pasta_textured_bg_overlay/",
+      "image": "ref_006_pesto_pasta_textured_bg_overlay/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F02",
+        "textured_bg",
+        "yellow_green",
+        "display_overlay",
+        "price_badges",
+        "italian",
+        "commercial"
+      ]
+    },
+    {
+      "id": "ref_007_farmaaish_happy_hour_bucket",
+      "title": "Farmaaish Happy Hour Bucket",
+      "folder": "ref_007_farmaaish_happy_hour_bucket/",
+      "image": "ref_007_farmaaish_happy_hour_bucket/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "happy_hour",
+        "display_dominant",
+        "commercial_loud",
+        "beer_bucket",
+        "campaign_variant"
+      ]
+    },
+    {
+      "id": "ref_008_hoshi_poke_orange_stencil",
+      "title": "Hoshi Poke Orange Stencil",
+      "folder": "ref_008_hoshi_poke_orange_stencil/",
+      "image": "ref_008_hoshi_poke_orange_stencil/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F02",
+        "display_stencil",
+        "orange_waves",
+        "top_down",
+        "poke_bowl",
+        "delivery",
+        "wave_pattern_bg"
+      ]
+    },
+    {
+      "id": "ref_009_lap_pumpkin_spice_latte_terracotta",
+      "title": "Lap Pumpkin Spice Latte Terracotta",
+      "folder": "ref_009_lap_pumpkin_spice_latte_terracotta/",
+      "image": "ref_009_lap_pumpkin_spice_latte_terracotta/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05b",
+      "mood": "evening_riverside",
+      "tags": [
+        "bebida",
+        "F05b",
+        "infographic",
+        "terracotta_bg",
+        "display_dominant",
+        "layered_typography",
+        "ratings",
+        "quote",
+        "festival_laurel",
+        "premium",
+        "autumn",
+        "series_template"
+      ]
+    },
+    {
+      "id": "ref_010_negroni_week_mombasa_editorial",
+      "title": "Negroni Week Mombasa Editorial",
+      "folder": "ref_010_negroni_week_mombasa_editorial/",
+      "image": "ref_010_negroni_week_mombasa_editorial/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "evening_riverside",
+      "tags": [
+        "bebida",
+        "F02",
+        "editorial_premium",
+        "dark_bg",
+        "italic_script_display",
+        "negroni",
+        "rosemary_garnish",
+        "wood_serving",
+        "hospitality_boutique"
+      ]
+    },
+    {
+      "id": "ref_011_mojitos_yellow_display_overlap_script",
+      "title": "Mojitos Yellow Display Overlap Script",
+      "folder": "ref_011_mojitos_yellow_display_overlap_script/",
+      "image": "ref_011_mojitos_yellow_display_overlap_script/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "yellow_display",
+        "script_overlay",
+        "hand_holding",
+        "mojito",
+        "overlap_typography",
+        "off_white_bg",
+        "pricing"
+      ]
+    },
+    {
+      "id": "ref_012_indio_cerveza_de_alma_guerrera",
+      "title": "Indio Cerveza De Alma Guerrera",
+      "folder": "ref_012_indio_cerveza_de_alma_guerrera/",
+      "image": "ref_012_indio_cerveza_de_alma_guerrera/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "evening_riverside",
+      "tags": [
+        "bebida",
+        "F02",
+        "brand_campaign",
+        "green_dominant",
+        "gold_typography",
+        "rhythm_pattern",
+        "warrior_label",
+        "premium_beer",
+        "spanish"
+      ]
+    },
+    {
+      "id": "ref_013_maya_flavors_happy_hours_pour",
+      "title": "Maya Flavors Happy Hours Pour",
+      "folder": "ref_013_maya_flavors_happy_hours_pour/",
+      "image": "ref_013_maya_flavors_happy_hours_pour/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "happy_hour",
+        "slab_serif",
+        "beer_pour",
+        "dark_bg",
+        "yellow_accent",
+        "commercial_loud"
+      ]
+    },
+    {
+      "id": "ref_014_pizza_massa_veia_red_pattern_circular",
+      "title": "Pizza Massa Veia Red Pattern Circular",
+      "folder": "ref_014_pizza_massa_veia_red_pattern_circular/",
+      "image": "ref_014_pizza_massa_veia_red_pattern_circular/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "prato",
+        "F02",
+        "display_as_pattern",
+        "red_cream",
+        "circular_label",
+        "top_down_pizza",
+        "circular_text",
+        "delivery"
+      ]
+    },
+    {
+      "id": "ref_015_delicious_pizza_red_split_layout",
+      "title": "Delicious Pizza Red Split Layout",
+      "folder": "ref_015_delicious_pizza_red_split_layout/",
+      "image": "ref_015_delicious_pizza_red_split_layout/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F02",
+        "split_layout",
+        "red_dominant",
+        "sans_bold_display",
+        "pizza",
+        "two_column",
+        "social_handles"
+      ]
+    },
+    {
+      "id": "ref_016_budweiser_king_of_beers_mirrored_typography",
+      "title": "Budweiser King Of Beers Mirrored Typography",
+      "folder": "ref_016_budweiser_king_of_beers_mirrored_typography/",
+      "image": "ref_016_budweiser_king_of_beers_mirrored_typography/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "brand_campaign",
+        "mirrored_typography",
+        "rotation",
+        "red_white",
+        "bottle_centered",
+        "viral_concept",
+        "experimental_typography"
+      ]
+    },
+    {
+      "id": "ref_017_sextou_budweiser_template_rhythm",
+      "title": "Sextou Budweiser Template Rhythm",
+      "folder": "ref_017_sextou_budweiser_template_rhythm/",
+      "image": "ref_017_sextou_budweiser_template_rhythm/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "template_loud",
+        "rhythm_pattern",
+        "red_white",
+        "friday_vibe",
+        "weekend"
+      ]
+    },
+    {
+      "id": "ref_018_heineken_quintal_picui_chaotic_squiggly",
+      "title": "Heineken Quintal Picui Chaotic Squiggly",
+      "folder": "ref_018_heineken_quintal_picui_chaotic_squiggly/",
+      "image": "ref_018_heineken_quintal_picui_chaotic_squiggly/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "bebida",
+        "F02",
+        "chaotic",
+        "squiggly_bg",
+        "happy_hour",
+        "heineken",
+        "yellow_orange",
+        "energetic",
+        "bull_skull_logo"
+      ]
+    },
+    {
+      "id": "ref_019_tasty_morning_joy_marble_warm",
+      "title": "Tasty Morning Joy Marble Warm",
+      "folder": "ref_019_tasty_morning_joy_marble_warm/",
+      "image": "ref_019_tasty_morning_joy_marble_warm/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F01",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F01",
+        "editorial_premium",
+        "italic_display_mix",
+        "scrambled_eggs_toast",
+        "latte",
+        "marble_table",
+        "warm_interior_blur",
+        "morning_mood",
+        "hospitality_boutique"
+      ]
+    },
+    {
+      "id": "ref_020_sate_sushi_beige_coral_floating",
+      "title": "Sate Sushi Beige Coral Floating",
+      "folder": "ref_020_sate_sushi_beige_coral_floating/",
+      "image": "ref_020_sate_sushi_beige_coral_floating/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F02",
+        "asymmetric_grid",
+        "beige_coral",
+        "display_pattern",
+        "floating_accents",
+        "sushi_skewer",
+        "split_composition"
+      ]
+    },
+    {
+      "id": "ref_021_yoko_matcha_swiss_minimal",
+      "title": "Yoko Matcha Swiss Minimal",
+      "folder": "ref_021_yoko_matcha_swiss_minimal/",
+      "image": "ref_021_yoko_matcha_swiss_minimal/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "swiss_minimal",
+        "premium_packaging",
+        "geometric_sans",
+        "matcha_green",
+        "cream_bg",
+        "labels_corner",
+        "ceremonial_grade"
+      ]
+    },
+    {
+      "id": "ref_022_rimberio_your_slice_red_overlay",
+      "title": "Rimberio Your Slice Red Overlay",
+      "folder": "ref_022_rimberio_your_slice_red_overlay/",
+      "image": "ref_022_rimberio_your_slice_red_overlay/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "prato",
+        "F02",
+        "display_overlay_script",
+        "red_cream",
+        "pizza_top_corner",
+        "order_button",
+        "italian"
+      ]
+    },
+    {
+      "id": "ref_023_7bean_avocado_toast_vibe_pattern",
+      "title": "7Bean Avocado Toast Vibe Pattern",
+      "folder": "ref_023_7bean_avocado_toast_vibe_pattern/",
+      "image": "ref_023_7bean_avocado_toast_vibe_pattern/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F02",
+        "display_pattern",
+        "beige_green",
+        "two_tone_typography",
+        "italic_mix",
+        "avocado_toast",
+        "blue_plate",
+        "warm_premium"
+      ]
+    },
+    {
+      "id": "ref_024_mojito_olive_minimal_classic",
+      "title": "Mojito Olive Minimal Classic",
+      "folder": "ref_024_mojito_olive_minimal_classic/",
+      "image": "ref_024_mojito_olive_minimal_classic/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "minimal_classic",
+        "olive_green_bg",
+        "single_word_display",
+        "cormorant_serif",
+        "mint_lime",
+        "premium_drink",
+        "restraint"
+      ]
+    },
+    {
+      "id": "ref_025_tropical_temptations_larana_yellow_italic",
+      "title": "Tropical Temptations Larana Yellow Italic",
+      "folder": "ref_025_tropical_temptations_larana_yellow_italic/",
+      "image": "ref_025_tropical_temptations_larana_yellow_italic/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "italic_display_dominant",
+        "yellow_warm_bg",
+        "tropical_cocktail",
+        "orange_garnish",
+        "premium_editorial",
+        "cream_palette"
+      ]
+    },
+    {
+      "id": "ref_026_negroni_burgundy_serif_display",
+      "title": "Negroni Burgundy Serif Display",
+      "folder": "ref_026_negroni_burgundy_serif_display/",
+      "image": "ref_026_negroni_burgundy_serif_display/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "evening_riverside",
+      "tags": [
+        "bebida",
+        "F02",
+        "burgundy_dark",
+        "serif_display_pattern",
+        "single_hero",
+        "tracked_subtitle",
+        "orange_peel_garnish",
+        "minimal_premium",
+        "editorial_restraint"
+      ]
+    },
+    {
+      "id": "ref_027_pomegranate_marg_red_pink_chaotic",
+      "title": "Pomegranate Marg Red Pink Chaotic",
+      "folder": "ref_027_pomegranate_marg_red_pink_chaotic/",
+      "image": "ref_027_pomegranate_marg_red_pink_chaotic/poster.jpg",
+      "category": "provocation",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "red_pink",
+        "chaotic_display",
+        "hand_held",
+        "launch_campaign",
+        "fresh_tart_bright",
+        "energetic"
+      ]
+    },
+    {
+      "id": "ref_028_cocktails_split_stone_peach",
+      "title": "Cocktails Split Stone Peach",
+      "folder": "ref_028_cocktails_split_stone_peach/",
+      "image": "ref_028_cocktails_split_stone_peach/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F02",
+      "mood": "fresh_midday",
+      "tags": [
+        "bebida",
+        "F02",
+        "split_composition",
+        "stone_peach",
+        "rosemary_garnish",
+        "single_hero",
+        "warm_palette",
+        "delicate_typography"
+      ]
+    },
+    {
+      "id": "ref_029_demorfi_burger_exploded_handwritten",
+      "title": "Demorfi Burger Exploded Handwritten",
+      "folder": "ref_029_demorfi_burger_exploded_handwritten/",
+      "image": "ref_029_demorfi_burger_exploded_handwritten/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F03",
+      "mood": "evening_riverside",
+      "tags": [
+        "prato",
+        "F03",
+        "exploded_ingredients",
+        "motion",
+        "handwritten_labels",
+        "dark_brown_bg",
+        "burger",
+        "ingredients_floating",
+        "argentine"
+      ]
+    },
+    {
+      "id": "ref_030_weekly_meal_planner_3x3_grid",
+      "title": "Weekly Meal Planner 3X3 Grid",
+      "folder": "ref_030_weekly_meal_planner_3x3_grid/",
+      "image": "ref_030_weekly_meal_planner_3x3_grid/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05a",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F05a",
+        "grid_3x3",
+        "flat_lay",
+        "multiple_dishes",
+        "weekly_planner",
+        "beige_warm",
+        "decorative_leaves",
+        "italic_display_mix"
+      ]
+    },
+    {
+      "id": "ref_031_broccoli_salad_menu_color_ribbons",
+      "title": "Broccoli Salad Menu Color Ribbons",
+      "folder": "ref_031_broccoli_salad_menu_color_ribbons/",
+      "image": "ref_031_broccoli_salad_menu_color_ribbons/poster.jpg",
+      "category": "analog",
+      "source": "art_direction_external",
+      "family": "F05a",
+      "mood": "fresh_midday",
+      "tags": [
+        "prato",
+        "F05a",
+        "salad",
+        "menu_layout",
+        "color_ribbons",
+        "color_coded",
+        "cream_bg",
+        "multiple_products",
+        "price_integrated",
+        "delicate_typography"
+      ]
+    },
+    {
+      "id": "ref_032_menu_dark_green_golden_script_scattered",
+      "title": "Menu Dark Green Golden Script Scattered",
+      "folder": "ref_032_menu_dark_green_golden_script_scattered/",
+      "image": "ref_032_menu_dark_green_golden_script_scattered/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05b",
+      "mood": "evening_riverside",
+      "tags": [
+        "prato",
+        "F05b",
+        "dark_green_premium",
+        "verde_tejo",
+        "golden_script",
+        "scattered_layout",
+        "thin_connective_lines",
+        "restraint",
+        "ai_artifact_text",
+        "rustic_premium"
+      ]
+    },
+    {
+      "id": "ref_033_seafood_menu_dark_green_scattered_premium",
+      "title": "Seafood Menu Dark Green Scattered Premium",
+      "folder": "ref_033_seafood_menu_dark_green_scattered_premium/",
+      "image": "ref_033_seafood_menu_dark_green_scattered_premium/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05b",
+      "mood": "evening_riverside",
+      "tags": [
+        "prato",
+        "F05b",
+        "dark_green_premium",
+        "verde_tejo",
+        "white_display",
+        "scattered_dishes",
+        "section_labels",
+        "premium_seafood",
+        "restraint_editorial",
+        "ai_artifact_text",
+        "section_layout"
+      ]
+    },
+    {
+      "id": "ref_034_pizza_day_distressed_green_golden_script",
+      "title": "Pizza Day Distressed Green Golden Script",
+      "folder": "ref_034_pizza_day_distressed_green_golden_script/",
+      "image": "ref_034_pizza_day_distressed_green_golden_script/poster.jpg",
+      "category": "exploration",
+      "source": "art_direction_external",
+      "family": "F05a",
+      "mood": "aperitivo_18h",
+      "tags": [
+        "prato",
+        "F05a",
+        "distressed_green",
+        "verde_tejo_rustic",
+        "golden_script",
+        "scattered_plates",
+        "ornament_dividers",
+        "rustic_premium",
+        "pizza_menu",
+        "vintage_feel"
+      ]
+    }
+  ]
 }

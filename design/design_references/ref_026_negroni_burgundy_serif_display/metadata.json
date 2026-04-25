@@ -1,0 +1,46 @@
+{
+  "id": "ref_026_negroni_burgundy_serif_display",
+  "title": "Negroni Burgundy Serif Display",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Premium Negroni poster (origin unknown · design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "burgundy_dark",
+    "serif_display_pattern",
+    "single_hero",
+    "tracked_subtitle",
+    "orange_peel_garnish",
+    "minimal_premium",
+    "editorial_restraint"
+  ],
+  "family": "F02",
+  "mood": "evening_riverside",
+  "typography_summary": "Cormorant-feel serif display split-pattern + tracked caps minimal subtitle",
+  "composition_summary": "Hero glass centro · display split background · tracked caps lateral",
+  "color_palette_summary": "burgundy-wine-dark + cream-display + amber-glass + orange-peel-warm",
+  "why_good": [
+    "Burgundy/wine dark bg = Só Rio-evening absoluto",
+    "Display 'NEGRO RONI' Cormorant-feel split-pattern atrás do hero = Só Rio-style typography",
+    "Single hero glass com orange peel real garnish — ANTI-01 perfectly",
+    "'LO SECO LO DULCE' tracked caps minimal subtitle — exact info-top Só Rio language",
+    "Restraint absoluta — só hero + display + subtitle"
+  ],
+  "caveats": [
+    "VERY-CLOSE TO SÓ RIO — quase template canónico para F02 evening_riverside dark"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-04",
+    "ANTI-01"
+  ],
+  "principle_violation": []
+}

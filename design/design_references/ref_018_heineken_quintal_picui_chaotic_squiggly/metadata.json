@@ -1,0 +1,37 @@
+{
+  "id": "ref_018_heineken_quintal_picui_chaotic_squiggly",
+  "title": "Heineken Quintal Picui Chaotic Squiggly",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "Quintal do Picuí · Heineken happy hour (PT-BR)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "chaotic",
+    "squiggly_bg",
+    "happy_hour",
+    "heineken",
+    "yellow_orange",
+    "energetic",
+    "bull_skull_logo"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Bold sans display empilhado · pricing como badge selos",
+  "composition_summary": "Two-product hero centro · chaotic bg",
+  "color_palette_summary": "yellow-warm + orange-pop + heineken-green-bottle",
+  "why_good": [
+    "Squiggly/wave bg pattern em yellow-orange cria energy visual without sense",
+    "Hero composto de 2 elementos (bottle + cocktail) duo bem balançado",
+    "Pricing badges integrados como selos circulares — technique parecida com selos Só Rio"
+  ],
+  "caveats": [
+    "Estética chaotic/loud é completamente fora Só Rio. Útil só para reference de 'integration de pricing badges com selos circulares' como concept"
+  ],
+  "principle_match": [],
+  "principle_violation": []
+}

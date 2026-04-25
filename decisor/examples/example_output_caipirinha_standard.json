@@ -1,0 +1,75 @@
+{
+  "_comment": "Exemplo do output que o Decisor produz para o input correspondente em example_input_caipirinha_standard.json. Este é um ground-truth manualmente escrito que representa a decisão ideal. Útil como golden test e para understanding.",
+
+  "decision_id": "20260425_140000_caipirinha_maracuja",
+  "product_id": "caipirinha_maracuja",
+  "mode": "standard",
+  "creative_freedom": 0.15,
+  "family": "F02",
+  "rationale": "F02 ideal — Caipirinha tem cor vibrante e hero forte que merece full-bleed com tipografia bottom dramática. Mood evening_riverside puxa para selo sunset-dourado e overlay médio.",
+
+  "url_params": {
+    "hero": "<HERO_URL>",
+    "logo": "assets/logo.png",
+    "selo": "assets/selos/sunset-dourado.png",
+    "title": "Caipirinha|de Maracujá",
+    "info_top": "Maracujá · Lima · Cachaça · Mel",
+    "accent": "Sem pressa. Com rio.",
+    "info_bottom": "Valada do Ribatejo · sorio.pt",
+    "display_size": 130,
+    "accent_size": 46,
+    "overlay_strength": 1.0,
+    "hero_position": "center 55%",
+    "show_logo": 1,
+    "show_selo": 1,
+    "show_accent": 1,
+    "show_hairline": 1,
+    "show_wave": 1,
+    "show_info_top": 1,
+    "show_info_bottom": 1
+  },
+
+  "designer_brief": {
+    "subject": "Cocktail glass with passionfruit pulp and lime visible, set on wood deck blurred riverside",
+    "ingredients_visible": ["lime wheel", "passionfruit pulp", "ice crystals"],
+    "ingredients_outside": ["passionfruit shell", "ice spray"],
+    "warning_never_inside": ["thyme leaf", "rosemary"],
+    "lighting": "warm directional, golden hour spill, evening_riverside",
+    "background": "wood deck blurred with riverside ambient light",
+    "subject_position": "lower-third",
+    "color_palette_keywords": ["amber-yellow", "lime-green", "warm-wood", "golden hour"],
+    "object_sheet_url": "https://sorio-posters.netlify.app/catalogue/produtos/caipirinha_maracuja/object_sheet.png",
+    "negative_prompt": "no thyme, no rosemary, no abstract shapes (no green circles, no yellow squares), no neon, no high saturation outside Só Rio palette (8 colours), no real public figures"
+  },
+
+  "inspired_by": [
+    "ref_024_mojito_olive_minimal_classic",
+    "ref_026_negroni_burgundy_serif_display",
+    "ref_010_negroni_week_mombasa_editorial"
+  ],
+  "principles_applied": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-03",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-02",
+    "TYPO-03",
+    "TYPO-04",
+    "COMP-01",
+    "COMP-03",
+    "COLOR-01",
+    "COLOR-02",
+    "COLOR-03",
+    "FAM-F02-01",
+    "ANTI-01"
+  ],
+  "principles_relaxed": [],
+
+  "experimentation_log": null,
+
+  "vision_critique_brief": "F02 evening_riverside Caipirinha de Maracujá em modo Standard. Verifica: 1) Tipografia 3 camadas Blueprint (Oswald Bold 130px display + Cormorant italic 46px accent + Inter tracked 22px info). 2) Hero subject lower-third, copo centrado horizontalmente. 3) Selo sunset-dourado top-right harmoniza com warm wood. 4) overlay_strength 1.0 deixa tipografia legível. 5) GARNISH: confirma que folha de tomilho/rosemary NÃO aparece dentro do copo (warning_never_inside). 6) Apenas 8 cores Blueprint presentes. 7) Sem formas abstractas. Score esperado ≥ 80.",
+
+  "human_review_required": false
+}

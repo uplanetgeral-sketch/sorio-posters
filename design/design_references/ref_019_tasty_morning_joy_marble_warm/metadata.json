@@ -1,0 +1,44 @@
+{
+  "id": "ref_019_tasty_morning_joy_marble_warm",
+  "title": "Tasty Morning Joy Marble Warm",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Premium café morning campaign (origin unknown · design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F01",
+    "editorial_premium",
+    "italic_display_mix",
+    "scrambled_eggs_toast",
+    "latte",
+    "marble_table",
+    "warm_interior_blur",
+    "morning_mood",
+    "hospitality_boutique"
+  ],
+  "family": "F01",
+  "mood": "fresh_midday",
+  "typography_summary": "Italic Cormorant 'tasty/joy' + sans serif Oswald-feel 'MORNING' + sans body italic",
+  "composition_summary": "Hero centrado com depth (table → blur bg) · text bloco esquerda",
+  "color_palette_summary": "warm-brown + marble-cream + scrambled-yellow + interior-amber",
+  "why_good": [
+    "Italic + display mix 'tasty MORNING joy' = exemplo perfeito de 3 camadas tipográficas integradas",
+    "Restaurant interior blurred dá ambiente real sem competir",
+    "Marble table + warm wood + scrambled eggs duo = hospitality boutique premium",
+    "Body copy small bem integrado como ingrediente list"
+  ],
+  "caveats": [
+    "Quase Só Rio em mood — usar como referência maior para F01 morning posters"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-03",
+    "TYPO-01",
+    "ANTI-01"
+  ],
+  "principle_violation": []
+}

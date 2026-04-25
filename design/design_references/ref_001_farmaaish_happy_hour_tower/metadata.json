@@ -1,0 +1,41 @@
+{
+  "id": "ref_001_farmaaish_happy_hour_tower",
+  "title": "Farmaaish Happy Hour Tower",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "Farmaaish Resto-Lounge-Bar (Pune, India) · happy hour campaign",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "happy_hour",
+    "display_dominant",
+    "commercial_loud",
+    "yellow_oswald",
+    "bar_interior",
+    "english"
+  ],
+  "family": "F02",
+  "mood": "aperitivo_18h",
+  "typography_summary": "Display Oswald Bold 4-stack vertical · accent yellow + white",
+  "composition_summary": "Hero direita com display empilhado esquerda",
+  "color_palette_summary": "wood-bar warm + yellow accent + amber bottle",
+  "why_good": [
+    "Hierarquia tipográfica em camadas verticais clara (everyday/all/day/happy/hour)",
+    "Focal point único — beer tower no terço direito",
+    "Display Oswald em cor accent (yellow) cria peso sem competir com hero",
+    "Footer com info legal e booking sempre presente"
+  ],
+  "caveats": [
+    "Estética demasiado comercial-loud — usar APENAS como ref de hierarquia tipográfica, NUNCA imitar tom"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-01",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

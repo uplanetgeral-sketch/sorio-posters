@@ -1,0 +1,43 @@
+{
+  "id": "ref_021_yoko_matcha_swiss_minimal",
+  "title": "Yoko Matcha Swiss Minimal",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "YOKO Matcha · Premium Japanese · Swiss-style packaging poster",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "swiss_minimal",
+    "premium_packaging",
+    "geometric_sans",
+    "matcha_green",
+    "cream_bg",
+    "labels_corner",
+    "ceremonial_grade"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Geometric sans display + sans tracked caps small (4 corners)",
+  "composition_summary": "Symmetric 4-corner grid + central display + bottom hero",
+  "color_palette_summary": "cream-warm + black-display + matcha-green",
+  "why_good": [
+    "Swiss minimalism radical — display geometric YOKO em centre, hero embaixo",
+    "Top corners + bottom corners labels tracked = 4-corner grid editorial",
+    "Cream bg + black display + matcha green = palette restrita 3 cores",
+    "Premium ceremonial grade messaging sem ser commercial"
+  ],
+  "caveats": [
+    "Estilo Swiss/japanese é distante de Só Rio (que é mais hospitality-warm). Useful como referência de RESTRAINT extreme — quão minimal pode ir"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "UNI-05",
+    "TYPO-01",
+    "FAM-F02-01"
+  ],
+  "principle_violation": []
+}

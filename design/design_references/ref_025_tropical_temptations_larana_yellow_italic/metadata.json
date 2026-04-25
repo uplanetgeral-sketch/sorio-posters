@@ -1,0 +1,28 @@
+{
+  "id": "ref_025_tropical_temptations_larana_yellow_italic",
+  "title": "Tropical Temptations Larana Yellow Italic",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Larana Inc. · Tropical Temptations campaign",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": ["bebida", "F02", "italic_display_dominant", "yellow_warm_bg", "tropical_cocktail", "orange_garnish", "premium_editorial", "cream_palette"],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Italic Cormorant-feel display + sans body + button sans",
+  "composition_summary": "Hero centrado lower-third · display+script masthead",
+  "color_palette_summary": "yellow-warm-cream + cocktail-amber-red + orange-citrus-pop",
+  "why_good": [
+    "Italic display 'Tropical Temptations' (script italic + serif) Cormorant-feel — exactly Só Rio language",
+    "Yellow-warm-soft bg cria summer mood sem ser commercial",
+    "Garnish bem integrado (orange wheel + lemon twist) — ANTI-01 OK",
+    "Body copy + ORDER NOW respeitam hierarchy without dominating"
+  ],
+  "caveats": [
+    "ORDER NOW button é mais commercial que Só Rio quer. O resto é alinhado"
+  ],
+  "principle_match": ["UNI-01", "TYPO-03", "ANTI-01"],
+  "principle_violation": []
+}

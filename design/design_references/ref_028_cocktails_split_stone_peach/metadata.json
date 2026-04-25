@@ -1,0 +1,41 @@
+{
+  "id": "ref_028_cocktails_split_stone_peach",
+  "title": "Cocktails Split Stone Peach",
+  "image": "poster.jpg",
+  "category": "analog",
+  "source": "art_direction_external",
+  "source_attribution": "Generic premium 'COCKTAILS' campaign template (design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "bebida",
+    "F02",
+    "split_composition",
+    "stone_peach",
+    "rosemary_garnish",
+    "single_hero",
+    "warm_palette",
+    "delicate_typography"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Display sans subtle + cursive script accent + tracked caps body",
+  "composition_summary": "Split vertical · hero esquerda lower-third · display+text right",
+  "color_palette_summary": "stone-cream + peach-warm + rosemary-green + cocktail-amber",
+  "why_good": [
+    "Split tone (stone-marble cream esquerda / peach soft direita) cria depth sem clutter",
+    "Cocktail glass com rosemary sprig + lime wheel = ANTI-01 perfect",
+    "Display 'COCKTAILS' overlay subtilíssimo = restraint",
+    "'All $12' cursive accent é elegant não loud"
+  ],
+  "caveats": [
+    "'$12' pricing template, mas a estética split + rosemary é perfectly Só Rio-aligned"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "ANTI-01",
+    "COMP-04"
+  ],
+  "principle_violation": []
+}

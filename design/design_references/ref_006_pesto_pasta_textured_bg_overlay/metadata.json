@@ -1,0 +1,38 @@
+{
+  "id": "ref_006_pesto_pasta_textured_bg_overlay",
+  "title": "Pesto Pasta Textured Bg Overlay",
+  "image": "poster.jpg",
+  "category": "provocation",
+  "source": "art_direction_external",
+  "source_attribution": "Generic pesto pasta promo (design study)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "textured_bg",
+    "yellow_green",
+    "display_overlay",
+    "price_badges",
+    "italian",
+    "commercial"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Display sans + body sans + handwritten badge text",
+  "composition_summary": "Hero plato centrado · display behind",
+  "color_palette_summary": "yellow-cream + sage-green + cream-cracked",
+  "why_good": [
+    "Display 'PESTO' por trás do prato com overlay e texture cria depth",
+    "Crumpled paper texture dá artesanal sem ser kitsch (technique útil em Só Rio?)",
+    "Three-color palette restrita (sage + cream + green-display)"
+  ],
+  "caveats": [
+    "Badges 'ONLY $3.99' e 'DEAL OF THE DAY' são commercial-loud — NUNCA imitar. Os pricing pop-outs são anti-Só Rio. Texture e palette são interessantes."
+  ],
+  "principle_match": [
+    "TYPO-01"
+  ],
+  "principle_violation": []
+}

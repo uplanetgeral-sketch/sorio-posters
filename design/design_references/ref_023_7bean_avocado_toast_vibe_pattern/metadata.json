@@ -1,0 +1,42 @@
+{
+  "id": "ref_023_7bean_avocado_toast_vibe_pattern",
+  "title": "7Bean Avocado Toast Vibe Pattern",
+  "image": "poster.jpg",
+  "category": "exploration",
+  "source": "art_direction_external",
+  "source_attribution": "7 Bean Coffee · Avocado Toast 'It's a Vibe' campaign (Mira Road, India)",
+  "copyright_notice": "Reference for design study. Not for redistribution.",
+  "added_date": "2026-04-25",
+  "approved_by": "Gonçalo Carvoeiras",
+  "tags": [
+    "prato",
+    "F02",
+    "display_pattern",
+    "beige_green",
+    "two_tone_typography",
+    "italic_mix",
+    "avocado_toast",
+    "blue_plate",
+    "warm_premium"
+  ],
+  "family": "F02",
+  "mood": "fresh_midday",
+  "typography_summary": "Hand-drawn cursive 'It's a' + sans-display 'AVOCADO TOAST' + sans body",
+  "composition_summary": "Hero plate centro · display pattern bg · body text right",
+  "color_palette_summary": "beige-warm + green-deep + blue-plate + avocado-green",
+  "why_good": [
+    "Display 'AVOCADO TOAST' repeated em verde behind hero — pattern technique que vimos em #005, #008",
+    "It's a Vibe italic + display mix = Só Rio-feel typography",
+    "Blue plate sobre beige bg = cool/warm contrast para hero pop",
+    "Body copy à direita reading-flow editorial"
+  ],
+  "caveats": [
+    "Hand-drawn lettering 'It's a Vibe' é mais playful que Cormorant italic Só Rio. Useful para study, não para imitar"
+  ],
+  "principle_match": [
+    "UNI-01",
+    "TYPO-01",
+    "TYPO-02"
+  ],
+  "principle_violation": []
+}
