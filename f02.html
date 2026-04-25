@@ -174,35 +174,85 @@
   // === HERO FRAMING ===
   var heroPosition = get('hero_position', 'center'); // e.g. "center", "50% 40%", "top", etc.
 
+  // === OUTPUT FORMAT (responsive canvas) ===
+  // formats supported: "1080x1080" (1:1), "1080x1350" (4:5 default), "1080x1920" (9:16)
+  var format = get('format', '1080x1350');
+  var fmtParts = format.split('x');
+  var canvasW = parseInt(fmtParts[0], 10) || 1080;
+  var canvasH = parseInt(fmtParts[1], 10) || 1350;
+
   // === APPLY ===
   var canvas = document.getElementById('canvas');
+  document.documentElement.style.width = canvasW + 'px';
+  document.documentElement.style.height = canvasH + 'px';
+  document.body.style.width = canvasW + 'px';
+  document.body.style.height = canvasH + 'px';
+  if (canvas) {
+    canvas.style.width = canvasW + 'px';
+    canvas.style.height = canvasH + 'px';
+  }
+
+  // === SCALE FACTOR baseado em canvasH ===
+  // base 4:5 (1350h) → scale 1.00
+  // 1:1 (1080h) → scale 0.80 (canvas mais pequeno → tipo proporcionalmente menor)
+  // 9:16 (1920h) → scale 1.42 (canvas maior + vertical → tipo bem maior)
+  var heightScale = canvasH / 1350;
+
+  // Reposicionar masthead-top + masthead-bottom proporcionalmente à altura
+  // 5.2% top/bottom mantém o ritmo visual entre formatos
+  var marginTop = Math.round(canvasH * 0.052);
+  var marginBottom = Math.round(canvasH * 0.052);
+  var sideMargin = Math.round(canvasW * 0.074); // 80px @ 1080w → 7.4% (constante)
+  var topEl = document.querySelector('.masthead-top');
+  var botEl = document.querySelector('.masthead-bottom');
+  if (topEl) {
+    topEl.style.top = marginTop + 'px';
+    topEl.style.left = sideMargin + 'px';
+    topEl.style.right = sideMargin + 'px';
+    topEl.style.height = Math.round(220 * heightScale) + 'px';
+  }
+  if (botEl) {
+    botEl.style.bottom = marginBottom + 'px';
+    botEl.style.left = sideMargin + 'px';
+    botEl.style.right = sideMargin + 'px';
+  }
+
+  // Logo e selo escalam proporcionalmente
+  var logoEl = document.getElementById('logo');
+  var seloEl = document.getElementById('selo');
+  logoEl.style.width = Math.round(200 * heightScale) + 'px';
+  seloEl.style.width = Math.round(220 * heightScale) + 'px';
+  seloEl.style.height = Math.round(220 * heightScale) + 'px';
+
   var heroEl = document.getElementById('hero');
   heroEl.style.backgroundImage = 'url("' + hero + '")';
   heroEl.style.backgroundPosition = heroPosition;
 
+  // === OVERLAY · re-equilibrado por aspect ratio ===
+  // 4:5 (vertical moderado) → bottom escuro arranca ~55% (palco standard)
+  // 1:1 (square) → arranca ~50% (mais palco para tipo)
+  // 9:16 (vertical alto) → arranca ~63% (mais hero visível, tipo só na zona inferior)
+  var aspectRatio = canvasH / canvasW;
+  // aspect 1.25 (4:5) → 55% · 1.00 (1:1) → 50% · 1.78 (9:16) → 63%
+  var aspectAdjust = (aspectRatio - 1.25) * 15; // 4:5 → 0 · 9:16 → +7.95
   var overlayEl = document.getElementById('overlay');
   var s = overlayStrength;
-  // Curva re-equilibrada — quando s > 1.0 também sobe o break-point do gradient,
-  // tornando a zona escura mais dominante (mais palco para tipografia bottom).
-  // s=1.0 → bottom escuro arranca em 55% · s=1.4 → bottom escuro arranca em 45% (palco maior)
-  var breakStart = 18;
-  var breakMid = Math.max(40, 55 - (s - 1.0) * 25);  // s=1.0 → 55% · s=1.4 → 45% · s=1.6 → 40%
-  var s72 = 72 - (s - 1.0) * 8;                       // s=1.0 → 72 · s=1.4 → 68.8 · s=1.6 → 67.2
+  var breakStart = Math.max(15, 18 + aspectAdjust * 0.8);     // 9:16 → 24%
+  var breakMid = Math.max(40, 55 - (s - 1.0) * 25 + aspectAdjust); // 4:5 s=1 → 55% · 9:16 s=1 → 63%
+  var s72 = 72 - (s - 1.0) * 8 + aspectAdjust * 0.6;          // ajusta zona dark
   var alpha72 = Math.min(1, 0.45 * s);
   var alpha90 = Math.min(1, 0.85 * s);
   var alpha100 = Math.min(1, 0.95 * s);
   overlayEl.style.background =
     'linear-gradient(180deg,' +
       'rgba(28,28,26,' + (0.35 * s).toFixed(3) + ') 0%,' +
-      'rgba(28,28,26,0.00) ' + breakStart + '%,' +
+      'rgba(28,28,26,0.00) ' + breakStart.toFixed(1) + '%,' +
       'rgba(28,28,26,0.00) ' + breakMid.toFixed(1) + '%,' +
       'rgba(28,28,26,' + alpha72.toFixed(3) + ') ' + s72.toFixed(1) + '%,' +
       'rgba(28,28,26,' + alpha90.toFixed(3) + ') 90%,' +
       'rgba(28,28,26,' + alpha100.toFixed(3) + ') 100%' +
     ')';
 
-  var logoEl = document.getElementById('logo');
-  var seloEl = document.getElementById('selo');
   logoEl.src = logo;
   seloEl.src = selo;
   if (!showLogo) logoEl.classList.add('hidden');
@@ -212,13 +262,38 @@
   document.getElementById('accent').textContent = accent;
   document.getElementById('info-bottom').textContent = infoBottom;
 
+  // === TIPOGRAFIA · escalada por heightScale ===
+  // displaySize / accentSize default são para 4:5 (108 / 46).
+  // Outros formatos multiplicam por heightScale, a não ser que user passe override explícito.
+  var userPassedDisplay = p.has('display_size');
+  var userPassedAccent = p.has('accent_size');
+  var displaySizeScaled = userPassedDisplay ? displaySize : Math.round(displaySize * heightScale);
+  var accentSizeScaled = userPassedAccent ? accentSize : Math.round(accentSize * heightScale);
+
   var displayEl = document.getElementById('display-hero');
   displayEl.innerHTML = title.split('|').map(function(l) {
     return l.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }).join('<br>');
-  displayEl.style.fontSize = displaySize + 'px';
+  displayEl.style.fontSize = displaySizeScaled + 'px';
 
-  document.getElementById('accent').style.fontSize = accentSize + 'px';
+  document.getElementById('accent').style.fontSize = accentSizeScaled + 'px';
+
+  // Info-top / info-bottom também escalam (defaults 22 / 18 px @ 4:5)
+  document.getElementById('info-top').style.fontSize = Math.round(22 * heightScale) + 'px';
+  document.getElementById('info-bottom').style.fontSize = Math.round(18 * heightScale) + 'px';
+
+  // Wave + hairline escalam também
+  var waveEl = document.getElementById('wave');
+  if (waveEl) {
+    waveEl.style.width = Math.round(140 * heightScale) + 'px';
+    waveEl.style.height = Math.round(20 * heightScale) + 'px';
+    waveEl.style.marginTop = Math.round(26 * heightScale) + 'px';
+  }
+  var hairlineEl = document.getElementById('hairline');
+  if (hairlineEl) {
+    hairlineEl.style.width = Math.round(56 * heightScale) + 'px';
+    hairlineEl.style.marginBottom = Math.round(22 * heightScale) + 'px';
+  }
 
   if (!showHairline) document.getElementById('hairline').classList.add('hidden');
   if (!showWave) document.getElementById('wave').classList.add('hidden');
