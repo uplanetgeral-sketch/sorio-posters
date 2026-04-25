@@ -33,7 +33,18 @@ Note systematically:
 - **Typography** — are 3 layers present (display + accent + info)? sizes consistent? hierarchy clear? legibility OK?
 - **Color** — palette restricted to 8 Só Rio colors? text in off-white or dourado only?
 - **Composition** — focal point single? respiration nas margens? rule-of-thirds applied?
-- **Family adherence** — for F02, overlay strong enough? For **F03 (Editorial Split layout)**, is the **colour BLOCK half** (the side that holds the typography) a flat solid colour with no gradient/texture/pattern? **CRITICAL: F03's flat-colour rule applies ONLY to the block half. The hero photo half may have ANY natural textures (wood, herbs, dishes, ambient surfaces, grain) — that is NOT a F03 violation when image-first flow is used.** For F05a, grid aligned? For F05b, no abstract shapes?
+- **Family adherence** — for F02, overlay strong enough? For **F03 (Editorial Split layout)**, is the **colour BLOCK half** (the side that holds the typography) a flat solid colour with no gradient/texture/pattern? **CRITICAL: F03's flat-colour rule applies ONLY to the block half. The hero photo half may have ANY natural textures (wood, herbs, dishes, ambient surfaces, grain) — that is NOT a F03 violation when image-first flow is used.** For **F06 (Type-as-Subject layout)**, the design IS intentionally type-pattern repeated as background + subject as foreground — see F06 STEP 6.5 below for what does/doesn't apply. For F05a, grid aligned? For F05b, no abstract shapes?
+
+#### STEP 6.5 — F06 Type-as-Subject special rules (ONLY when family_critiqued == "F06")
+
+F06 is a fundamentally different layout from F02-style. **DO NOT apply these principles literally**:
+
+- **TYPO-01 (display_size by char count)** — DOES NOT APPLY. In F06, `display_size` controls the size of the type-pattern repetition (the massive word repeated as background), NOT a hero title. Values 200-320px are intentional and correct in F06; do NOT flag as "title too large". Skip TYPO-01 entirely for F06.
+- **UNI-01 (single focal point)** — DOES NOT APPLY in its standard form. F06 is by design a **dual-hierarchy layout**: subject (foreground) + type pattern (background). Both visible simultaneously is the entire point. DO NOT flag "two competing focal points" as a violation. Instead evaluate: (a) is the subject clearly the foreground (in front, sharper, larger contrast)? (b) is the type pattern visible as supportive background (lower opacity, behind subject)? If both yes → F06 working as intended.
+- **FAM-F06-01 (subject must be isolated PNG)** — DOES apply. Verify that the subject does NOT have a rectangular opaque background blocking the type pattern behind it. If you see a clean cutout where type-pattern is visible AROUND the subject silhouette, F06 is correct.
+- **All other principles** (UNI-04 colour restriction, COLOR-03 palette, ANTI-01 garnish, COMP-01 hero presence, LEG-01 contrast) apply normally.
+
+**For F06 critique, your scoring should focus on**: (1) is subject visibly isolated, (2) does type pattern create visible texture without blocking subject, (3) are info-bottom + accent legible at the bottom, (4) is bg colour from Blueprint palette, (5) is the brand voice present (selo, logo). If yes to all 5 → F06 is publishable regardless of TYPO-01/UNI-01 surface readings.
 - **Anti-patterns** — any garnish inside drink that's NOT in real ingredients? Any abstract shapes (green circles, yellow squares)? Cream/beige default bg? Real public figures?
 - **Brand consistency** — does this feel Só Rio (premium, restrained, hospitality boutique)?
 

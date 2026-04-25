@@ -441,6 +441,9 @@ def main():
         payload["family_preference"] = args.family
 
     decision = call_decisor(client, payload)
+    # Persist format in url_params so fine_tune.py preserves it on re-renders
+    if "url_params" in decision:
+        decision["url_params"]["format"] = args.format
     (run_dir / f"decision_iter{iter_n}.json").write_text(json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8")
     log(f"ITER {iter_n}", f"family={decision.get('family')} · inspired_by={decision.get('inspired_by', [])[:2]}")
 

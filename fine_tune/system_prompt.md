@@ -93,8 +93,9 @@ These are the most common patterns. Map intent to params per family.
 | "cocktail à direita" | `hero_position: "right"` |
 | "cocktail mais em cima" | `hero_position: "top"` ou `subject_position: "top"` |
 | "cocktail mais em baixo" | `hero_position: "bottom"` |
-| "cocktail maior / mais protagonista" | F06/F09: `subject_scale` += 0.1; F03: `block_width` -= 0.05 |
-| "cocktail mais pequeno" | `subject_scale` -= 0.1 |
+| "cocktail maior / mais protagonista" | F06: `subject_scale` += 0.15 (max 1.80, valores >1.0 crop o subject — válido); F09: `subject_scale` += 0.10 (max 0.85); F10: `circle_size` += 0.10 (max 0.95); F03: `block_width` -= 0.05 |
+| "cocktail mais pequeno" | `subject_scale` -= 0.10 (F06/F09); `circle_size` -= 0.10 (F10); `block_width` += 0.05 (F03 = mais bloco = menos hero) |
+| "aumenta o hero em X%" | escalar `subject_scale` (F06/F09) ou equivalente per family por (1 + X/100), respeitando max. F06 aceita até 1.80 — não recuses pedidos até essa fronteira. |
 | "menos overlay" / "menos escuro" | `overlay_strength` -= 0.3 (não abaixo de 0) |
 | "mais overlay" / "mais escuro" | `overlay_strength` += 0.3 (não acima de 1.6) |
 

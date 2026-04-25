@@ -1,0 +1,98 @@
+[
+  {
+    "label": "F01_variation",
+    "family": "F01",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_191359_cloud_dance",
+    "score": "85",
+    "publishable": "False",
+    "png_name": "poster_iter1.png",
+    "log": "F01_variation.log",
+    "png": "F01_variation.png"
+  },
+  {
+    "label": "F02_variation",
+    "family": "F02",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_191551_cloud_dance",
+    "score": "93",
+    "publishable": "True",
+    "png_name": "poster_iter0.png",
+    "log": "F02_variation.log",
+    "png": "F02_variation.png"
+  },
+  {
+    "label": "F03_variation",
+    "family": "F03",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_191702_cloud_dance",
+    "score": "78",
+    "publishable": "True",
+    "png_name": "poster_iter0.png",
+    "log": "F03_variation.log",
+    "png": "F03_variation.png"
+  },
+  {
+    "label": "F06_variation",
+    "family": "F06",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_191850_cloud_dance",
+    "score": "15",
+    "publishable": "False",
+    "png_name": "poster_iter1.png",
+    "log": "F06_variation.log",
+    "png": "F06_variation.png"
+  },
+  {
+    "label": "F07_variation",
+    "family": "F07",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_192242_cloud_dance",
+    "score": "85",
+    "publishable": "True",
+    "png_name": "poster_iter1.png",
+    "log": "F07_variation.log",
+    "png": "F07_variation.png"
+  },
+  {
+    "label": "F08_variation",
+    "family": "F08",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_192544_cloud_dance",
+    "score": "78",
+    "publishable": "False",
+    "png_name": "poster_iter1.png",
+    "log": "F08_variation.log",
+    "png": "F08_variation.png"
+  },
+  {
+    "label": "F09_variation",
+    "family": "F09",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_192809_cloud_dance",
+    "score": "78",
+    "publishable": "False",
+    "png_name": "poster_iter1.png",
+    "log": "F09_variation.log",
+    "png": "F09_variation.png"
+  },
+  {
+    "label": "F10_variation",
+    "family": "F10",
+    "mode": "variation",
+    "status": "ok",
+    "run_dir": "/Users/goncalocarvoeirasimac/Desktop/CREATIVE STUDIO/CLIENTES/SO RIO/sorio-posters/orchestrator/outputs/20260425_193015_cloud_dance",
+    "score": "93",
+    "publishable": "False",
+    "png_name": "poster_iter0.png",
+    "log": "F10_variation.log",
+    "png": "F10_variation.png"
+  }
+]

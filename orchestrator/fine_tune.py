@@ -244,8 +244,33 @@ def main():
             if url_hero and url_hero != "<HERO_URL>":
                 hero_url = url_hero
 
-    # Format — read from URL params or override
-    format_wh = args.format or new_decision["url_params"].get("format", "1080x1350")
+    # Format — preserve from previous run.
+    # Priority: --format CLI override → decision.url_params.format → run_log timeline URL → default
+    format_wh = args.format
+    if not format_wh:
+        format_wh = new_decision["url_params"].get("format")
+    if not format_wh:
+        # Fallback: parse from the last rendered URL in run_log.json
+        run_log_path = run_dir / "run_log.json"
+        if run_log_path.exists():
+            try:
+                rl = json.loads(run_log_path.read_text(encoding="utf-8"))
+                iterations = rl.get("iterations", [])
+                if iterations:
+                    last_url = iterations[-1].get("url", "")
+                    import re
+                    m = re.search(r'format=(\d+x\d+)', last_url)
+                    if m:
+                        format_wh = m.group(1)
+                        log("FT", f"Format recovered from run_log: {format_wh}")
+            except Exception as e:
+                log("FT", f"WARN couldn't parse run_log for format: {e}")
+    if not format_wh:
+        format_wh = "1080x1350"
+        log("FT", "WARN format not found anywhere, defaulting to 1080x1350")
+    # Persist format in url_params for future iterations
+    new_decision["url_params"]["format"] = format_wh
+    new_decision_path.write_text(json.dumps(new_decision, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Re-render
     output_png = run_dir / f"poster_iter{new_iter}.png"
