@@ -1,0 +1,50 @@
+{
+  "id": "cloud_dance",
+  "name": "Cloud Dance",
+  "category": "BEBIDA",
+  "subcategory": "cocktail",
+  "active": true,
+  "ingredients": {
+    "canonical": ["Vodka Grey Goose La Poire", "Vermute Bianco", "Baunilha"],
+    "display_short": "Vodka Pera · Bianco · Baunilha",
+    "display_long": "Vodka Grey Goose La Poire · Vermute Bianco · Baunilha",
+    "highlight": "Vodka Grey Goose La Poire"
+  },
+  "garnish": {
+    "inside_glass": ["pear slice on rim", "egg white foam"],
+    "outside_glass": ["vanilla pod", "pear peel ribbon", "cocoa-sugar dust"],
+    "warning_never_inside": ["mint", "thyme", "rosemary", "cinnamon stick"],
+    "warning_never_present": []
+  },
+  "mood_default": "evening_riverside",
+  "mood_alternatives": ["aperitivo_18h"],
+  "selo_recommendation": ["ritual_so_rio", "sunset"],
+  "selo_color_pref": "auto",
+  "claim_recommendations": [
+    {"text": "Sem pressa. Com rio.", "context": "evening", "weight": 1.0},
+    {"text": "Calmo, dourado, nosso.", "context": "evening", "weight": 0.8},
+    {"text": "Para a mesa, com tempo.", "context": "default", "weight": 0.6}
+  ],
+  "visual_dna": {
+    "dominant_colors": ["cocoa-brown", "cream-white-foam", "pear-yellow-green", "vanilla-dark", "warm-amber"],
+    "lighting": "warm directional from upper-right, dramatic chiaroscuro on flat brown",
+    "subject_position_default": "center lower-third",
+    "background_default": "flat cocoa-brown (motion-friendly per FAM-F03-01)",
+    "texture_keywords": ["egg white foam silky", "pear slice translucent", "vanilla pod ribbed", "pear peel spiral", "cocoa-sugar dust particles", "coupe glass crystal stem"]
+  },
+  "family_compatibility": {
+    "F01": "ideal",
+    "F02": "ideal",
+    "F03": "ideal",
+    "F05a": "acceptable",
+    "F05b": "good"
+  },
+  "object_sheet": "object_sheet.png",
+  "vision_analysis": null,
+  "approved_heroes": ["approved_heroes/cloud_dance_motion.png"],
+  "notes": "Coupe glass cocktail · cream/foam delicate · pear slice garnish on rim. Mood elegante quase ethereal. Hero ideal mostra o copo isolado ou em mesa lounge com cream-warm tones. Evitar fundos saturados — Cloud Dance precisa de respirar.",
+  "season": "all-year",
+  "price": null,
+  "added_date": "2026-04-25",
+  "last_updated": "2026-04-25"
+}
