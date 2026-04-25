@@ -1,0 +1,261 @@
+{
+  "schema_version": "1.0",
+  "client": "Só Rio",
+  "scope": "Princípios universais de design aplicáveis a todos os posters Só Rio (1080x1350). Injectados no system prompt do Claude Decisor (Fase D) e usados como rubric pelo Vision Critique Loop (Fase E).",
+  "last_updated": "2026-04-25",
+  "language": "pt-PT",
+  "blueprint_version": "v1.5",
+
+  "principles": {
+
+    "universal": [
+      {
+        "id": "UNI-01",
+        "name": "Um focal point, sempre",
+        "rule": "Cada poster tem UM elemento dominante (hero ou tipografia) que captura o olhar primeiro. Tudo o resto é hierarquicamente subordinado.",
+        "fail_signs": ["dois elementos a competir pelo mesmo peso visual", "selo a tapar o produto", "tipografia tão grande que apaga o hero"],
+        "fix_pattern": "Decidir antes do render: este poster é HERO-DOMINANT (F01, F03) ou TYPOGRAPHY-DOMINANT (F02, F05b). Aplicar consistentemente."
+      },
+      {
+        "id": "UNI-02",
+        "name": "Respiração nas margens",
+        "rule": "Mínimo 80px de margem em todos os lados do canvas para o conjunto principal de elementos. Nunca encostar tipografia ou logo aos bordos.",
+        "fail_signs": ["texto a tocar a margem do poster", "selo cortado pelo edge"],
+        "fix_pattern": "padding 80px é o default; aumentar para 100-120px em F02/F05a se a composição parecer apertada."
+      },
+      {
+        "id": "UNI-03",
+        "name": "Hierarquia em 3 níveis máximo",
+        "rule": "Cada poster aplica as 3 camadas tipográficas do Blueprint (Display Hero · Accent Editorial · Info & Badge). Nunca adicionar 4ª camada.",
+        "fail_signs": ["múltiplas variações de tamanho dentro da mesma camada", "info-bottom maior que info-top"],
+        "fix_pattern": "Display 88-140px / Accent 38-52px / Info 16-24px tracked. Strict."
+      },
+      {
+        "id": "UNI-04",
+        "name": "Restrição cromática rigorosa",
+        "rule": "Toda a tipografia em UMA das duas cores: F6F1E7 off-white OU C89853 dourado. Nunca outras cores no texto. Backgrounds podem variar mas tipografia respeita esta restrição.",
+        "fail_signs": ["texto verde-salgueiro", "tipografia em areia/linho que apaga a hierarquia"],
+        "fix_pattern": "Display + info-top sempre off-white. Accent + info-bottom sempre dourado. Excepção: posters em F02 sobre fundo claro podem inverter (display em preto-rio)."
+      },
+      {
+        "id": "UNI-05",
+        "name": "Restraint em decoração",
+        "rule": "Máximo 2 elementos decorativos por poster (hairline + wave SVG, ou hairline + selo ornamental). Nunca 3+ decorações simultâneas.",
+        "fail_signs": ["hairline + wave + hairline + ornamento + frame border", "ornamentação que distrai do produto"],
+        "fix_pattern": "Default Só Rio: hairline (acima de info-top) + wave SVG (entre title e accent). Nada mais sem razão clara."
+      }
+    ],
+
+    "typography": [
+      {
+        "id": "TYPO-01",
+        "name": "Display size por contagem de caracteres",
+        "rule": "Ajustar display_size em função do número de caracteres do título mais longo (line após split em '|'):",
+        "table": {
+          "<=8 chars": "140-160px",
+          "9-12 chars": "120-130px",
+          "13-16 chars": "100-110px",
+          "17-22 chars": "84-94px",
+          ">22 chars": "Não usar — quebrar em 2 linhas com '|'"
+        },
+        "examples": [
+          {"title": "Mojito", "chars": 6, "display_size": 150},
+          {"title": "Caipirinha", "chars": 10, "display_size": 130},
+          {"title": "Caipirinha|de Maracujá", "longest_line_chars": 12, "display_size": 130},
+          {"title": "Aperol Spritz", "chars": 13, "display_size": 110},
+          {"title": "Ginja Spritz Reserva", "chars": 20, "display_size": 88}
+        ]
+      },
+      {
+        "id": "TYPO-02",
+        "name": "Line break em 2 linhas",
+        "rule": "Títulos de 2 palavras-+ quebram naturalmente. Quebrar em ponto natural sintático (Caipirinha|de Maracujá, não Caipirinh|a de Maracujá). Linha 1 deve ser mais curta ou igual à linha 2.",
+        "fail_signs": ["quebra a meio de palavra", "linhas desiguais com a primeira muito mais longa"]
+      },
+      {
+        "id": "TYPO-03",
+        "name": "Accent ≤ 8 palavras",
+        "rule": "O accent (italic Cormorant Garamond) é uma frase emocional curta. Nunca exceder 8 palavras nem 50 caracteres. Idealmente 4-6 palavras.",
+        "fail_signs": ["accent com 12+ palavras a ocupar 2 linhas", "accent que tenta ser slogan + descrição"],
+        "examples_good": ["Sem pressa. Com rio.", "O verão tem ritmo.", "Para a mesa, com tempo.", "Calmo, dourado, nosso."],
+        "examples_bad": ["Uma bebida fresca para os dias quentes do verão no Ribatejo"]
+      },
+      {
+        "id": "TYPO-04",
+        "name": "Info-top: máximo 4 elementos · 36 caracteres",
+        "rule": "info_top é a lista de ingredientes ou descritor curto. Máximo 4 elementos separados por ' · ', total ≤ 36 caracteres. Tracked caps Inter 500.",
+        "fail_signs": ["6 ingredientes que partem em 2 linhas", "frase descritiva onde devia ser lista"],
+        "fix_pattern": "Reduzir a 3-4 ingredientes principais. Os secundários omitidos."
+      }
+    ],
+
+    "composition": [
+      {
+        "id": "COMP-01",
+        "name": "Regra dos terços para focal point",
+        "rule": "Em F01/F03, o focal point do hero (copo, prato) deve cair na linha vertical do terço central ou no terço inferior. Nunca ao centro absoluto nem no terço superior.",
+        "fail_signs": ["copo perfeitamente centrado", "prato no topo da imagem"],
+        "fix_pattern": "Pedir ao Gemini hero com subject_offset_y >= 0.55 (ou seja, >55% da altura)."
+      },
+      {
+        "id": "COMP-02",
+        "name": "Masthead-top livre do focal point",
+        "rule": "Os 220px superiores (zona logo+selo) NÃO devem competir com o focal point do hero. Se hero subject está no terço superior, baixar overlay top ou repensar família.",
+        "fail_signs": ["logo sobre o copo", "selo a tapar fruta voadora"],
+        "fix_pattern": "hero_position 'center 30%' empurra subject para baixo. OU show_logo:0 e show_selo:0 se hero é busy no topo."
+      },
+      {
+        "id": "COMP-03",
+        "name": "Masthead-bottom respira",
+        "rule": "A zona inferior (info-top + display-hero + accent + info-bottom) precisa de fundo escuro/limpo. Se hero tem detalhes complexos no bottom 40%, aumentar overlay_strength.",
+        "fail_signs": ["título sobre detalhes do prato a competir", "ingredientes pequenos visíveis através do texto"],
+        "fix_pattern": "overlay_strength 1.2-1.4 quando bottom do hero é busy."
+      },
+      {
+        "id": "COMP-04",
+        "name": "Asymmetry over symmetry",
+        "rule": "Composição assimétrica equilibrada > simétrica perfeita. Logo top-left + selo top-right é simétrico (correcto), MAS hero centrado é mais forte quando ligeiramente off-center.",
+        "fail_signs": ["composição que parece feita em PowerPoint", "tudo perfeitamente alinhado ao centro"],
+        "fix_pattern": "Se sentir 'rígido', pedir hero_position 'center 45%' ou 'center 55%' em vez de center."
+      }
+    ],
+
+    "color": [
+      {
+        "id": "COLOR-01",
+        "name": "Overlay strength por brilho do hero",
+        "rule": "Adaptar overlay_strength em função da luminância média do bottom 40% do hero:",
+        "table": {
+          "hero bottom escuro (<30% luminance)": "overlay_strength 0.5-0.7",
+          "hero bottom médio (30-60%)": "overlay_strength 0.9-1.1",
+          "hero bottom claro (>60%)": "overlay_strength 1.3-1.5"
+        },
+        "fix_pattern": "Vision Analyst v2.3 já analisa hero brightness — passar esse valor ao Decisor."
+      },
+      {
+        "id": "COLOR-02",
+        "name": "Selo dourado vs creme",
+        "rule": "Escolher variante cromática do selo em função do hero:",
+        "table": {
+          "hero dominante quente (madeira, terra, gold)": "selo dourado para tonal harmony",
+          "hero dominante frio/neutro (verde, azul, cinza)": "selo creme para warmth contraste",
+          "hero muito escuro (noite, evening_riverside)": "selo creme para presença",
+          "hero muito claro/exterior dia": "selo dourado para anchor"
+        },
+        "fail_signs": ["selo verde sobre hero verde — desaparece", "selo dourado sobre hero gold — perde-se"]
+      },
+      {
+        "id": "COLOR-03",
+        "name": "Paleta restrita ao Blueprint",
+        "rule": "TODOS os outputs respeitam estritamente as 8 cores: Verde Salgueiro, Verde Tejo, Areia, Linho, Madeira Queimada, Preto Rio, Dourado, Off-white. Nunca cores fora desta lista.",
+        "fail_signs": ["azul vibrante", "rosa pastel", "verde florescente"],
+        "fix_pattern": "Se Gemini introduzir cor fora-da-paleta no hero (ex: tomate vermelho-vivo dominante), pedir re-render com paleta enforced."
+      }
+    ],
+
+    "legibility": [
+      {
+        "id": "LEG-01",
+        "name": "Contraste mínimo 4.5:1 (WCAG AA)",
+        "rule": "Texto display sobre hero/overlay deve ter contraste ≥ 4.5:1. Verificar com #F6F1E7 sobre rgba bottom do overlay final.",
+        "fail_signs": ["texto pálido sobre hero claro", "dourado fino sobre madeira queimada"],
+        "fix_pattern": "Se contraste insuficiente, aumentar overlay_strength OU mudar text_color de dourado para off-white."
+      },
+      {
+        "id": "LEG-02",
+        "name": "Comprimento de linha 36-52 chars",
+        "rule": "Linhas de texto longas (info_top, accent) entre 36 e 52 caracteres por linha para leitura confortável.",
+        "fail_signs": ["accent com 70 chars que não respira", "info_top com 50 chars compactados em 22pt"],
+        "fix_pattern": "Reduzir conteúdo OU aumentar espaço (margem) ou letter-spacing."
+      },
+      {
+        "id": "LEG-03",
+        "name": "White space ao redor do texto",
+        "rule": "Mínimo 60px entre o último elemento do masthead-bottom (info-bottom) e o edge do canvas. Mínimo 28px entre cada linha tipográfica.",
+        "fail_signs": ["info-bottom encostado ao bottom edge", "accent colado ao display sem respiração"]
+      }
+    ],
+
+    "family_specific": [
+      {
+        "id": "FAM-F02-01",
+        "name": "F02 Full-Color Poster · overlay obrigatório",
+        "rule": "F02 sempre overlay_strength ≥ 0.9 no bottom 35%. O conjunto tipográfico bottom precisa de palco escuro para dominar. Sem isto, F02 colapsa em poster de menu.",
+        "applies_to": "F02"
+      },
+      {
+        "id": "FAM-F03-01",
+        "name": "F03 Action & Motion · fundo flat ou clean blur",
+        "rule": "F03 (ingredientes em movimento, splash) precisa de fundo simples: cor flat (Verde Salgueiro/Areia/Off-white) OU blur suave de exterior. NUNCA wood deck texturizado, NUNCA paredes com padrão. Razão: motion + texture = clutter.",
+        "applies_to": "F03",
+        "fail_signs": ["ingredientes voadores sobre madeira queimada granulada", "splash + ramos + parede de pedra"]
+      },
+      {
+        "id": "FAM-F05a-01",
+        "name": "F05a Editorial Grid · alinhamento estrito",
+        "rule": "F05a Flat-Lay grid: 4 cells alinhadas ao mesmo baseline horizontal e vertical. Cada cell respeita o mesmo padding interno (mínimo 18px). NUNCA cells com tamanhos diferentes.",
+        "applies_to": "F05a"
+      },
+      {
+        "id": "FAM-F05b-01",
+        "name": "F05b Info-Graphic · zero formas abstractas",
+        "rule": "F05b NUNCA usa círculos verdes, quadrados amarelos, formas geométricas decorativas. Apenas: hairlines, wave SVG do Blueprint, selos, tipografia. Razão: lição da sessão 24 Abril 2026 — Gemini herda automaticamente formas do Blueprint slide 38, força o prompt a inibir explicitamente.",
+        "applies_to": "F05b",
+        "fail_signs": ["círculos verde-salgueiro como bullets", "quadrados dourados como dividers"]
+      }
+    ],
+
+    "anti_patterns": [
+      {
+        "id": "ANTI-01",
+        "name": "Garnish dentro do copo de bebida",
+        "rule": "Quando o hero é uma bebida, NUNCA adicionar elementos visuais de garnish no copo se eles não forem parte real do drink (ex: folha de tomilho aparece no prompt da composição mas a bebida não tem tomilho). Garnish da composição vive AO LADO do copo, não DENTRO.",
+        "fail_signs": ["folha decorativa flutuante dentro de cocktail", "fruta a invadir o copo onde só há gelo"],
+        "fix_pattern": "Vision Analyst v2.3 separa `garnish_visible_in_hero` de `ingredients_outside_hero`. Strategist v2.14 enforca: ingredientes de styling vivem fora."
+      },
+      {
+        "id": "ANTI-02",
+        "name": "Wood deck + motion = clutter",
+        "rule": "Combinação proibida: hero com ingredientes em movimento (F03) sobre fundo de wood deck texturizado. Ver FAM-F03-01."
+      },
+      {
+        "id": "ANTI-03",
+        "name": "Cream/beige como fundo default",
+        "rule": "Se nenhum fundo for especificado, usar Off-white (#F6F1E7) ou Preto Rio (#1C1C1A). NUNCA cream/beige genérico (#F5F5DC, #FAF0E6, #FAEBD7) — ar de template stock.",
+        "fix_pattern": "Default explicit no Decisor."
+      },
+      {
+        "id": "ANTI-04",
+        "name": "Real public figures — nunca usar",
+        "rule": "Nunca incluir figuras públicas reais (cozinheiros conhecidos, celebridades, políticos) em heroes. O 'Mesa do Chef' refere-se a um conceito de assinatura, não a um chef real."
+      }
+    ]
+  },
+
+  "scoring_rubric": {
+    "description": "Para o Vision Critique Loop (Fase E). Cada princípio violado pesa contra o score. Score final é %.",
+    "weights": {
+      "critical_violations": [
+        "UNI-01", "UNI-04", "TYPO-01", "COLOR-03", "FAM-F02-01", "FAM-F05b-01", "ANTI-01"
+      ],
+      "major_violations": [
+        "UNI-02", "UNI-03", "TYPO-02", "TYPO-03", "TYPO-04", "COMP-01", "COMP-03", "COLOR-01", "COLOR-02", "LEG-01", "FAM-F03-01"
+      ],
+      "minor_violations": [
+        "UNI-05", "COMP-02", "COMP-04", "LEG-02", "LEG-03", "ANTI-02", "ANTI-03"
+      ]
+    },
+    "scoring": {
+      "critical": "-15 pontos cada",
+      "major": "-7 pontos cada",
+      "minor": "-3 pontos cada",
+      "starting_score": 100,
+      "publishable_threshold": 75
+    }
+  },
+
+  "references": {
+    "see_also": "design_references/_index.json",
+    "philosophy": "Princípios = guardrails (evita falhas). Referências = aspirações (steer toward good). Os dois inputs são complementares para o Claude Decisor."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "client": "Só Rio",
+  "scope": "Catálogo de referências de design validadas pelo curador (Gonçalo Carvoeiras). Cada entrada aponta para uma sub-pasta com poster.png + metadata.json. Consumido pelo Claude Decisor (inspiration look-up) e pelo Vision Critique Loop (similarity match).",
+  "last_updated": "2026-04-25",
+  "curator": "Gonçalo Carvoeiras · Bolder AI Creative Studio",
+  "philosophy": "Esta biblioteca não é exaustiva — é curada. Apenas refs que o curador acha exemplares entram. Quantidade < qualidade. 30 refs excelentes valem mais que 300 medíocres.",
+
+  "stats": {
+    "total_refs": 0,
+    "by_source": {
+      "own_production": 0,
+      "competitor_study": 0,
+      "editorial_external": 0,
+      "packaging_external": 0,
+      "art_direction_external": 0
+    },
+    "by_family": {
+      "F01": 0, "F02": 0, "F03": 0, "F05a": 0, "F05b": 0, "external": 0
+    }
+  },
+
+  "references": [],
+
+  "schema_example": {
+    "_comment": "Esta entry NÃO é uma ref real — apenas mostra a forma. Eliminar quando houver refs reais.",
+    "id": "ref_000_schema_example",
+    "title": "Caipirinha de Maracujá · golden hour · F02",
+    "folder": "ref_000_schema_example/",
+    "image": "ref_000_schema_example/poster.png",
+    "thumbnail": "ref_000_schema_example/thumb.jpg",
+    "source": "own_production",
+    "source_attribution": "Sessão 23 Abril 2026 — Bolder AI · Creative Studio",
+    "added_date": "2026-04-25",
+    "approved_by": "Gonçalo Carvoeiras",
+    "tags": ["bebida", "F02", "evening_riverside", "citrus", "dark_overlay", "selo_dourado", "wood_deck"],
+    "family": "F02",
+    "category": "BEBIDA",
+    "mood": "evening_riverside",
+    "typography_summary": "Display Oswald Bold 130px · Accent Cormorant italic 46px dourado · Info Inter 22px tracked",
+    "composition_summary": "Hero centrado com subject lower-third. Masthead-top simétrico. Masthead-bottom 4 camadas com hairline + wave divider.",
+    "color_palette_summary": "Madeira queimada dominante + dourado + off-white tipografia. Overlay 1.0 strength.",
+    "why_good": [
+      "Tipografia 100% fiel às 3 camadas do Blueprint sem invenção",
+      "Hero subject fora do centro absoluto (terço inferior)",
+      "Selo dourado harmoniza com madeira sem competir",
+      "Restraint decorativo: apenas hairline + wave"
+    ],
+    "caveats": [
+      "Não copiar literal — usar como referência de balance, não de layout exacto"
+    ],
+    "principle_match": ["UNI-01", "UNI-03", "UNI-04", "TYPO-01", "COLOR-02", "FAM-F02-01"]
+  }
+}
