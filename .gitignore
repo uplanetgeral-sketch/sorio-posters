@@ -7,3 +7,10 @@ node_modules/
 out/
 renders/
 _local/
+
+# Runtime artefacts
+_staging/
+orchestrator/outputs/
+orchestrator/__pycache__/
+**/__pycache__/
+docs/
