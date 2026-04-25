@@ -4,35 +4,46 @@
 <meta charset="UTF-8">
 <title>Só Rio · Posters · Render Engine</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #F6F1E7; color: #1C1C1A; padding: 40px; max-width: 900px; margin: 0 auto; line-height: 1.6; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #F6F1E7; color: #1C1C1A; padding: 40px; max-width: 1000px; margin: 0 auto; line-height: 1.6; }
   h1 { font-family: Georgia, serif; font-size: 34px; margin: 0 0 8px; }
   h2 { font-family: Georgia, serif; font-size: 22px; margin: 36px 0 10px; color: #3F5548; }
+  h3 { font-family: Georgia, serif; font-size: 16px; margin: 18px 0 8px; color: #6B4A2D; }
   code, pre { font-family: "SF Mono", Menlo, monospace; font-size: 13px; background: #EDE4D3; padding: 2px 6px; border-radius: 3px; }
   pre { padding: 14px 18px; overflow-x: auto; line-height: 1.4; }
   .tag { display: inline-block; background: #3F5548; color: #F6F1E7; padding: 2px 10px; border-radius: 3px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
+  .tag--dep { background: #6B7F5E; opacity: 0.55; }
+  .tag--new { background: #C89853; color: #1C1C1A; }
   a { color: #6B4A2D; }
   table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #D9C8A8; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #D9C8A8; vertical-align: top; }
   th { background: #EDE4D3; }
   .muted { color: #6B7F5E; font-size: 13px; }
+  .row-dep td { opacity: 0.55; }
 </style>
 </head>
 <body>
 
 <h1>Só Rio · Render Engine</h1>
-<p class="muted">Templates HTML param-driven para produção de posters 1080×1350 · Bolder AI Creative Studio</p>
+<p class="muted">Templates HTML param-driven para produção de posters 1080×1350 / 1080×1080 / 1080×1920 · Bolder AI Creative Studio</p>
 
 <h2>Templates disponíveis</h2>
 <table>
-  <tr><th>Família</th><th>URL</th><th>Status</th></tr>
-  <tr><td><span class="tag">F01</span> Product Hero Editorial</td><td><a href="f01.html">f01.html</a></td><td>v1 live</td></tr>
-  <tr><td><span class="tag">F02</span> Full-Color Poster</td><td><a href="f02.html">f02.html</a></td><td>v1 live</td></tr>
-  <tr><td><span class="tag">F03</span> Action &amp; Motion</td><td><a href="f03.html">f03.html</a></td><td>v1 live</td></tr>
-  <tr><td><span class="tag">F05a</span> Editorial Grid Flat-Lay</td><td><a href="f05a.html">f05a.html</a></td><td>v1 live</td></tr>
-  <tr><td><span class="tag">F05b</span> Editorial Grid Info-Graphic</td><td><a href="f05b.html">f05b.html</a></td><td>v1 live</td></tr>
+  <tr><th>Família</th><th>Descrição</th><th>URL</th><th>Status</th></tr>
+  <tr><td><span class="tag">F01</span> Product Hero Editorial</td><td>Hero full-bleed com tipografia editorial sobreposta. Outpaint Gemini.</td><td><a href="f01.html">f01.html</a></td><td>v1 live</td></tr>
+  <tr><td><span class="tag">F02</span> Full-Color Poster</td><td>Hero dominante + display title bottom + overlay gradient. Outpaint Gemini.</td><td><a href="f02.html">f02.html</a></td><td>v1 live</td></tr>
+  <tr><td><span class="tag">F03</span> Action &amp; Motion</td><td>Diagonal block + hero recortado + tipografia rotativa. Cover-crop nativo.</td><td><a href="f03.html">f03.html</a></td><td>v1 live</td></tr>
+  <tr class="row-dep"><td><span class="tag tag--dep">F05A</span> Editorial Grid Flat-Lay</td><td><em>deprecated · comporta-se como F02 disfarçado</em></td><td><a href="f05a.html">f05a.html</a></td><td>deprecated</td></tr>
+  <tr class="row-dep"><td><span class="tag tag--dep">F05B</span> Editorial Grid Info-Graphic</td><td><em>deprecated · pendente rewrite</em></td><td><a href="f05b.html">f05b.html</a></td><td>deprecated</td></tr>
+  <tr><td><span class="tag">F06</span> Repetitive Background</td><td>Subject isolado sobre fundo de tipografia repetida. Isolate rembg+Gemini.</td><td><a href="f06.html">f06.html</a></td><td>v1 live</td></tr>
+  <tr><td><span class="tag">F07</span> Hero Band Top</td><td>Hero band horizontal no topo + bloco tipográfico bottom. Outpaint Gemini.</td><td><a href="f07.html">f07.html</a></td><td>v1 live</td></tr>
+  <tr><td><span class="tag">F08</span> Slice Vertical</td><td>Slice diagonal com hero + bloco de cor sólida. Cover-crop nativo.</td><td><a href="f08.html">f08.html</a></td><td>v1 live</td></tr>
+  <tr><td><span class="tag">F09</span> Negative Space Float <span class="tag tag--new">editor</span></td><td>Subject pequeno flutuante + tipografia em negative space. Isolate rembg+Gemini. <strong>Editor interactivo activo.</strong></td><td><a href="f09.html">f09.html</a></td><td>v1.9 live</td></tr>
+  <tr><td><span class="tag">F10</span> Circle Frame</td><td>Subject dentro de círculo + tipografia em volta. Isolate rembg+Gemini.</td><td><a href="f10.html">f10.html</a></td><td>v1 live</td></tr>
 </table>
 
-<h2>Parâmetros URL · F02</h2>
+<h2>Parâmetros URL universais</h2>
+
+<h3>Conteúdo (todos os templates)</h3>
 <pre>
 hero              URL da imagem hero (default: assets/hero-sample.png)
 logo              URL do logo (default: assets/logo.png)
@@ -40,27 +51,49 @@ selo              URL do selo (default: assets/selo-default.png)
 title             Título Oswald Bold. "|" = quebra de linha
 info_top          Ingredientes, tracked caps
 accent            Claim italic Cormorant
-info_bottom       Footer tracked dourado
-display_size      Font-size px do título (default 108)
-accent_size       Font-size px do accent (default 46)
-overlay_strength  0.0 a 1.5, multiplica gradient bottom (default 1.0)
-hero_position     CSS background-position (default center)
+info_bottom       Footer tracked
+format            'WxH' (1080x1350 default · 1080x1080 · 1080x1920)
+display_size      Font-size px do título
+accent_size       Font-size px do accent
+overlay_strength  0.0 a 1.6, multiplica gradient (F02 only)
+hero_position     CSS background-position
+bg_color          Hex color do background (F06/F09/F10)
 show_logo         1 | 0
 show_selo         1 | 0
 show_accent       1 | 0
-show_hairline     1 | 0
-show_wave         1 | 0
 show_info_top     1 | 0
 show_info_bottom  1 | 0
 </pre>
 
+<h3>Branding (logo + selo positioning)</h3>
+<pre>
+logo_position     top-left (default) | top-center | top-right | bottom-left | bottom-right | hidden
+logo_scale        0.6 a 1.4 (default 1.0)
+selo_position     top-right (default) | top-left | top-center | bottom-left | bottom-right | over-hero | hidden
+selo_scale        0.5 a 1.6 (default 1.0)
+</pre>
+
+<h3><span class="tag tag--new">v1.9</span> Editor params (F09 only · em rollout para outros)</h3>
+<pre>
+z_&lt;layer&gt;         z-index numérico (override CSS) — controla ordenação de layers
+&lt;layer&gt;_color     CSS color override por layer de texto (paleta Blueprint)
+&lt;layer&gt;_x         offset horizontal em px (default 0)
+&lt;layer&gt;_y         offset vertical em px (default 0)
+&lt;layer&gt;_rotation  graus de rotação (default 0)
+&lt;layer&gt;_scale     multiplicador de escala (default 1.0)
+
+&lt;layer&gt; ∈ { hero, title, accent, info_top, info_bottom, logo, selo }
+
+Ex: ?z_hero=5&hero_x=24&title_color=%23D9C8A8&title_rotation=-3
+</pre>
+
 <h2>Exemplo</h2>
-<pre>f02.html?title=Mojito%7CSó Rio&info_top=Lima · Hortelã · Cachaça · Açúcar Mascavado&accent=O verão tem ritmo.&info_bottom=Valada do Ribatejo · sorio.pt&selo=assets/selos/sunset-dourado.png</pre>
+<pre>f09.html?title=Aperol%7CSpritz&info_top=Aperol · Soda · Espumante&accent=Sem pressa. Com rio.&info_bottom=Valada do Ribatejo · sorio.pt&z_hero=5&hero_x=12</pre>
 
 <h2>Pipeline</h2>
-<p>Gemini (hero) → upload CDN → URL desta página com params → Playwright headless @ 1080×1350 → PNG publicável.</p>
+<p>Hero (drop ou catalogue) → outpaint <em>ou</em> isolate (consoante família) → URL desta página com params → Playwright headless @ format requested → PNG publicável → Critique Anthropic → fine-tune (chat NL ou direct edit ou editor interactivo).</p>
 
-<p class="muted">Blueprint Só Rio v1.5 · Verão Sem Pressa · uplanetgeral@gmail.com</p>
+<p class="muted">Render Engine v1.9 · Verão Sem Pressa · uplanetgeral@gmail.com</p>
 
 </body>
 </html>
