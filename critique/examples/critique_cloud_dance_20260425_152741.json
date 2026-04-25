@@ -1,0 +1,73 @@
+{
+  "critique_id": "20260425_171430_cloud_dance",
+  "decision_id": "20260425_cloud_dance",
+  "product_id": "cloud_dance",
+  "family_critiqued": "F02",
+  "mode_evaluated": "standard",
+  "score": 78,
+  "publishable": true,
+  "publishable_threshold": 75,
+  "violations": [
+    {
+      "principle_id": "ANTI-01",
+      "severity_in_mode": "critical",
+      "evidence": "Duas vagens de baunilha (vanilla pods) visíveis DENTRO do copo, flutuando no líquido entre a espuma e a base. A baunilha não é um ingrediente visual real neste cocktail — a baunilha entra como extrato/licor, não como vagem inteira submersa.",
+      "score_impact": -15
+    },
+    {
+      "principle_id": "COMP-03",
+      "severity_in_mode": "major",
+      "evidence": "Casca de pera enrolada (peel ribbon) e vagens de baunilha ocupam o terço inferior do hero, criando competição visual com o título 'CLOUD DANCE'. Overlay_strength 1.1 insuficiente — detalhes das cascas e vagens continuam visíveis através do overlay escuro, fragmentando a leitura do display.",
+      "score_impact": -7
+    }
+  ],
+  "principles_passed": [
+    "UNI-01",
+    "UNI-02",
+    "UNI-03",
+    "UNI-04",
+    "UNI-05",
+    "TYPO-01",
+    "TYPO-02",
+    "TYPO-03",
+    "TYPO-04",
+    "COMP-01",
+    "COMP-02",
+    "COMP-04",
+    "COLOR-01",
+    "COLOR-02",
+    "COLOR-03",
+    "LEG-01",
+    "LEG-02",
+    "LEG-03",
+    "FAM-F02-01",
+    "ANTI-02",
+    "ANTI-03",
+    "ANTI-04"
+  ],
+  "closest_ref": "ref_026_negroni_burgundy_serif_display",
+  "closest_ref_similarity": 0.82,
+  "closest_ref_notes": "F02 com hero isolado centrado, fundo flat escuro (burgundy vs cocoa-brown), serif display dominante sobre overlay, garnish minimalista (orange peel vs pear slice), restraint editorial — mood evening_riverside partilhado.",
+  "suggested_fixes": [
+    {
+      "issue": "Vagens de baunilha dentro do copo — violação crítica ANTI-01",
+      "fix_action": "Re-render hero com negative_prompt reforçado para eliminar vagens dentro do líquido",
+      "url_param_change": null,
+      "designer_negative_prompt_addition": "absolutely no vanilla pods inside the glass liquid, vanilla beans must stay outside the drink on the surface or deck only, no garnish submerged in cocktail",
+      "principle_id": "ANTI-01",
+      "expected_score_gain": 15
+    },
+    {
+      "issue": "Competição visual entre cascas de pera/vagens no bottom-third e tipografia display — overlay insuficiente",
+      "fix_action": "Aumentar overlay_strength para criar palco mais limpo para 'CLOUD DANCE'",
+      "url_param_change": {
+        "overlay_strength": 1.4
+      },
+      "designer_negative_prompt_addition": null,
+      "principle_id": "COMP-03",
+      "expected_score_gain": 7
+    }
+  ],
+  "vision_summary": "Poster F02 Cloud Dance com hero coupe glass centrado, espuma cremosa delicada, pear slice no rim conforme brief. Tipografia 3 camadas Blueprint correcta (Display off-white 140px 'CLOUD|DANCE' · Accent dourado italic 46px 'Calmo, dourado, nosso.' · Info tracked caps). Selo Ritual Só Rio creme top-right adequado para hero warm-amber. Fundo cocoa-brown flat. Violação crítica: vagens de baunilha visíveis dentro do líquido do copo. Competição moderada no bottom-third entre garnish decorativo e overlay.",
+  "human_review_required": true
+}
