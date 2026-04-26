@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="_shared/branding.js"></script>
+<script src="_shared/editor.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
@@ -138,7 +139,7 @@
 <body>
 <div class="canvas" id="canvas">
   <div class="block" id="block"></div>
-  <div class="hero" id="hero"></div>
+  <div class="hero" id="hero" data-layer="hero"></div>
 
   <svg class="diag hidden" id="diag" width="1080" height="1350" xmlns="http://www.w3.org/2000/svg">
     <line id="diag-line" x1="0" y1="0" x2="0" y2="0"
@@ -147,16 +148,16 @@
 
   <div class="type-echo hidden" id="type-echo"></div>
 
-  <img class="logo" id="logo" alt="Só Rio">
-  <img class="selo" id="selo" alt="Selo Só Rio">
+  <img class="logo" id="logo" data-layer="logo" alt="Só Rio">
+  <img class="selo" id="selo" data-layer="selo" alt="Selo Só Rio">
 
   <div class="typo" id="typo">
-    <div class="info info-top" id="info-top"></div>
-    <div class="display-hero" id="display-hero"></div>
+    <div class="info info-top" id="info-top" data-layer="info_top"></div>
+    <div class="display-hero" id="display-hero" data-layer="title"></div>
     <div class="rule" id="rule"></div>
-    <div class="accent" id="accent"></div>
+    <div class="accent" id="accent" data-layer="accent"></div>
   </div>
-  <div class="info info-bottom" id="info-bottom"></div>
+  <div class="info info-bottom" id="info-bottom" data-layer="info_bottom"></div>
 </div>
 
 <script>
@@ -371,6 +372,17 @@
   // Universal branding override — lê logo_position/scale + selo_position/scale do URL
   if (typeof applyBranding === 'function') {
     applyBranding({ canvasW, canvasH, heightScale, widthScale, p, logo, selo });
+  }
+
+  // Universal editor module — z-index, cor por campo, transforms (x/y/rot/scale)
+  // + postMessage protocol para Boldy editor interactivo.
+  if (typeof applyEditor === 'function') {
+    applyEditor({
+      canvasW: canvasW,
+      canvasH: canvasH,
+      p: p,
+      layers: ['hero', 'title', 'accent', 'info_top', 'info_bottom', 'logo', 'selo'],
+    });
   }
 })();
 </script>
