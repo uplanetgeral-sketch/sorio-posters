@@ -199,6 +199,7 @@
   // 1:1 (1080h) → scale 0.80 (canvas mais pequeno → tipo proporcionalmente menor)
   // 9:16 (1920h) → scale 1.42 (canvas maior + vertical → tipo bem maior)
   var heightScale = canvasH / 1350;
+  var widthScale = canvasW / 1080;  // referenciado em applyBranding(); sem isto, ReferenceError trava o script (linha 307) e applyEditor() nunca corre, partindo a injecção de hero no Modo Editor
 
   // Reposicionar masthead-top + masthead-bottom proporcionalmente à altura
   // 5.2% top/bottom mantém o ritmo visual entre formatos

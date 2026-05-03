@@ -134,12 +134,70 @@
       if (heroEl) heroEl.style.backgroundImage = 'url("' + data.dataUrl + '")';
     } else if (data.type === 'editor:request_state') {
       postToParent({ type: 'editor:state', layers: snapshot() });
+    } else if (data.type === 'editor:disable_overlay_mode') {
+      // Captura: re-aplica clipping/overflow para mostrar versão FINAL renderizada
+      _restoreClippingForCapture();
+    } else if (data.type === 'editor:enable_overlay_mode') {
+      // Volta a desactivar clipping para o user continuar a editar com hero inteiro
+      _stripClippingForEditorMode();
     }
+  }
+
+  // Guarda os styles originais antes de stripar — para podermos restaurar depois.
+  var _originalClippingStyles = new Map();
+
+  function _stripClippingForEditorMode() {
+    // Estratégia mais agressiva — apanha qualquer elemento com clip-path,
+    // mask, ou overflow:hidden, independente do tamanho.
+    var allEls = document.querySelectorAll('*');
+    allEls.forEach(function (el) {
+      var style = window.getComputedStyle(el);
+      var hasClip = style.clipPath && style.clipPath !== 'none' && style.clipPath !== 'normal';
+      var hasMask = style.mask && style.mask !== 'none' && style.mask !== 'normal';
+      var hasOverflow = (style.overflow === 'hidden' || style.overflowX === 'hidden' || style.overflowY === 'hidden');
+      if (hasClip || hasMask || hasOverflow) {
+        if (!_originalClippingStyles.has(el)) {
+          _originalClippingStyles.set(el, {
+            clipPath: el.style.clipPath,
+            webkitClipPath: el.style.webkitClipPath,
+            mask: el.style.mask,
+            overflow: el.style.overflow,
+            overflowX: el.style.overflowX,
+            overflowY: el.style.overflowY,
+          });
+        }
+        if (hasClip) { el.style.clipPath = 'none'; el.style.webkitClipPath = 'none'; }
+        if (hasMask) { el.style.mask = 'none'; }
+        if (hasOverflow) { el.style.overflow = 'visible'; el.style.overflowX = 'visible'; el.style.overflowY = 'visible'; }
+      }
+    });
+    document.documentElement.classList.add('editor-mode');
+  }
+
+  function _restoreClippingForCapture() {
+    _originalClippingStyles.forEach(function (orig, el) {
+      el.style.clipPath = orig.clipPath || '';
+      el.style.webkitClipPath = orig.webkitClipPath || '';
+      el.style.mask = orig.mask || '';
+      el.style.overflow = orig.overflow || '';
+      el.style.overflowX = orig.overflowX || '';
+      el.style.overflowY = orig.overflowY || '';
+    });
+    document.documentElement.classList.remove('editor-mode');
+    // Não limpa _originalClippingStyles — assim podemos re-aplicar editor mode depois
   }
 
   window.applyEditor = function applyEditor(opts) {
     const p = opts.p;
     const layers = opts.layers || [];
+
+    // Editor mode flag — quando carregado com `?editor_mode=1`, desactiva
+    // clipping/overflow para o user ver hero INTEIRO. Ver _stripClippingForEditorMode().
+    // Aplicação é feita após paint (setTimeout 0) para apanhar styles inline
+    // setados pelo template script.
+    if (p.get('editor_mode') === '1') {
+      setTimeout(_stripClippingForEditorMode, 0);
+    }
 
     layers.forEach(function (layerId) {
       const el = findLayerEl(layerId);
@@ -175,10 +233,30 @@
     // Listener para o parent (Boldy)
     window.addEventListener('message', handleParentMessage, false);
 
-    // Esperar próximo tick para que layout esteja estável antes de capturar bboxes
-    setTimeout(function () {
-      postToParent({ type: 'editor:ready', layers: snapshot() });
-    }, 50);
+    // Esperar bboxes válidos: todas as <img> dos layers têm de estar `.complete`,
+    // e fonts ready (para text layers calcularem altura correctamente).
+    // Sem isto, o snapshot é capturado com height=0 nas imgs ainda a carregar
+    // (problema clássico: logo/selo não-clicáveis no editor).
+    var imgEls = layers
+      .map(findLayerEl)
+      .filter(function (el) { return el && el.tagName === 'IMG'; });
+    var pImgs = imgEls.map(function (img) {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(function (resolve) {
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+        // Safety timeout — mesmo que a img falhe, não bloquear o editor
+        setTimeout(resolve, 1500);
+      });
+    });
+    var pFonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+
+    Promise.all([Promise.all(pImgs), pFonts]).then(function () {
+      // Esperar 1 raf adicional para layout estabilizar
+      requestAnimationFrame(function () {
+        postToParent({ type: 'editor:ready', layers: snapshot() });
+      });
+    });
   };
 
   // Helper para uso em consola / debug

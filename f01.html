@@ -25,10 +25,14 @@
     font-family: 'Inter', sans-serif;
     color: #F6F1E7;
   }
-  /* HERO occupies most of canvas — editorial feel */
+  /* HERO full-bleed — fills entire canvas. Spec families.md F01: "hero photo
+     full-bleed, dramatic typography stacked over hero with subtle gradient
+     overlay". Bug 2026-05-03 (Gonçalo): template tinha insets 80/180/220 que
+     criavam moldura cinza/preta visível em volta da foto. Removidos. Masthead
+     e caption ficam over-laid via z-index e overlay gradient. */
   .hero {
     position: absolute;
-    top: 180px; left: 80px; right: 80px; bottom: 220px;
+    inset: 0;
     background-size: cover;
     background-position: center;
   }
@@ -104,16 +108,23 @@
     font-size: 13px;
     letter-spacing: 0.42em;
   }
-  /* Subtle vignette */
+  /* Overlay vignette — assegura legibilidade do masthead-top (logo+label) e
+     caption (title+accent+info) sobre o hero full-bleed. Reforçado em
+     2026-05-03 quando hero passou a inset:0; antes era subtle porque hero
+     tinha molduras 80/180/220. Stops:
+       0%   — top: dark band 0.32 para masthead (logo+editorial-label)
+       15%  — fade to clean photo
+       65%  — fade to dark
+       100% — bottom: dark band 0.55 para caption (title+accent+info-bottom) */
   .overlay {
     position: absolute; inset: 0;
     pointer-events: none;
     background:
       linear-gradient(180deg,
-        rgba(28,28,26,0.20) 0%,
-        rgba(28,28,26,0.00) 12%,
-        rgba(28,28,26,0.00) 78%,
-        rgba(28,28,26,0.40) 100%);
+        rgba(28,28,26,0.32) 0%,
+        rgba(28,28,26,0.00) 15%,
+        rgba(28,28,26,0.00) 65%,
+        rgba(28,28,26,0.55) 100%);
   }
   .hidden { display: none !important; }
 </style>
@@ -164,6 +175,32 @@
   var accentSize = num('accent_size', 26);
   var heroPosition = get('hero_position', 'center');
 
+  // Canvas dimensions + scale factors — necessário para applyBranding e applyEditor.
+  // Sem estas declarações, applyBranding throws ReferenceError, o script crasha,
+  // applyEditor() nunca corre, e o postMessage `editor:set_hero` da Boldy fica sem
+  // listener — resultado: hero default sample.png em vez do hero real do run.
+  var format = get('format', '1080x1350');
+  var fmtParts = format.split('x');
+  var canvasW = parseInt(fmtParts[0], 10) || 1080;
+  var canvasH = parseInt(fmtParts[1], 10) || 1350;
+  var heightScale = canvasH / 1350;
+  var widthScale = canvasW / 1080;
+  var selo = get('selo', '');
+
+  // Apply canvas dimensions to html/body/canvas — CSS tem 1350 hardcoded como
+  // default 4:5; sem este override, format=1080x1920 deixa o conteúdo a 1350px
+  // e cria faixa preta abaixo do hero (~570px sem usar). User reportou em
+  // 2026-05-03 com Limonada Framboesa F01 9:16.
+  document.documentElement.style.width = canvasW + 'px';
+  document.documentElement.style.height = canvasH + 'px';
+  document.body.style.width = canvasW + 'px';
+  document.body.style.height = canvasH + 'px';
+  var canvasEl = document.querySelector('.canvas');
+  if (canvasEl) {
+    canvasEl.style.width = canvasW + 'px';
+    canvasEl.style.height = canvasH + 'px';
+  }
+
   document.getElementById('hero').style.backgroundImage = 'url("' + hero + '")';
   document.getElementById('hero').style.backgroundPosition = heroPosition;
   document.getElementById('logo').src = logo;
@@ -192,8 +229,10 @@
   // + postMessage protocol para Boldy editor interactivo.
   if (typeof applyEditor === 'function') {
     applyEditor({
-      canvasW: 1080,
-      canvasH: 1350,
+      canvasW: canvasW,  // dynamic (era hardcoded 1080)
+      canvasH: canvasH,  // dynamic (era hardcoded 1350) — sem isto, editor mode
+                          // em formato 9:16/1:1 calcula hit-rects contra 1350 e
+                          // os layers ficam inclickáveis nas zonas extra
       p: p,
       layers: ['hero', 'title', 'accent', 'info_top', 'info_bottom', 'logo'],
     });
