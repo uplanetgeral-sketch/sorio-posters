@@ -209,9 +209,29 @@
   document.getElementById('editorial-label').textContent = editorialLabel;
   if (!showLabel) document.getElementById('editorial-label').classList.add('hidden');
 
-  document.getElementById('info-top').textContent = infoTop;
-  document.getElementById('title').textContent = title;
-  document.getElementById('title').style.fontSize = titleSize + 'px';
+  // Info-top — dynamic letter-spacing/font-size shrink quando texto excede width
+  // Caption width = canvasW - 2*sideMargin (80px). Default letter-spacing 0.34em
+  // a 17px = ~17.78px/char. >50 chars rebenta com width 920px em 9:16. Diminui.
+  var infoTopEl = document.getElementById('info-top');
+  infoTopEl.textContent = infoTop;
+  if (infoTop && infoTop.length > 36) {
+    var ls = infoTop.length > 50 ? '0.18em' : (infoTop.length > 42 ? '0.24em' : '0.30em');
+    var fs = infoTop.length > 50 ? '14px' : (infoTop.length > 42 ? '15px' : '16px');
+    infoTopEl.style.letterSpacing = ls;
+    infoTopEl.style.fontSize = fs;
+  }
+
+  // Title — converter `|` em line break (convenção do Decisor para forçar quebra
+  // visual no rendering). Sem isto, "Limonada Framboesa|e Gengibre" rendia com
+  // pipe literal no meio. Usa innerHTML + escape para segurança.
+  var titleEl = document.getElementById('title');
+  if (title && title.indexOf('|') !== -1) {
+    var safe = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    titleEl.innerHTML = safe.replace(/\s*\|\s*/g, '<br>');
+  } else {
+    titleEl.textContent = title;
+  }
+  titleEl.style.fontSize = titleSize + 'px';
   document.getElementById('accent').textContent = accent;
   document.getElementById('accent').style.fontSize = accentSize + 'px';
   document.getElementById('info-bottom').textContent = infoBottom;
